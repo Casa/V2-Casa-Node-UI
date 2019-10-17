@@ -28,6 +28,8 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    { src: '~/plugins/filters.js' },
+    { src: '~/plugins/interceptor' },
   ],
   /*
   ** Nuxt.js dev-modules
