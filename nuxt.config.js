@@ -49,12 +49,23 @@ export default {
     '@nuxtjs/bulma',
     // Doc: https://axios.nuxtjs.org
     '@nuxtjs/axios',
+    // Doc: https://auth.nuxtjs.org/guide
+    '@nuxtjs/auth',
   ],
 
   /*
   ** Axios module configuration
   */
   axios: {
+  },
+
+  /*
+  ** Auth module configuration
+  */
+  auth: {
+    local: {
+      tokenType: 'JWT'
+    },
   },
 
   /*
