@@ -1,6 +1,6 @@
-
 export default {
   mode: 'spa',
+
   /*
   ** Headers of the page
   */
@@ -15,15 +15,18 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
+
   /*
   ** Customize the progress-bar color
   */
   loading: { color: '#fff' },
+
   /*
   ** Global CSS
   */
   css: [
   ],
+
   /*
   ** Plugins to load before mounting the App
   */
@@ -31,18 +34,29 @@ export default {
     { src: '~/plugins/filters.js' },
     { src: '~/plugins/interceptor' },
   ],
+
   /*
   ** Nuxt.js dev-modules
   */
   buildModules: [
   ],
+
   /*
   ** Nuxt.js modules
   */
   modules: [
     // Doc: https://github.com/nuxt-community/modules/tree/master/packages/bulma
     '@nuxtjs/bulma',
+    // Doc: https://axios.nuxtjs.org
+    '@nuxtjs/axios',
   ],
+
+  /*
+  ** Axios module configuration
+  */
+  axios: {
+  },
+
   /*
   ** Build configuration
   */
@@ -54,6 +68,7 @@ export default {
         }
       }
     },
+
     /*
     ** You can extend webpack config here
     */
