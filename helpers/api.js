@@ -26,7 +26,7 @@ const API = {
 
         response = false;
       } finally {
-        responsePending[url] = false;
+        responsePending[url] = false; // eslint-disable-line require-atomic-updates
       }
     } else {
       console.warn(`Warning: A request to ${url} is already in progress. Duplicate connection skipped.`);
