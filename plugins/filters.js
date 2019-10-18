@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import {satsToBtc, btcToSats, formatSats} from '@/helpers/units';
+import {satsToBtc, btcToSats} from '@/helpers/units';
 
 // Convert Satoshis to Bitcoin
 Vue.filter('btc', value => satsToBtc(value));

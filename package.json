@@ -23,8 +23,12 @@
   "devDependencies": {
     "@vue/test-utils": "^1.0.0-beta.27",
     "ava": "^2.2.0",
+    "babel-eslint": "^10.0.3",
     "babel-plugin-module-resolver": "^3.2.0",
     "browser-env": "^3.2.5",
+    "eslint": "^6.5.1",
+    "eslint-loader": "^3.0.2",
+    "eslint-plugin-vue": "^5.2.3",
     "require-extension-hooks": "^0.3.3",
     "require-extension-hooks-babel": "^1.0.0",
     "require-extension-hooks-vue": "^2.0.0"
