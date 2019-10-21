@@ -25,6 +25,7 @@ export default {
   ** Global CSS
   */
   css: [
+    '~/css/global.scss',
   ],
 
   /*
@@ -45,11 +46,11 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
-    // Doc: https://github.com/nuxt-community/modules/tree/master/packages/bulma
+    // Docs: https://github.com/nuxt-community/modules/tree/master/packages/bulma
     '@nuxtjs/bulma',
-    // Doc: https://axios.nuxtjs.org
+    // Docs: https://axios.nuxtjs.org
     '@nuxtjs/axios',
-    // Doc: https://auth.nuxtjs.org/guide
+    // Docs: https://auth.nuxtjs.org/guide
     '@nuxtjs/auth',
   ],
 
