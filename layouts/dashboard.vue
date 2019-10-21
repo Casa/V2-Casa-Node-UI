@@ -5,9 +5,14 @@
 </template>
 
 <style lang="scss">
+@import "~/assets/css/global.scss";
 @import "~/assets/css/fonts.scss";
 
-header {
+body {
+  background-image: $backgroundBlue;
+}
+
+aside {
 
 }
 

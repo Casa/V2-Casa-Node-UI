@@ -17,29 +17,11 @@ export default {
   },
 
   /*
-  ** Customize the progress-bar color
-  */
-  loading: { color: '#fff' },
-
-  /*
-  ** Global CSS
-  */
-  css: [
-    '~/css/global.scss',
-  ],
-
-  /*
   ** Plugins to load before mounting the App
   */
   plugins: [
     { src: '~/plugins/filters.js' },
     { src: '~/plugins/interceptor' },
-  ],
-
-  /*
-  ** Nuxt.js dev-modules
-  */
-  buildModules: [
   ],
 
   /*
@@ -53,12 +35,6 @@ export default {
     // Docs: https://auth.nuxtjs.org/guide
     '@nuxtjs/auth',
   ],
-
-  /*
-  ** Axios module configuration
-  */
-  axios: {
-  },
 
   /*
   ** Auth module configuration
