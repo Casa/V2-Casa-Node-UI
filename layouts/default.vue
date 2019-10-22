@@ -8,6 +8,7 @@
   @import "~/assets/css/global.scss";
 
   .layout-default {
+    // This child selector is necessary since Vue templates always have a single root element
     & > div {
       display: flex;
       align-items: center;
