@@ -1,26 +1,23 @@
 <template>
-  <div>
+  <div class="layout-dashboard">
     <nuxt />
   </div>
 </template>
 
 <style lang="scss">
-@import "~/assets/css/global.scss";
-@import "~/assets/css/fonts.scss";
+  @import "~/assets/css/global.scss";
 
-body {
-  background-image: $backgroundBlue;
-}
+  .layout-dashboard {
+    aside {
 
-aside {
+    }
 
-}
+    main {
 
-main {
+    }
 
-}
+    footer {
 
-footer {
-
-}
+    }
+  }
 </style>

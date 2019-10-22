@@ -1,16 +1,18 @@
 <template>
   <div>
-    Header Section
+    <header>
+      <div class="is-pulled-right">
+        Header Section<br>
+        hello world
+      </div>
+    </header>
 
-    Content
+    <main>
+      Content
+    </main>
 
-    <span class="numeric">12345000</span>
-
-    Footer Buttons
+    <footer>
+      Footer Buttons
+    </footer>
   </div>
 </template>
-
-<script>
-export default {
-}
-</script>
