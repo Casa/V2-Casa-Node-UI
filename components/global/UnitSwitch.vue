@@ -1,26 +1,15 @@
 <template>
   <div class="unit-switch">
     <label class="toggle">
-      <input
-        type="checkbox"
-        :checked="displayUnit === 'sats'"
-        @change="toggle"
-      >
-
+      <input type="checkbox" :checked="displayUnit === 'sats'" @change="toggle">
       <span class="toggle-slider" />
 
       <div class="toggle-options">
-        <div
-          class="toggle-option one"
-          :class="{active: displayUnit === 'btc'}"
-        >
+        <div class="toggle-option one" :class="{active: displayUnit === 'btc'}">
           BTC
         </div>
 
-        <div
-          class="toggle-option two"
-          :class="{active: displayUnit === 'sats'}"
-        >
+        <div class="toggle-option two" :class="{active: displayUnit === 'sats'}">
           SATS
         </div>
       </div>

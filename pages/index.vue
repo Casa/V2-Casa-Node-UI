@@ -12,7 +12,7 @@
     </main>
 
     <footer>
-      Footer Buttons
+      <Footer />
     </footer>
   </div>
 </template>
