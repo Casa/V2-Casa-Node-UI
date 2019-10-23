@@ -13,21 +13,22 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-direction: column;
       min-height: 100vh;
     }
 
     header {
-      align-self: flex-end;
-      flex-grow: 1;
+      position: absolute;
+      right: 0;
+      top: 0;
     }
 
     main {
-      flex-grow: 1;
+      text-align: center;
     }
 
     footer {
-      flex-grow: 0;
+      position: absolute;
+      bottom: 0;
     }
   }
 </style>

@@ -37,11 +37,11 @@
 
     aside {
       width: 250px;
-      border-right: 2px solid $borderGray;
+      border-right: 2px solid $transparentWhite;
       padding: 3em;
 
       a {
-        color: $textGray;
+        color: $gray;
         display: block;
         font-weight: bold;
         margin-bottom: 2em;
@@ -49,7 +49,7 @@
       }
 
       .nuxt-link-active {
-        color: $textPurple;
+        color: $purple;
       }
     }
 

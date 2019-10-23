@@ -22,12 +22,13 @@
     width: 300px;
     margin: 0 85px;
     height: 3px;
-    background-color: $backgroundDarkGray;
+    background-color: $darkGray;
+    overflow: hidden;
   }
 
   .loading-progress {
     height: 3px;
-    background-color: $textPurple;
+    background-color: $purple;
     transition: width 10s;
   }
 </style>

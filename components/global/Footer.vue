@@ -23,11 +23,11 @@
     }
 
     a {
-      color: $textGray;
+      color: $gray;
     }
 
     .separator {
-      background-color: $textGray;
+      background-color: $gray;
       border-radius: 100%;
       display: inline-block;
       margin: 0.5em;

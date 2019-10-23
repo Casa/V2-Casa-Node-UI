@@ -74,7 +74,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    border: 3px solid $borderBlue;
+    border: 3px solid $blue;
     transition: 0.5s;
     border-radius: 20px;
   }
@@ -87,9 +87,9 @@
     left: 0;
     top: -3px;
     left: -1px;
-    background-color: $borderBlue;
+    background-color: $blue;
     transition: 0.5s;
-    border: 3px solid $borderBlue;
+    border: 3px solid $blue;
     box-sizing: content-box;
     border-radius: 20px;
   }

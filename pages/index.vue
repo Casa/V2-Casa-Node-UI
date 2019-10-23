@@ -1,10 +1,7 @@
 <template>
   <div>
     <header>
-      <div class="is-pulled-right">
-        Header Section<br>
-        hello world
-      </div>
+      Header Section
     </header>
 
     <main>
@@ -12,7 +9,7 @@
     </main>
 
     <footer>
-      <Footer />
+      Footer Buttons
     </footer>
   </div>
 </template>
