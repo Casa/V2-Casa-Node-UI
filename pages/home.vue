@@ -1,6 +1,8 @@
 <template>
   <div>
     Home
+
+    <UnitSwitch />
   </div>
 </template>
 
