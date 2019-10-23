@@ -8,7 +8,7 @@
     </header>
 
     <main>
-      Content
+      <LoadingBar percent="50" />
     </main>
 
     <footer>
@@ -16,3 +16,13 @@
     </footer>
   </div>
 </template>
+
+<script>
+  import LoadingBar from '@/components/LoadingBar';
+
+  export default {
+    components: {
+      LoadingBar,
+    },
+  }
+</script>

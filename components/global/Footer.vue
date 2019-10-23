@@ -15,6 +15,7 @@
 
   .casa-footer {
     margin-bottom: 3em;
+    font-size: 15px;
 
     img {
       display: block;
