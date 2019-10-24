@@ -3,7 +3,7 @@
     <main>
       Welcome Home
 
-      <InputField />
+      <InputField name="test" label="Hello World" />
     </main>
 
     <footer>

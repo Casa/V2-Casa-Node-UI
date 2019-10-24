@@ -1,29 +1,37 @@
 <template>
-  <div class="input-field" :class="{ active: active }">
-    <label :for="randomId">
-      {{ label }}
-    </label>
+  <div class="input-wrap">
+    <div class="input-field" :class="{ active: active, focused: focused, error: error }">
+      <label :for="randomId">
+        {{ label }}
+      </label>
 
-    <template v-if="type == 'text'">
-      <input
-        :id="randomId"
-        v-model="value"
-        type="text"
-        :name="name"
-        @focus="onFocus"
-        @blur="onBlur"
-      >
-    </template>
+      <template v-if="type == 'text'">
+        <input
+          :id="randomId"
+          v-model="value"
+          type="text"
+          :name="name"
+          @focus="onFocus"
+          @blur="onBlur"
+          @input="onInput"
+        >
+      </template>
 
-    <template v-else-if="type == 'textarea'">
-      <textarea
-        :id="randomId"
-        v-model="value"
-        :name="name"
-        @focus="onFocus"
-        @blur="onBlur"
-      />
-    </template>
+      <template v-else-if="type == 'textarea'">
+        <textarea
+          :id="randomId"
+          v-model="value"
+          :name="name"
+          @focus="onFocus"
+          @blur="onBlur"
+          @input="onInput"
+        />
+      </template>
+    </div>
+
+    <p v-if="error && errorMessage" class="error-message">
+      {{ errorMessage }}
+    </p>
   </div>
 </template>
 
@@ -47,7 +55,17 @@
 
       'value': {
         default: '',
-        type: [String, Number]
+        type: [String, Number],
+      },
+
+      'error': {
+        default: false,
+        type: Boolean,
+      },
+
+      'errorMessage': {
+        default: '',
+        type: String,
       },
     },
 
@@ -56,17 +74,25 @@
         // Generate a random ID that can be used to uniquely associate labels with inputs
         randomId: (Math.random() + 1).toString(36).substring(7),
         active: Boolean(this.value),
+        focused: false,
       }
     },
 
     methods: {
       onFocus() {
         this.active = true;
+        this.focused = true;
       },
 
       onBlur() {
         this.active = Boolean(this.value);
+        this.focused = false;
       },
+
+      onInput() {
+        this.error = false;
+        this.errorMessage = false;
+      }
     }
   }
 </script>
@@ -93,14 +119,33 @@
     input {
       background: none;
       border: none;
-      padding: 1.75em 1.25em 1em 1.25em;
+      padding: 2em 1.25em 0.75em 1.25em;
+      color: $white;
     }
+  }
+
+  .input-field.focused {
+    border-color: $purple;
   }
 
   .input-field.active {
     label {
       font-size: 12px;
-      top: 0.4em;
+      top: 0.75em;
+    }
+  }
+
+  .input-field.error {
+    border-color: $red;
+  }
+
+  .input-wrap {
+    text-align: left;
+
+    .error-message {
+      font-weight: 500;
+      color: $red;
+      padding: 0.5em 0;
     }
   }
 </style>
