@@ -18,6 +18,7 @@
     "@nuxtjs/axios": "5.6.0",
     "@nuxtjs/bulma": "^1.2.1",
     "bignumber.js": "^9.0.0",
+    "dotenv": "^8.2.0",
     "node-sass": "^4.13.0",
     "nuxt": "^2.0.0",
     "sass-loader": "^8.0.0"
