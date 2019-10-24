@@ -16,7 +16,7 @@
 
 <script>
   import LoadingBar from '@/components/LoadingBar';
-  import API from '@/helpers/api';
+  //import API from '@/helpers/api';
 
   export default {
     components: {
@@ -30,6 +30,11 @@
     },
 
     async created() {
+      /*
+       * This is a simple API call to test environment variable loading on clearnet and tor
+       * Will be removed once the real loading page is finished
+       *
+
       let apiUrl = process.env.DEVICE_HOST;
 
       if(window.location.href.includes('.onion')) {
@@ -42,9 +47,10 @@
 
       // If there is a network failure, an exception will be thrown and loading will return false
       if(loading) {
-        console.log("yay it loaded", loading);
+        console.log("Received API data - ", loading);
         this.loading = 100;
       }
+      */
     },
   }
 </script>

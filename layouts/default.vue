@@ -28,7 +28,19 @@
 
     footer {
       position: absolute;
-      bottom: 0;
+      bottom: 5vh;
+    }
+
+    h2 {
+      margin: 1.5em 0 0.5em;
+      line-height: 1.44;
+    }
+
+    p {
+      color: $translucentWhite;
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 1.42;
     }
   }
 </style>

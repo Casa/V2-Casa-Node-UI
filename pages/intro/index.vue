@@ -1,25 +1,24 @@
 <template>
   <div>
-    <header>
-      Intro
-    </header>
-
     <main>
-      <LoadingBar percent="50" />
+      <img src="~/assets/logos/casa.svg">
+
+      <h2>Hello there.</h2>
+      <p>Let's set up your Casa Node 2.</p>
     </main>
 
     <footer>
-      Footer Buttons
+      <nuxt-link to="/intro" class="button">
+        A Ghost
+      </nuxt-link>
+
+      <nuxt-link to="/intro" class="button is-light">
+        Regular
+      </nuxt-link>
+
+      <nuxt-link to="/intro" class="button is-casa">
+        Super Fancy
+      </nuxt-link>
     </footer>
   </div>
 </template>
-
-<script>
-  import LoadingBar from '@/components/LoadingBar';
-
-  export default {
-    components: {
-      LoadingBar,
-    },
-  }
-</script>
