@@ -1,6 +1,6 @@
 <template>
   <div class="loading-bar">
-    <div class="loading-progress" :style="{ width: percent + '%' }"></div>
+    <div class="loading-progress" :style="{ width: percent + '%' }" />
   </div>
 </template>
 
