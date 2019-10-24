@@ -1,0 +1,36 @@
+{
+  "name": "casa-node2-ui",
+  "version": "2.0.0",
+  "description": "The UI for that little purple and white box we all know and love.",
+  "author": "Casa Inc.",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "test": "ava",
+    "test:unit": "cross-env TEST=unit ava --config unit.config.js",
+    "test:e2e": "cross-env TEST=e2e ava --config e2e.config.js"
+  },
+  "dependencies": {
+    "@nuxtjs/auth": "^4.8.4",
+    "@nuxtjs/axios": "5.6.0",
+    "@nuxtjs/bulma": "^1.2.1",
+    "bignumber.js": "^9.0.0",
+    "nuxt": "^2.0.0"
+  },
+  "devDependencies": {
+    "@vue/test-utils": "^1.0.0-beta.27",
+    "ava": "^2.2.0",
+    "babel-eslint": "^10.0.3",
+    "babel-plugin-module-resolver": "^3.2.0",
+    "browser-env": "^3.2.5",
+    "eslint": "^6.5.1",
+    "eslint-loader": "^3.0.2",
+    "eslint-plugin-vue": "^5.2.3",
+    "require-extension-hooks": "^0.3.3",
+    "require-extension-hooks-babel": "^1.0.0",
+    "require-extension-hooks-vue": "^2.0.0"
+  }
+}
