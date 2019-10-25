@@ -18,8 +18,12 @@
 
     header {
       position: absolute;
-      right: 0;
-      top: 0;
+      right: 2em;
+      top: 2em;
+
+      h5 {
+        color: $smokyGray;
+      }
     }
 
     main {

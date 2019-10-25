@@ -1,15 +1,13 @@
 <template>
   <div>
-    <header>
-      Header Section
-    </header>
-
     <main>
       <LoadingBar :percent="loading" />
     </main>
 
     <footer>
-      Footer Buttons
+      <nuxt-link to="/intro" class="button">
+        See Intro
+      </nuxt-link>
     </footer>
   </div>
 </template>
@@ -25,7 +23,7 @@
 
     data() {
       return {
-        loading: 0,
+        loading: 50,
       }
     },
 
