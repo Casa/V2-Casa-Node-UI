@@ -1,0 +1,81 @@
+version: 0.2
+env:
+  parameter-store:
+    DOCKER_HUB_USER: "/Casanode/DockerHub/User"
+    DOCKER_HUB_PASS: "/Casanode/DockerHub/Pass"
+    GITHUB_USER: "/Casanode/Git/User"
+    GITHUB_PASS: "/Casanode/Git/Pass"
+phases:
+  pre_build:
+    commands:
+      - npm install -g yarn
+      - echo Installing source yarn dependencies...
+      - CYPRESS_INSTALL_BINARY=0 yarn install
+  install:
+    commands:
+      # CodePipeline creates artifacts using zip format, which does not preserve the permissions/modes.
+      # we must reset permissions here
+      - chmod 755 qemu-arm-static
+  build:
+    commands:
+      # TODO add tests
+
+      - echo Building the Docker image ...
+
+      # building
+      # Remove qemu-static if non-arm, or register
+      - |
+        if [ $ARCH != arm ]; then
+          rm qemu-arm-static
+        else
+          docker run --rm --privileged multiarch/qemu-user-static:register --reset
+        fi
+
+      # Get the version that will be appended to the tag
+      - IMAGE_VERSION=$(cat package.json | jq .version -r)
+      - docker build . -f $DOCKERFILE -t $ORGANIZATION/$REPOSITORY:$ARCH
+
+      # Hacky way to determine what branch we are in. $CODEBUILD_SOURCE_VERSION is the git commit we are currently
+      # building. We search all local branches to get a list of branches that include that git commit. We return all
+      # alpha characters from the branch we are looking for.
+      #
+      # Ex.
+      # master => master
+      # release/1.0.0 => release
+
+      - masterBranchText=$(git branch --contains $CODEBUILD_SOURCE_VERSION | grep master | sed 's/[^a-zA-Z]//g')
+      - releaseBranchText=$(git branch --contains $CODEBUILD_SOURCE_VERSION | grep release | sed 's/[^a-zA-Z]//g')
+      - developBranchText=$(git branch --contains $CODEBUILD_SOURCE_VERSION | grep develop | sed 's/[^a-zA-Z]//g')
+
+      # push image to docker
+      - docker login --username=$DOCKER_HUB_USER --password=$DOCKER_HUB_PASS
+
+      # Since a git commit can be in multiple branches, we will start with master and work our way down. If a git commit
+      # exists in master, release, and develop, it really means we want to deploy master. Likewise, if a git commit exists
+      # in release and develop, we release want to deploy release.
+      #
+      # In order to keep production images immutable, we will only push the master branch if the image doesn't exist in
+      # docker hub. However, for develop and release/stage we are okay with rewriting those images in docker hub.
+      - |
+        if [ "$masterBranchText" = "master" ]; then
+          if DOCKER_CLI_EXPERIMENTAL=enabled docker manifest inspect $ORGANIZATION/$REPOSITORY:$ARCH-develop-$IMAGE_VERSION >/dev/null; then
+            echo "image already exists"
+          else
+            echo "pushing master branch to docker hub"
+            docker tag $ORGANIZATION/$REPOSITORY:$ARCH $ORGANIZATION/$REPOSITORY:$ARCH-$IMAGE_VERSION
+            docker push $ORGANIZATION/$REPOSITORY:$ARCH-$IMAGE_VERSION
+          fi
+        elif [ "$releaseBranchText" = "release" ]; then
+          echo "pushing release/stage branch to docker hub"
+          docker tag $ORGANIZATION/$REPOSITORY:$ARCH $ORGANIZATION/$REPOSITORY:$ARCH-stage-$IMAGE_VERSION
+          docker push $ORGANIZATION/$REPOSITORY:$ARCH-stage-$IMAGE_VERSION
+        elif [ "$developBranchText" = "develop" ]; then
+          echo "pushing develop branch to docker hub"
+          docker tag $ORGANIZATION/$REPOSITORY:$ARCH $ORGANIZATION/$REPOSITORY:$ARCH-develop-$IMAGE_VERSION
+          docker push $ORGANIZATION/$REPOSITORY:$ARCH-develop-$IMAGE_VERSION
+        else
+           echo "docker image has been built, but not pushed to docker hub"
+        fi
+  post_build:
+    commands:
+      - echo Build completed on `date`
