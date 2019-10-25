@@ -8,16 +8,8 @@
     </main>
 
     <footer>
-      <nuxt-link to="/intro" class="button">
-        A Ghost
-      </nuxt-link>
-
-      <nuxt-link to="/intro" class="button is-light">
-        Regular
-      </nuxt-link>
-
-      <nuxt-link to="/intro" class="button is-primary">
-        Super Fancy
+      <nuxt-link to="/intro/seed" class="button is-primary">
+        Get Started
       </nuxt-link>
     </footer>
   </div>

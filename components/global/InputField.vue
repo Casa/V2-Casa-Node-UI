@@ -100,6 +100,10 @@
 <style lang="scss">
   @import "~/assets/css/variables.scss";
 
+  .input-wrap {
+    display: inline-block;
+  }
+
   .input-field {
     border: solid 2px $blue;
     background-color: $transparentFaintWhite;
