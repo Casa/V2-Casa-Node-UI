@@ -16,7 +16,7 @@
         Regular
       </nuxt-link>
 
-      <nuxt-link to="/intro" class="button is-casa">
+      <nuxt-link to="/intro" class="button is-primary">
         Super Fancy
       </nuxt-link>
     </footer>

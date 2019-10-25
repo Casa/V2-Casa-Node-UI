@@ -1,12 +1,37 @@
 .button {
-  
+  font-size: 18px;
+  font-weight: bold;
+  background: none;
+  border: 3px solid $transparentWhite;
+  border-radius: 30px;
+  padding: 24px 54px;
+  margin: 0.5em;
+  text-align: center;
+  color: $white;
+
+  &:hover {
+    border: 3px solid $transparentWhite;
+    color: $white;
+  }
 
   // Casa purple button
   &.is-primary {
+    padding: 27px 57px;
+    background-image: $purpleGradient;
+    border: none;
 
+    &:hover {
+      box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.5);
+    }
   }
 
   &.is-light {
+    background-color: $transparentWhite;
+    color: $white;
 
+    &:hover {
+      background-color: $transparentWhite;
+      color: $white;
+    }
   }
 }

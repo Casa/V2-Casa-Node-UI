@@ -28,7 +28,7 @@
 
     footer {
       position: absolute;
-      bottom: 5vh;
+      bottom: 3vh;
     }
 
     h2 {
@@ -41,6 +41,10 @@
       font-size: 24px;
       font-weight: 500;
       line-height: 1.42;
+    }
+
+    .button {
+      min-width: 350px;
     }
   }
 </style>
