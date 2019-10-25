@@ -41,7 +41,7 @@
       font-size: 24px;
       font-weight: 500;
       line-height: 1.42;
-      max-width: 80%;
+      max-width: 55vw;
       margin: 0 auto;
     }
 

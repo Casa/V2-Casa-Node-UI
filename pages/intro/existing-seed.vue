@@ -16,7 +16,7 @@
         Cancel and Go Back
       </nuxt-link>
 
-      <nuxt-link to="/intro/existing-seed" class="button is-primary">
+      <nuxt-link to="/intro/password" class="button is-primary">
         Next
       </nuxt-link>
     </footer>
