@@ -1,0 +1,18 @@
+/*
+** Global SCSS file
+**
+** This file handles all of the CSS which is shared between layouts and components.
+** Most of the styles defined here are imported from files with specific purposes (fonts, buttons, etc.)
+** Avoid defining CSS here except for things that are not large enough to warrant their own file.
+**
+*/
+
+@import "~/assets/css/variables.scss";
+@import "~/assets/css/fonts.scss";
+@import "~/assets/css/buttons.scss";
+
+body {
+  background-image: $blueGradient;
+  color: $white;
+  min-height: 100vh;
+}

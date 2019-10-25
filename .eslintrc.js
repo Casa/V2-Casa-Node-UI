@@ -2,11 +2,11 @@ module.exports = {
   root: true,
   env: {
     browser: true,
-    node: true
+    node: true,
   },
 
   parserOptions: {
-    parser: 'babel-eslint'
+    parser: "babel-eslint",
   },
 
   extends: [
@@ -16,10 +16,11 @@ module.exports = {
 
   // required to lint *.vue files
   plugins: [
-    'vue'
+    "vue",
   ],
 
   // add your custom rules here
   rules: {
+    "vue/max-attributes-per-line": 0,
   }
 }

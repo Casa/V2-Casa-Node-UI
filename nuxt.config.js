@@ -5,11 +5,11 @@ export default {
   ** Headers of the page
   */
   head: {
-    title: process.env.npm_package_name || '',
+    title: 'Casa Node 2',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
+      { hid: 'description', name: 'description', content: 'Financial Sovereignty by Casa' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
@@ -17,47 +17,25 @@ export default {
   },
 
   /*
-  ** Customize the progress-bar color
-  */
-  loading: { color: '#fff' },
-
-  /*
-  ** Global CSS
-  */
-  css: [
-  ],
-
-  /*
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: '~/plugins/filters.js' },
+    { src: '~/plugins/filters' },
     { src: '~/plugins/interceptor' },
-  ],
-
-  /*
-  ** Nuxt.js dev-modules
-  */
-  buildModules: [
+    { src: '~/plugins/global-components' },
   ],
 
   /*
   ** Nuxt.js modules
   */
   modules: [
-    // Doc: https://github.com/nuxt-community/modules/tree/master/packages/bulma
+    // Docs: https://github.com/nuxt-community/modules/tree/master/packages/bulma
     '@nuxtjs/bulma',
-    // Doc: https://axios.nuxtjs.org
+    // Docs: https://axios.nuxtjs.org
     '@nuxtjs/axios',
-    // Doc: https://auth.nuxtjs.org/guide
+    // Docs: https://auth.nuxtjs.org/guide
     '@nuxtjs/auth',
   ],
-
-  /*
-  ** Axios module configuration
-  */
-  axios: {
-  },
 
   /*
   ** Auth module configuration

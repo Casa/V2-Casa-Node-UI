@@ -1,0 +1,43 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;
+}
+
+.numeric {
+  font-family: "iA Writer Duospace";
+}
+
+@font-face {
+  font-family: "iA Writer Duospace";
+  font-weight: normal;
+  font-style: normal;
+  src: url("~assets/fonts/iAWriterDuospace-Regular.eot") format("embedded-opentype"),
+    url("~assets/fonts/iAWriterDuospace-Regular.woff2") format("woff2"),
+    url("~assets/fonts/iAWriterDuospace-Regular.woff") format("woff");
+}
+
+@font-face {
+  font-family: "iA Writer Duospace";
+  font-weight: normal;
+  font-style: italic;
+  src: url("~assets/fonts/iAWriterDuospace-Italic.eot") format("embedded-opentype"),
+    url("~assets/fonts/iAWriterDuospace-Italic.woff2") format("woff2"),
+    url("~assets/fonts/iAWriterDuospace-Italic.woff") format("woff");
+}
+
+@font-face {
+  font-family: "iA Writer Duospace";
+  font-weight: bold;
+  font-style: normal;
+  src: url("~assets/fonts/iAWriterDuospace-Bold.eot") format("embedded-opentype"),
+    url("~assets/fonts/iAWriterDuospace-Bold.woff2") format("woff2"),
+    url("~assets/fonts/iAWriterDuospace-Bold.woff") format("woff");
+}
+
+@font-face {
+  font-family: "iA Writer Duospace";
+  font-weight: bold;
+  font-style: italic;
+  src: url("~assets/fonts/iAWriterDuospace-BoldItalic.eot") format("embedded-opentype"),
+    url("~assets/fonts/iAWriterDuospace-BoldItalic.woff2") format("woff2"),
+    url("~assets/fonts/iAWriterDuospace-BoldItalic.woff") format("woff");
+}
