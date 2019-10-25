@@ -1,5 +1,7 @@
 version: 0.2
 env:
+  variables:
+    IMAGE_VERSION: "0.0.0"
   parameter-store:
     DOCKER_HUB_USER: "/Casanode/DockerHub/User"
     DOCKER_HUB_PASS: "/Casanode/DockerHub/Pass"
@@ -12,6 +14,8 @@ phases:
       - echo Installing source yarn dependencies...
       - CYPRESS_INSTALL_BINARY=0 yarn install
   install:
+    runtime-versions:
+      docker: 18
     commands:
       # CodePipeline creates artifacts using zip format, which does not preserve the permissions/modes.
       # we must reset permissions here
