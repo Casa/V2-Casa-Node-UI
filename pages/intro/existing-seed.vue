@@ -1,5 +1,14 @@
 <template>
   <div>
+    <header>
+      <h4 class="status intro-syncing">
+        BTC Node Syncing
+        <span class="icon" />
+      </h4>
+
+      <h5>24%</h5>
+    </header>
+
     <main>
       <img src="~/assets/icons/password.svg">
 
@@ -7,7 +16,7 @@
       <p>Important: you can only import seed phrases from LND wallets. Importing from a typical Bitcoin wallet won’t work.</p>
 
       <template v-for="count in 24">
-        <InputField class="word" :key="count" :label="count" />
+        <InputField :key="count" :label="count" class="word" />
       </template>
     </main>
 
