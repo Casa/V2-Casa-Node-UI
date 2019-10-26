@@ -14,7 +14,9 @@
 
       <img src="~/assets/qr-code.svg" class="address">
 
-      <p class="numeric">3BVAW924YBVCIX9397G23FIUBF3280JX</p>
+      <p class="numeric">
+        3BVAW924YBVCIX9397G23FIUBF3280JX
+      </p>
     </main>
 
     <footer>

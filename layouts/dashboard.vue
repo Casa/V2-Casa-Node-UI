@@ -2,7 +2,7 @@
   <div class="layout-dashboard">
     <aside>
       <nuxt-link to="/home">
-        Home page
+        Home
       </nuxt-link>
 
       <nuxt-link to="/bitcoin">
