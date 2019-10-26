@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="intro-password">
     <header>
       <h4 class="status intro-syncing">
         BTC Node Syncing
@@ -23,3 +23,16 @@
     </footer>
   </div>
 </template>
+
+<style lang="scss">
+  .intro-password {
+    main p {
+      margin-top: -0.5em;
+    }
+
+    .input-wrap {
+      margin-top: 3em;
+      width: 500px;
+    }
+  }
+</style>

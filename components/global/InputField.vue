@@ -125,6 +125,7 @@
       border: none;
       padding: 2em 1.25em 0.75em 1.25em;
       color: $white;
+      width: 100%;
     }
   }
 

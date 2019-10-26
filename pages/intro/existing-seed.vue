@@ -1,5 +1,5 @@
 <template>
-  <div class="existing-seed">
+  <div class="intro-existing-seed">
     <header>
       <h4 class="status intro-syncing">
         BTC Node Syncing
@@ -35,7 +35,7 @@
 </template>
 
 <style lang="scss">
-  .existing-seed {
+  .intro-existing-seed {
     main {
       margin-bottom: 7em;
     }

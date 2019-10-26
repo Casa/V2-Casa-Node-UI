@@ -1,5 +1,5 @@
 <template>
-  <div class="new-seed">
+  <div class="intro-new-seed">
     <header>
       <h4 class="status intro-syncing">
         BTC Node Syncing
@@ -34,7 +34,7 @@
 <style lang="scss">
   @import "~/assets/css/variables.scss";
 
-  .new-seed {
+  .intro-new-seed {
     .count {
       background-color: $darkPurple;
       border-radius: 100%;
