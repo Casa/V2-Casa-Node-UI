@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="existing-seed">
     <header>
       <h4 class="status intro-syncing">
         BTC Node Syncing
@@ -15,9 +15,11 @@
       <h2>Okay, let's import your seed phrase.</h2>
       <p>Important: you can only import seed phrases from LND wallets. Importing from a typical Bitcoin wallet won’t work.</p>
 
-      <template v-for="count in 24">
-        <InputField :key="count" :label="count" class="word" />
-      </template>
+      <div class="seed-phrase">
+        <template v-for="count in 24">
+          <InputField :key="count" :label="count" class="seed" />
+        </template>
+      </div>
     </main>
 
     <footer>
@@ -31,3 +33,20 @@
     </footer>
   </div>
 </template>
+
+<style lang="scss">
+  .existing-seed {
+    main {
+      margin-bottom: 7em;
+    }
+
+    .seed-phrase {
+      max-width: 1200px;
+      margin: 3em auto 0;
+    }
+
+    .seed {
+      margin: 0.5em;
+    }
+  }
+</style>

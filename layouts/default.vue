@@ -14,6 +14,7 @@
       align-items: center;
       justify-content: center;
       min-height: 100vh;
+      position: relative;
     }
 
     header {
@@ -45,7 +46,7 @@
       font-size: 24px;
       font-weight: 500;
       line-height: 1.42;
-      max-width: 55vw;
+      max-width: 50vw;
       margin: 0 auto;
     }
 
