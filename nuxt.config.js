@@ -89,6 +89,13 @@ export default {
   },
 
   /*
+  ** Client-side middleware called on every page
+  */
+  router: {
+    middleware: ['environment'],
+  },
+
+  /*
   ** Server middlware to expose environment variables at runtime
   */
   serverMiddleware: [
