@@ -14,8 +14,7 @@
 
 <script>
   import LoadingBar from '@/components/LoadingBar';
-  import API from '@/helpers/api';
-  import cookie from 'cookie';
+//  import API from '@/helpers/api';
 
   export default {
     components: {
@@ -34,15 +33,9 @@
        * Will be removed once the real loading page is finished
        */
 
-      const cookies = cookie.parse(document.cookie);
+       console.log('env', this.$env);
 
-      let apiUrl = cookies.DEVICE_HOST;
-
-      if(window.location.href.includes('.onion')) {
-        apiUrl = cookies.CASA_NODE_HIDDEN_SERVICE;
-      }
-
-      console.log('generated API URL - ' + apiUrl);
+/*    console.log('generated API URL - ' + apiUrl);
 
       const loading = await API.get(this.$axios, `${apiUrl}:3000/v1/telemetry/boot`);
 
@@ -51,6 +44,7 @@
         console.log("Received API data - ", loading);
         this.loading = parseInt(loading.percent);
       }
+*/
     },
   }
 </script>
