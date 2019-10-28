@@ -1,14 +1,5 @@
 <template>
   <div>
-    <header>
-      <h4 class="status intro-syncing">
-        BTC Node Syncing
-        <span class="icon" />
-      </h4>
-
-      <h5>24%</h5>
-    </header>
-
     <main>
       <img src="~/assets/icons/password.svg">
 

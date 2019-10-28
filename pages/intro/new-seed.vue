@@ -1,36 +1,76 @@
 <template>
   <div class="intro-new-seed">
-    <header>
-      <h4 class="status intro-syncing">
-        BTC Node Syncing
-        <span class="icon" />
-      </h4>
-
-      <h5>24%</h5>
-    </header>
-
     <main>
       <div class="count">
-        12
+        {{ count }}
       </div>
 
       <div class="seed">
-        dragon
+        {{ seed }}
       </div>
     </main>
 
     <footer>
-      <nuxt-link to="/intro/seed" class="button">
+      <nuxt-link v-if="count === 1" to="/intro/seed" class="button">
         Go Back
       </nuxt-link>
 
-      <nuxt-link to="/intro/password" class="button is-primary">
+      <a v-else class="button" @click="previousSeed()">
+        Go Back
+      </a>
+
+      <nuxt-link v-if="count === seedPhrase.length" to="/intro/password" class="button is-primary">
         Next
       </nuxt-link>
+
+      <a v-else class="button is-primary" @click="nextSeed()">
+        Next
+      </a>
     </footer>
   </div>
 </template>
 
+<script>
+  import API from '@/helpers/api';
+
+  export default {
+    data() {
+      return {
+        count: 1,
+        seed: 'Loading...',
+        seedPhrase: [],
+      }
+    },
+
+    async created() {
+      const data = await API.get(this.$axios, `${this.$env.API_LND}/v1/lnd/wallet/seed`);
+
+      if(data && data.seed.length === 24) {
+        this.seedPhrase = data.seed;
+        this.displaySeed();
+      }
+
+      // Todo: Display an error message if the seed phrase fails to load?
+      // Todo: Display a loading indicator instead of the text "Loading..."?
+    },
+
+    methods: {
+      displaySeed() {
+        this.seed = this.seedPhrase[this.count - 1];
+      },
+
+      nextSeed() {
+        this.count++;
+        this.displaySeed();
+      },
+
+      previousSeed() {
+        this.count--;
+        this.displaySeed();
+      },
+    },
+  }
+</script>
 <style lang="scss">
   @import "~/assets/css/variables.scss";
 
