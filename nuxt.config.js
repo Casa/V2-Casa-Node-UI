@@ -90,15 +90,6 @@ export default {
   },
 
   /*
-  ** Client-side middleware called on every page
-  */
-  router: {
-    middleware: [
-      'loading'
-    ],
-  },
-
-  /*
   ** Server middlware to expose environment variables at runtime
   */
   serverMiddleware: [
