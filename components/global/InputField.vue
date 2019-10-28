@@ -100,6 +100,10 @@
 <style lang="scss">
   @import "~/assets/css/variables.scss";
 
+  .input-wrap {
+    display: inline-block;
+  }
+
   .input-field {
     border: solid 2px $blue;
     background-color: $transparentFaintWhite;
@@ -121,6 +125,7 @@
       border: none;
       padding: 2em 1.25em 0.75em 1.25em;
       color: $white;
+      width: 100%;
     }
   }
 

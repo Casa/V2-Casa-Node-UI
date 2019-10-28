@@ -1,0 +1,50 @@
+.status {
+  &.intro-syncing {
+    color: $lightBlue;
+
+    .icon {
+      background-color: $lightBlue;
+    }
+  }
+
+  &.loading {
+    color: $smokyGray;
+
+    .icon {
+      background-color: $smokyGray;
+    }
+  }
+
+  &.inactive {
+    color: $red;
+
+    .icon {
+      background-color: $red;
+    }
+  }
+
+  &.syncing {
+    color: $yellow;
+
+    .icon {
+      background-color: $yellow;
+    }
+  }
+
+  &.active {
+    color: $green;
+
+    .icon {
+      background-color: $green;
+    }
+  }
+
+  .icon {
+    border-radius: 100%;
+    display: inline-block;
+    margin: 0.5em;
+    height: 0.5em;
+    width: 0.5em;
+    vertical-align: middle;
+  }
+}

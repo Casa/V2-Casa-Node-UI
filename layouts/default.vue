@@ -14,12 +14,17 @@
       align-items: center;
       justify-content: center;
       min-height: 100vh;
+      position: relative;
     }
 
     header {
       position: absolute;
-      right: 0;
-      top: 0;
+      right: 2em;
+      top: 2em;
+
+      h5 {
+        color: $smokyGray;
+      }
     }
 
     main {
@@ -28,7 +33,25 @@
 
     footer {
       position: absolute;
-      bottom: 0;
+      bottom: 3vh;
+    }
+
+    h2 {
+      margin: 1.5em 0 0.5em;
+      line-height: 1.44;
+    }
+
+    p {
+      color: $translucentWhite;
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 1.42;
+      max-width: 50vw;
+      margin: 0 auto;
+    }
+
+    .button {
+      min-width: 350px;
     }
   }
 </style>
