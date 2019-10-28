@@ -14,7 +14,8 @@
 
 <script>
   import LoadingBar from '@/components/LoadingBar';
-  //import API from '@/helpers/api';
+  import API from '@/helpers/api';
+  import cookie from 'cookie';
 
   export default {
     components: {
@@ -31,24 +32,25 @@
       /*
        * This is a simple API call to test environment variable loading on clearnet and tor
        * Will be removed once the real loading page is finished
-       *
+       */
 
-      let apiUrl = process.env.DEVICE_HOST;
+      const cookies = cookie.parse(document.cookie);
+
+      let apiUrl = cookies.DEVICE_HOST;
 
       if(window.location.href.includes('.onion')) {
-        apiUrl = process.env.CASA_NODE_HIDDEN_SERVICE;
+        apiUrl = cookies.CASA_NODE_HIDDEN_SERVICE;
       }
 
-      alert('generated API URL - ' + apiUrl);
+      console.log('generated API URL - ' + apiUrl);
 
       const loading = await API.get(this.$axios, `${apiUrl}:3000/v1/telemetry/boot`);
 
       // If there is a network failure, an exception will be thrown and loading will return false
       if(loading) {
         console.log("Received API data - ", loading);
-        this.loading = 100;
+        this.loading = parseInt(loading.percent);
       }
-      */
     },
   }
 </script>

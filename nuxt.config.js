@@ -1,19 +1,19 @@
 require('dotenv').config();
 
+/*
+** Environment variables exposed to the front end
+*/
+const env = {
+  DEVICE_HOST: process.env.DEVICE_HOST,
+  CASA_NODE_HIDDEN_SERVICE: process.env.CASA_NODE_HIDDEN_SERVICE,
+
+  // Default to mainnet explorers, but allow developers to override with testnet
+  BITCOIN_EXPLORER: process.env.BITCOIN_EXPLORER || 'https://blockstream.info/tx/',
+  LIGHTNING_EXPLORER: process.env.LIGHTNING_EXPLORER || 'https://explore.casa/nodes/'
+};
+
 export default {
   mode: 'spa',
-
-  /*
-  ** Environment variables exposed to the front end
-  */
-  env: {
-    DEVICE_HOST: process.env.DEVICE_HOST,
-    CASA_NODE_HIDDEN_SERVICE: process.env.CASA_NODE_HIDDEN_SERVICE,
-
-    // Default to mainnet explorers, but allow developers to override with testnet
-    BITCOIN_EXPLORER: process.env.BITCOIN_EXPLORER || 'https://blockstream.info/tx/',
-    LIGHTNING_EXPLORER: process.env.LIGHTNING_EXPLORER || 'https://explore.casa/nodes/'
-  },
 
   /*
   ** Headers of the page
@@ -86,5 +86,21 @@ export default {
         });
       }
     }
-  }
+  },
+
+  /*
+  ** Server middlware to expose environment variables at runtime
+  */
+  serverMiddleware: [
+    function(req, res, next) {
+      const cookies = [];
+
+      Object.entries(env).forEach(([key, value]) => {
+        cookies.push(`${key}=${JSON.stringify(value)}`);
+      });
+
+      res.setHeader('Set-Cookie', cookies);
+      next()
+    }
+  ],
 }
