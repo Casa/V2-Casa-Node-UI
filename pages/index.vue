@@ -13,6 +13,6 @@
 
 <script>
   export default {
-    middleware: ['loading'],
+//    middleware: ['loading'],
   }
 </script>

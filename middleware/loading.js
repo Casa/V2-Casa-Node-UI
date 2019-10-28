@@ -1,6 +1,11 @@
 import API from '@/helpers/api';
 
 export default async function (context) {
+  // Don't run this middleware if we are already on the loading page
+  if(context.route.name === 'loading') {
+    return;
+  }
+
   // Check to see if the node is still booting up
   const loading = await API.get(context.$axios, `${context.$env.API_MANAGER}/v1/telemetry/boot`);
 
