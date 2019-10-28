@@ -2,7 +2,7 @@
 ** Global SCSS file
 **
 ** This file handles all of the CSS which is shared between layouts and components.
-** Most of the styles defined here are imported from files with specific purposes (fonts, buttons, etc.)
+** Most of the styles defined here are imported from files with specific purposes. (fonts, buttons, etc.)
 ** Avoid defining CSS here except for things that are not large enough to warrant their own file.
 **
 */
@@ -17,4 +17,14 @@ body {
   background-image: $blueGradient;
   color: $white;
   min-height: 100vh;
+}
+
+a {
+  color: $lightBlue;
+  font-weight: bold;
+
+  &:hover {
+    color: $lightBlue;
+    border-bottom: 1px dashed $lightBlue;
+  }
 }
