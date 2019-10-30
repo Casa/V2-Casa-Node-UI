@@ -8,7 +8,7 @@
       <template v-if="type == 'text'">
         <input
           :id="randomId"
-          v-model="value"
+          v-model="currentValue"
           type="text"
           :name="name"
           @focus="onFocus"
@@ -20,7 +20,7 @@
       <template v-else-if="type == 'textarea'">
         <textarea
           :id="randomId"
-          v-model="value"
+          v-model="currentValue"
           :name="name"
           @focus="onFocus"
           @blur="onBlur"
@@ -71,6 +71,9 @@
 
     data() {
       return {
+        // We have to make a local copy of the value because Vue doesn't like it when you mutate the value of a prop
+        currentValue: this.value,
+
         // Generate a random ID that can be used to uniquely associate labels with inputs
         randomId: (Math.random() + 1).toString(36).substring(7),
         active: Boolean(this.value),
@@ -85,13 +88,14 @@
       },
 
       onBlur() {
-        this.active = Boolean(this.value);
+        this.active = Boolean(this.currentValue);
         this.focused = false;
       },
 
       onInput() {
         this.error = false;
-        this.errorMessage = false;
+        this.errorMessage = '';
+        this.$emit('input', this.currentValue);
       }
     }
   }

@@ -8,7 +8,7 @@
 
       <div class="seed-phrase">
         <template v-for="count in 24">
-          <InputField :key="count" :label="count" class="seed" />
+          <InputField :key="count" :label="count.toString()" v-model="seedPhrase[count - 1]" class="seed" />
         </template>
       </div>
     </main>
@@ -18,12 +18,28 @@
         Cancel and Go Back
       </nuxt-link>
 
-      <nuxt-link to="/intro/password" class="button is-primary">
+      <a @click="submitSeed()" class="button is-primary">
         Next
-      </nuxt-link>
+      </a>
     </footer>
   </div>
 </template>
+
+<script>
+  export default {
+    data() {
+      return {
+        seedPhrase: [],
+      }
+    },
+
+    methods: {
+      submitSeed() {
+        this.$router.push({ name: 'intro-password', params: { seedPhrase: this.seedPhrase }});
+      }
+    },
+  }
+</script>
 
 <style lang="scss">
   .intro-existing-seed {
