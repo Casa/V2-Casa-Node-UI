@@ -47,20 +47,42 @@
       },
 
       async initWallet() {
+        try {
+          const data = {
+            password: this.password,
+            seed: this.seedPhrase,
+          };
 
+          await this.$axios.post(`${this.$env.API_LND}/v1/lnd/wallet/init`, data);
+          this.register();
+        } catch(error) {
+          console.error(error, error.response);
+
+/*
+          let errorMessage = error.response.data || 'Wallet Creation Failed';
+          let seedError = errorMessage.match(/^Unable to initialize wallet, word (.*) isn't a part of default word list/);
+
+          if(seedError) {
+            this.$router.push({ name: 'intro-existing-seed', params: { seedPhrase: this.seedPhrase, errorMessage: seedError }});
+          } else {
+            // Todo: Output user-friendly error message
+            console.error(errorMessage);
+          }
+*/
+        }
       },
 
       async register() {
         try {
           const data = {
-            password: this.setup.password,
+            password: this.password,
           };
 
           await this.$axios.post(`${this.$env.API_MANAGER}/v1/accounts/register`, data);
           this.$router.push({path: '/intro/got-it'});
-        } catch (error) {
-          // Todo: Output this error in a more user friendly way
-          console.error(`Failed to Register - ${error.response.data}`);
+        } catch(error) {
+          // Todo: Output user-friendly error message
+          console.error(error, error.response);
         }
       }
     },

@@ -13,6 +13,7 @@
 
 <script>
   export default {
+    // Todo: Figure out how to make this not interfere with the loading redirect
     middleware: ['registered'],
   }
 </script>
