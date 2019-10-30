@@ -110,7 +110,7 @@ export default {
       });
 
       res.setHeader('Set-Cookie', cookies);
-      next()
+      next();
     }
   ],
 }

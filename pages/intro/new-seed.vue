@@ -11,19 +11,11 @@
     </main>
 
     <footer>
-      <nuxt-link v-if="count === 1" to="/intro/seed" class="button">
-        Go Back
-      </nuxt-link>
-
-      <a v-else class="button" @click="previousSeed()">
+      <a class="button" @click="previousSeed()">
         Go Back
       </a>
 
-      <nuxt-link v-if="count === seedPhrase.length" to="/intro/password" class="button is-primary">
-        Next
-      </nuxt-link>
-
-      <a v-else class="button is-primary" @click="nextSeed()">
+      <a class="button is-primary" @click="nextSeed()">
         Next
       </a>
     </footer>
@@ -59,14 +51,23 @@
         this.seed = this.seedPhrase[this.count - 1];
       },
 
-      nextSeed() {
-        this.count++;
-        this.displaySeed();
+      previousSeed() {
+        if(this.count === 1) {
+          this.$router.push({ path: '/intro/seed' });
+        } else {
+          this.count--;
+          this.displaySeed();
+        }
       },
 
-      previousSeed() {
-        this.count--;
-        this.displaySeed();
+      nextSeed() {
+        if(this.count === this.seedPhrase.length) {
+          // We have to use the route name here instead of the path, otherwise the params won't be passed (a weird quirk of Vue router?)
+          this.$router.push({ name: 'intro-password', params: { seedPhrase: this.seedPhrase }});
+        } else {
+          this.count++;
+          this.displaySeed();
+        }
       },
     },
   }

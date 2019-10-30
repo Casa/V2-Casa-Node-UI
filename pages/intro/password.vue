@@ -15,6 +15,29 @@
   </div>
 </template>
 
+<script>
+//  import API from '@/helpers/api';
+
+  export default {
+    data() {
+      return {
+        seedPhrase: [],
+      }
+    },
+
+    mounted() {
+      console.log(this.$route);
+
+      // Get seed from the route parameters, since variables are cleared between pages
+      if(this.$route.params.seedPhrase !== undefined
+          && Array.isArray(this.$route.params.seedPhrase)
+          && this.$route.params.seedPhrase.length === 24) {
+        this.seedPhrase = this.$route.params.seedPhrase;
+      }
+    }
+  }
+</script>
+
 <style lang="scss">
   .intro-password {
     main p {
