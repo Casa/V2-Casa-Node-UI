@@ -5,11 +5,11 @@
         {{ label }}
       </label>
 
-      <template v-if="type == 'text'">
+      <template v-if="['text', 'password'].indexOf(type) !== -1">
         <input
           :id="randomId"
           v-model="currentValue"
-          type="text"
+          :type="type"
           :name="name"
           @focus="onFocus"
           @blur="onBlur"

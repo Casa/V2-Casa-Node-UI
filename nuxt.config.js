@@ -38,6 +38,7 @@ export default {
     { src: '~/plugins/filters' },
     { src: '~/plugins/interceptor' },
     { src: '~/plugins/global-components' },
+    { src: '~/plugins/vee-validate' },
   ],
 
   /*

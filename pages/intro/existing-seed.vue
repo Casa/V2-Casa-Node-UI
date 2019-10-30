@@ -8,7 +8,7 @@
 
       <div class="seed-phrase">
         <template v-for="count in 24">
-          <InputField :key="count" :label="count.toString()" v-model="seedPhrase[count - 1]" class="seed" />
+          <InputField :key="count" v-model="seedPhrase[count - 1]" :label="count.toString()" class="seed" />
         </template>
       </div>
     </main>
@@ -18,7 +18,7 @@
         Cancel and Go Back
       </nuxt-link>
 
-      <a @click="submitSeed()" class="button is-primary">
+      <a class="button is-primary" @click="submitSeed()">
         Next
       </a>
     </footer>
