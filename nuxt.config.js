@@ -38,6 +38,7 @@ export default {
     { src: '~/plugins/filters' },
     { src: '~/plugins/interceptor' },
     { src: '~/plugins/global-components' },
+    { src: '~/plugins/vee-validate' },
   ],
 
   /*
@@ -90,6 +91,15 @@ export default {
   },
 
   /*
+  ** Client-side middleware called on every page
+  */
+  router: {
+    middleware: [
+      'loading'
+    ],
+  },
+
+  /*
   ** Server middlware to expose environment variables at runtime
   */
   serverMiddleware: [
@@ -101,7 +111,7 @@ export default {
       });
 
       res.setHeader('Set-Cookie', cookies);
-      next()
+      next();
     }
   ],
 }

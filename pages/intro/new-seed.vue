@@ -1,36 +1,77 @@
 <template>
   <div class="intro-new-seed">
-    <header>
-      <h4 class="status intro-syncing">
-        BTC Node Syncing
-        <span class="icon" />
-      </h4>
-
-      <h5>24%</h5>
-    </header>
-
     <main>
       <div class="count">
-        12
+        {{ count }}
       </div>
 
       <div class="seed">
-        dragon
+        {{ seed }}
       </div>
     </main>
 
     <footer>
-      <nuxt-link to="/intro/seed" class="button">
+      <a class="button" @click="previousSeed()">
         Go Back
-      </nuxt-link>
+      </a>
 
-      <nuxt-link to="/intro/password" class="button is-primary">
+      <a class="button is-primary" @click="nextSeed()">
         Next
-      </nuxt-link>
+      </a>
     </footer>
   </div>
 </template>
 
+<script>
+  import API from '@/helpers/api';
+
+  export default {
+    data() {
+      return {
+        count: 1,
+        seed: 'Loading...',
+        seedPhrase: [],
+      }
+    },
+
+    async created() {
+      const data = await API.get(this.$axios, `${this.$env.API_LND}/v1/lnd/wallet/seed`);
+
+      if(data && data.seed.length === 24) {
+        this.seedPhrase = data.seed;
+        this.displaySeed();
+      }
+
+      // Todo: Display an error message if the seed phrase fails to load?
+      // Todo: Display a loading indicator instead of the text "Loading..."?
+    },
+
+    methods: {
+      displaySeed() {
+        this.seed = this.seedPhrase[this.count - 1];
+      },
+
+      previousSeed() {
+        if(this.count === 1) {
+          this.$router.push({ path: '/intro/seed' });
+        } else {
+          this.count--;
+          this.displaySeed();
+        }
+      },
+
+      nextSeed() {
+        if(this.count === this.seedPhrase.length) {
+          // We have to use the route name here instead of the path, otherwise the params won't be passed (a weird quirk of Vue router?)
+          this.$router.push({ name: 'intro-password', params: { seedPhrase: this.seedPhrase }});
+        } else {
+          this.count++;
+          this.displaySeed();
+        }
+      },
+    },
+  }
+</script>
 <style lang="scss">
   @import "~/assets/css/variables.scss";
 

@@ -1,14 +1,5 @@
 <template>
   <div class="intro-existing-seed">
-    <header>
-      <h4 class="status intro-syncing">
-        BTC Node Syncing
-        <span class="icon" />
-      </h4>
-
-      <h5>24%</h5>
-    </header>
-
     <main>
       <img src="~/assets/icons/password.svg">
 
@@ -17,9 +8,13 @@
 
       <div class="seed-phrase">
         <template v-for="count in 24">
-          <InputField :key="count" :label="count" class="seed" />
+          <InputField :key="count" v-model="seedPhrase[count - 1]" :label="count.toString()" class="seed" />
         </template>
       </div>
+
+      <p v-if="errorMessage" class="error">
+        {{ errorMessage }}
+      </p>
     </main>
 
     <footer>
@@ -27,14 +22,48 @@
         Cancel and Go Back
       </nuxt-link>
 
-      <nuxt-link to="/intro/password" class="button is-primary">
+      <a class="button is-primary" @click="submitSeed()">
         Next
-      </nuxt-link>
+      </a>
     </footer>
   </div>
 </template>
 
+<script>
+  export default {
+    data() {
+      return {
+        seedPhrase: [],
+        errorMessage: false,
+      }
+    },
+
+    mounted() {
+      // Get seed from the route parameters, since variables are cleared between pages
+      if(this.$route.params.seedPhrase !== undefined
+          && Array.isArray(this.$route.params.seedPhrase)
+          && this.$route.params.seedPhrase.length === 24) {
+        this.seedPhrase = this.$route.params.seedPhrase;
+      }
+
+      // Todo: Highlight erroneous fields
+      if(this.$route.params.errorMessage !== undefined) {
+        this.errorMessage = this.$route.params.errorMessage
+      }
+    },
+
+    methods: {
+      submitSeed() {
+        // Todo: Validate that all 24 words were filled in before submitting
+        this.$router.push({ name: 'intro-password', params: { seedPhrase: this.seedPhrase }});
+      }
+    },
+  }
+</script>
+
 <style lang="scss">
+  @import "~/assets/css/variables.scss";
+
   .intro-existing-seed {
     main {
       margin-bottom: 7em;
@@ -47,6 +76,11 @@
 
     .seed {
       margin: 0.5em;
+    }
+
+    .error {
+      margin-top: 1.1em;
+      color: $red;
     }
   }
 </style>

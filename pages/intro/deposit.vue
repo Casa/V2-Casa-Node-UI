@@ -15,7 +15,7 @@
       <img src="~/assets/qr-code.svg" class="address">
 
       <p class="numeric">
-        3BVAW924YBVCIX9397G23FIUBF3280JX
+        3BVAW9-not-a-real-address-3280JX
       </p>
     </main>
 
