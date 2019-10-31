@@ -46,6 +46,7 @@
         }
       },
 
+      // Todo: Replace initWallet and register with a single call to the v2 registration route
       async initWallet() {
         try {
           const data = {
