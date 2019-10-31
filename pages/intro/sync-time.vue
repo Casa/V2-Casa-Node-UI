@@ -1,12 +1,12 @@
 <template>
   <div>
     <header>
-      <h4 class="status intro-syncing">
+      <h5 class="status intro-syncing">
         BTC Node Syncing
         <span class="icon" />
-      </h4>
+      </h5>
 
-      <h5>24%</h5>
+      <h6>24%</h6>
     </header>
 
     <main>
