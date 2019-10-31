@@ -28,12 +28,15 @@
       }
     },
 
-    mounted() {
+    created() {
       // Get seed from the route parameters, since variables are cleared between pages
       if(this.$route.params.seedPhrase !== undefined
           && Array.isArray(this.$route.params.seedPhrase)
           && this.$route.params.seedPhrase.length === 24) {
         this.seedPhrase = this.$route.params.seedPhrase;
+      } else {
+        // Todo: Display an error message about the seed phrase being missing?
+        this.$router.push({path: '/intro/seed'});
       }
     },
 
@@ -57,19 +60,19 @@
           await this.$axios.post(`${this.$env.API_LND}/v1/lnd/wallet/init`, data);
           this.register();
         } catch(error) {
-          console.error(error, error.response);
+          let errorMessage, seedError;
 
-/*
-          let errorMessage = error.response.data || 'Wallet Creation Failed';
-          let seedError = errorMessage.match(/^Unable to initialize wallet, word (.*) isn't a part of default word list/);
+          if(error.response !== undefined) {
+            errorMessage = error.response.data || 'Wallet Creation Failed';
+            seedError = errorMessage.match(/^Unable to initialize wallet, word (.*) isn't a part of default word list/);
+          }
 
           if(seedError) {
-            this.$router.push({ name: 'intro-existing-seed', params: { seedPhrase: this.seedPhrase, errorMessage: seedError }});
+            this.$router.push({ name: 'intro-existing-seed', params: { seedPhrase: this.seedPhrase, seedError: seedError }});
           } else {
             // Todo: Output user-friendly error message
             console.error(errorMessage);
           }
-*/
         }
       },
 
@@ -82,8 +85,19 @@
           await this.$axios.post(`${this.$env.API_MANAGER}/v1/accounts/register`, data);
           this.$router.push({path: '/intro/got-it'});
         } catch(error) {
-          // Todo: Output user-friendly error message
-          console.error(error, error.response);
+          let errorMessage, seedError;
+
+          if(error.response !== undefined) {
+            errorMessage = error.response.data || 'Wallet Creation Failed';
+            seedError = errorMessage.match(/^Unable to initialize wallet, word (.*) isn't a part of default word list/);
+          }
+
+          if(seedError) {
+            this.$router.push({ name: 'intro-existing-seed', params: { seedPhrase: this.seedPhrase, errorMessage: seedError }});
+          } else {
+            // Todo: Output user-friendly error message
+            console.error(errorMessage);
+          }
         }
       }
     },
