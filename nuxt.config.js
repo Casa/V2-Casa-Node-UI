@@ -57,8 +57,10 @@ export default {
   ** Auth module configuration
   */
   auth: {
-    local: {
-      tokenType: 'JWT'
+    strategies: {
+      local: {
+        tokenType: 'JWT'
+      },
     },
   },
 
