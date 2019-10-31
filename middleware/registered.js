@@ -5,6 +5,6 @@ export default async function (context) {
   const data = await API.get(context.$axios, `${context.$env.API_MANAGER}/v1/accounts/registered`);
 
   if(data && data.registered === false) {
-    context.app.router.push('/intro');
+    context.redirect('/intro');
   }
 }

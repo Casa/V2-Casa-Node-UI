@@ -20,6 +20,6 @@ export default async function (context) {
 
   // If there is a network failure, an exception will be thrown and loading will return false
   if(loading === false || (loading && parseInt(loading.percent) !== 100)) {
-    context.app.router.push('/loading');
+    context.redirect('/loading');
   }
 }

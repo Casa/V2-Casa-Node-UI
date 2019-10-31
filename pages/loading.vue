@@ -8,7 +8,7 @@
 
     <footer v-if="error">
       <p>
-        Having trouble? Contact <a href="mailto:help@team.casa">help@team.casa</a> with questions.
+        Having trouble? Contact <a class="is-blue" href="mailto:help@team.casa">help@team.casa</a> with questions.
       </p>
 
       <nuxt-link to="/" class="button is-primary">

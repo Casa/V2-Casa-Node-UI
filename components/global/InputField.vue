@@ -152,8 +152,9 @@
     text-align: left;
 
     .error-message {
-      font-weight: 500;
       color: $red;
+      font-size: 18px;
+      font-weight: 500;
       padding: 0.5em 0;
     }
   }
