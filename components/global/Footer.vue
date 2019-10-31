@@ -1,6 +1,6 @@
 <template>
   <div class="casa-footer">
-    <img src="~/assets/icons/casa.svg">
+    <img src="~/assets/icons/casa-colorized.svg">
 
     <a href="https://keys.casa/" target="_blank" rel="noopener">Home</a>
     <span class="separator" />

@@ -2,22 +2,32 @@
   <div class="layout-dashboard">
     <aside>
       <nuxt-link to="/home">
+        <img src="~/assets/icons/casa.svg">
+
         Home
       </nuxt-link>
 
       <nuxt-link to="/bitcoin">
+        <img src="~/assets/icons/bitcoin.svg">
+
         Bitcoin
       </nuxt-link>
 
       <nuxt-link to="/lightning">
+        <img src="~/assets/icons/lightning.svg">
+
         Lightning
       </nuxt-link>
 
+<!--
       <nuxt-link to="/btcpay">
         BTCPay Server
       </nuxt-link>
+-->
 
       <nuxt-link to="/system">
+        <img src="~/assets/icons/system.svg">
+
         System
       </nuxt-link>
     </aside>
@@ -44,8 +54,13 @@
         color: $gray;
         display: block;
         font-weight: bold;
-        margin-bottom: 2em;
+        margin-bottom: 2.5em;
         outline: none;
+      }
+
+      img {
+        vertical-align: middle;
+        margin-right: 1em;
       }
 
       .nuxt-link-active {
