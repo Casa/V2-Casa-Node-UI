@@ -13,6 +13,6 @@
 
 <script>
   export default {
-    middleware: ['registered'],
+    middleware: ['registered', 'authenticated'],
   }
 </script>
