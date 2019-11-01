@@ -1,4 +1,4 @@
-import API from '@/helpers/api';
+import API from '~/helpers/api';
 
 export default async function (context) {
   // Check to see if the user is registered. If the user is not registered, redirect them to the intro page.

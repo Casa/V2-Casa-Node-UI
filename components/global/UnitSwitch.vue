@@ -18,7 +18,7 @@
 </template>
 
 <script>
-  import Events from '@/helpers/events';
+import Events from '~/helpers/events';
 
   export default {
     data() {
