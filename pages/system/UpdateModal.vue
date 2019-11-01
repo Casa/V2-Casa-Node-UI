@@ -4,7 +4,7 @@
 
     <hr>
 
-    <InputField label="Node Password" />
+    <InputField v-model="password" label="Node Password" type="password" />
 
     <div class="buttons">
       <ModalClose />
@@ -14,10 +14,25 @@
 </template>
 
 <script>
-  export default {
-    methods: {
-      update() {
+  import Events from '~/helpers/events';
 
+  export default {
+    data() {
+      return {
+        password: '',
+      }
+    },
+
+    methods: {
+      async update() {
+        const data = {
+          password: this.password,
+        };
+
+        await this.$axios.post(`${this.$env.UPDATE_MANAGER}/v1/update`, data);
+
+        Events.$emit('modal-closed');
+        this.$router.push('/loading');
       }
     }
   }
