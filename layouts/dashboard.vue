@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-dashboard blurred">
+  <div class="layout-dashboard" :class="{ blurred: blurred }">
     <aside>
       <nuxt-link to="/home">
         <img src="~/assets/icons/casa.svg">
@@ -38,6 +38,33 @@
   </div>
 </template>
 
+<script>
+  import Events from '~/helpers/events';
+
+  export default {
+    data() {
+      return {
+        blurred: false,
+      }
+    },
+
+    created() {
+      Events.$on('modal-opened', () => {
+        this.blurred = true;
+      });
+
+      Events.$on('modal-closed', () => {
+        this.blurred = false;
+      });
+    },
+
+    destroyed() {
+      Events.$off('modal-opened');
+      Events.$off('modal-closed');
+    }
+  }
+</script>
+
 <style lang="scss">
   @import "~/assets/css/global.scss";
 
@@ -46,7 +73,7 @@
     min-height: 100vh;
 
     &.blurred {
-      aside, .content {
+      aside, .page {
         filter: blur(8px);
       }
     }

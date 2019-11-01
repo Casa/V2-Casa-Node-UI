@@ -2,16 +2,10 @@
   <div class="modal is-active">
     <div class="modal-background" />
     <div class="modal-content">
-      Hello world?
+      <slot />
     </div>
   </div>
 </template>
-
-<script>
-  export default {
-
-  }
-</script>
 
 <style lang="scss">
   @import "~/assets/css/variables.scss";

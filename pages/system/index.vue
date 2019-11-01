@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <div class="content">
+    <div class="page">
       <h1>System</h1>
 
       <div class="extras">
@@ -16,7 +16,7 @@
           </div>
 
           <!-- Todo: Make arrow button styles -->
-          <a class="button has-arrow">Shut Down</a>
+          <a class="button has-arrow" @click="shutdown()">Shut Down</a>
         </div>
 
         <hr>
@@ -30,7 +30,7 @@
             </p>
           </div>
 
-          <a class="button has-arrow">Update</a>
+          <a class="button has-arrow" @click="update()">Update</a>
         </div>
 
         <hr>
@@ -44,18 +44,56 @@
             </p>
           </div>
 
-          <a class="button has-arrow">Factory Reset</a>
+          <a class="button has-arrow" @click="factoryReset()">Factory Reset</a>
         </div>
       </div>
     </div>
 
-    <Modal />
+    <template v-if="activeModal">
+      <component :is="activeModal" />
+    </template>
   </div>
 </template>
 
 <script>
+  import Events from '~/helpers/events';
+  import UpdateModal from './UpdateModal';
+  import ShutdownModal from './ShutdownModal';
+  import FactoryResetModal from './FactoryResetModal';
+
   export default {
     layout: 'dashboard',
+
+    data() {
+      return {
+        activeModal: false,
+      }
+    },
+
+    created() {
+      Events.$on('modal-closed', () => {
+        this.activeModal = false;
+      });
+    },
+
+    methods: {
+      openModal(modal) {
+        this.activeModal = modal;
+        Events.$emit('modal-opened');
+      },
+
+      update() {
+        this.openModal(UpdateModal);
+      },
+
+      shutdown() {
+        this.openModal(ShutdownModal);
+      },
+
+      factoryReset() {
+        this.openModal(FactoryResetModal);
+      },
+    }
   }
 </script>
 
