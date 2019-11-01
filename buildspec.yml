@@ -62,7 +62,7 @@ phases:
       # docker hub. However, for develop and release/stage we are okay with rewriting those images in docker hub.
       - |
         if [ "$masterBranchText" = "master" ]; then
-          if DOCKER_CLI_EXPERIMENTAL=enabled docker manifest inspect $ORGANIZATION/$REPOSITORY:$ARCH-develop-$IMAGE_VERSION >/dev/null; then
+          if DOCKER_CLI_EXPERIMENTAL=enabled docker manifest inspect $ORGANIZATION/$REPOSITORY:$ARCH-$IMAGE_VERSION >/dev/null; then
             echo "image already exists"
           else
             echo "pushing master branch to docker hub"
