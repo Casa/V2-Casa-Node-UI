@@ -1,4 +1,4 @@
-import API from '@/helpers/api';
+import API from '~/helpers/api';
 
 export default async function (context) {
   // Make a JWT authenticated call to check if we're logged in

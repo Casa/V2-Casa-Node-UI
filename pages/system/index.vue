@@ -6,6 +6,22 @@
       <div class="extras">
         <h3>Extras</h3>
 
+        <template v-if="updateAvailable">
+          <div class="flex">
+            <div>
+              <h6>Update</h6>
+
+              <p>
+                Install the latest version of Casa Node software.
+              </p>
+            </div>
+
+            <a class="button has-arrow" @click="update()">Update</a>
+          </div>
+
+          <hr>
+        </template>
+
         <div class="flex">
           <div>
             <h6>Shut Down</h6>
@@ -17,20 +33,6 @@
 
           <!-- Todo: Make arrow button styles -->
           <a class="button has-arrow" @click="shutdown()">Shut Down</a>
-        </div>
-
-        <hr>
-
-        <div class="flex">
-          <div>
-            <h6>Update</h6>
-
-            <p>
-              Install the latest version of Casa Node software.
-            </p>
-          </div>
-
-          <a class="button has-arrow" @click="update()">Update</a>
         </div>
 
         <hr>
@@ -56,6 +58,7 @@
 </template>
 
 <script>
+  import API from '~/helpers/api';
   import Events from '~/helpers/events';
   import UpdateModal from './UpdateModal';
   import ShutdownModal from './ShutdownModal';
@@ -67,12 +70,24 @@
     data() {
       return {
         activeModal: false,
+        updateAvailable: false,
       }
     },
 
-    created() {
+    async created() {
       Events.$on('modal-closed', () => {
         this.activeModal = false;
+      });
+
+      const versions = await API.get(this.$axios, `${this.$env.API_MANAGER}/v1/telemetry/version`);
+      const containers = Object.entries(versions.applications);
+
+      containers.forEach(([container, version]) => {
+        console.log(container, version);
+
+        if(version.newVersionsAvailable.length) {
+          this.updateAvailable = true;
+        }
       });
     },
 

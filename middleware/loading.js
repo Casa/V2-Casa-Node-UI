@@ -1,4 +1,4 @@
-import API from '@/helpers/api';
+import API from '~/helpers/api';
 
 export default async function (context) {
   // Don't run this middleware if we are already on the loading page

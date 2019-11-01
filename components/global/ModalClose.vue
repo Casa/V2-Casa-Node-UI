@@ -1,6 +1,6 @@
 <template>
   <a class="button" @click="closeModal()">
-    <slot>Close</slot>
+    <slot>Go Back</slot>
   </a>
 </template>
 
