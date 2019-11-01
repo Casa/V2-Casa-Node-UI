@@ -1,37 +1,55 @@
 <template>
-  <div>
-    <h1>System</h1>
+  <div class="wrapper">
+    <div class="content">
+      <h1>System</h1>
 
-    <div class="extras">
-      <h3>Extras</h3>
+      <div class="extras">
+        <h3>Extras</h3>
 
-      <div class="flex">
-        <div>
-          <h6>Shut Down</h6>
+        <div class="flex">
+          <div>
+            <h6>Shut Down</h6>
 
-          <p>
-            Completely turn off Casa Node.
-          </p>
+            <p>
+              Completely turn off Casa Node.
+            </p>
+          </div>
+
+          <!-- Todo: Make arrow button styles -->
+          <a class="button has-arrow">Shut Down</a>
         </div>
 
-        <!-- Todo: Make arrow button styles -->
-        <a class="button has-arrow">Shut Down</a>
-      </div>
+        <hr>
 
-      <hr>
+        <div class="flex">
+          <div>
+            <h6>Update</h6>
 
-      <div class="flex">
-        <div>
-          <h6>Update</h6>
+            <p>
+              Install the latest version of Casa Node software.
+            </p>
+          </div>
 
-          <p>
-            Install the latest version of Casa Node software.
-          </p>
+          <a class="button has-arrow">Update</a>
         </div>
 
-        <a class="button has-arrow">Update</a>
+        <hr>
+
+        <div class="flex">
+          <div>
+            <h6>Factory Reset</h6>
+
+            <p>
+              Wipes all Node data. Resets channels, passwords, and more.
+            </p>
+          </div>
+
+          <a class="button has-arrow">Factory Reset</a>
+        </div>
       </div>
     </div>
+
+    <Modal />
   </div>
 </template>
 

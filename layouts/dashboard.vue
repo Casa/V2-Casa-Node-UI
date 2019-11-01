@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-dashboard">
+  <div class="layout-dashboard blurred">
     <aside>
       <nuxt-link to="/home">
         <img src="~/assets/icons/casa.svg">
@@ -19,11 +19,11 @@
         Lightning
       </nuxt-link>
 
-<!--
+      <!--
       <nuxt-link to="/btcpay">
         BTCPay Server
       </nuxt-link>
--->
+      -->
 
       <nuxt-link to="/system">
         <img src="~/assets/icons/system.svg">
@@ -44,6 +44,12 @@
   .layout-dashboard {
     display: flex;
     min-height: 100vh;
+
+    &.blurred {
+      aside, .content {
+        filter: blur(8px);
+      }
+    }
 
     aside {
       width: 250px;
