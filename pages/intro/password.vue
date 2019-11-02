@@ -1,5 +1,5 @@
 <template>
-  <div class="intro-password">
+  <form class="intro-password" @submit.prevent="submitPassword()">
     <main>
       <h2>Secure your Node with a unique password.</h2>
       <p>12+ characters. We highly recommend using a password manager.</p>
@@ -12,11 +12,9 @@
     </main>
 
     <footer>
-      <a class="button is-primary" @click="submit()">
-        Submit
-      </a>
+      <input type="submit" class="button is-primary" value="Submit">
     </footer>
-  </div>
+  </form>
 </template>
 
 <script>
@@ -41,38 +39,11 @@
     },
 
     methods: {
-      async submit() {
+      async submitPassword() {
         const validator = await this.$refs.password.validate();
 
         if(validator.valid) {
-          this.initWallet();
-        }
-      },
-
-      // Todo: Replace initWallet and register with a single call to the v2 registration route
-      async initWallet() {
-        try {
-          const data = {
-            password: this.password,
-            seed: this.seedPhrase,
-          };
-
-          await this.$axios.post(`${this.$env.API_LND}/v1/lnd/wallet/init`, data);
           this.register();
-        } catch(error) {
-          let errorMessage, seedError;
-
-          if(error.response !== undefined) {
-            errorMessage = error.response.data || 'Wallet Creation Failed';
-            seedError = errorMessage.match(/^Unable to initialize wallet, word (.*) isn't a part of default word list/);
-          }
-
-          if(seedError) {
-            this.$router.push({ name: 'intro-existing-seed', params: { seedPhrase: this.seedPhrase, seedError: seedError }});
-          } else {
-            // Todo: Output user-friendly error message
-            console.error(errorMessage);
-          }
         }
       },
 
@@ -80,6 +51,7 @@
         try {
           const data = {
             password: this.password,
+            seed: this.seedPhrase,
           };
 
           await this.$axios.post(`${this.$env.API_MANAGER}/v1/accounts/register`, data);
@@ -93,7 +65,7 @@
           }
 
           if(seedError) {
-            this.$router.push({ name: 'intro-existing-seed', params: { seedPhrase: this.seedPhrase, errorMessage: seedError }});
+            this.$router.push({ name: 'intro-existing-seed', params: { seedPhrase: this.seedPhrase, seedError: seedError }});
           } else {
             // Todo: Output user-friendly error message
             console.error(errorMessage);
