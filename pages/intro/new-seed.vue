@@ -1,7 +1,7 @@
 <template>
   <div class="intro-new-seed">
     <main>
-      <div class="count">
+      <div v-if="count > 0" class="count">
         {{ count }}
       </div>
 
@@ -28,16 +28,27 @@
   export default {
     data() {
       return {
-        count: 1,
+        count: 0,
         seed: 'Loading...',
         seedPhrase: [],
       }
     },
 
     async created() {
-      const data = await API.get(this.$axios, `${this.$env.API_LND}/v1/lnd/wallet/seed`);
+      let data = false;
+
+      // Keep trying to get the seed, in case lnd is still starting
+      while(data === false) {
+        data = await API.get(this.$axios, `${this.$env.API_LND}/v1/lnd/wallet/seed`);
+
+        if(data === false) {
+          // Todo: Output error message from 500 error?
+          await this.sleep(5000);
+        }
+      }
 
       if(data && data.seed.length === 24) {
+        this.count = 1;
         this.seedPhrase = data.seed;
         this.displaySeed();
       }
@@ -68,6 +79,11 @@
           this.count++;
           this.displaySeed();
         }
+      },
+
+      // Simulates synchronous sleep function.
+      async sleep(milliseconds) {
+        return new Promise(resolve => setTimeout(resolve, milliseconds))
       },
     },
   }
