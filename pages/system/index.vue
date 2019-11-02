@@ -1,9 +1,13 @@
 <template>
   <div class="wrapper">
     <div class="page">
-      <h1>System</h1>
+      <h1>
+        <img src="~/assets/icons/system.svg">
 
-      <div class="extras">
+        System
+      </h1>
+
+      <div class="card extras">
         <h3>Extras</h3>
 
         <template v-if="updateAvailable">
@@ -116,18 +120,8 @@
   @import "~/assets/css/variables.scss";
 
   .extras {
-    width: 100%;
-    background-color: $transparentGray;
-    border-radius: 12px;
-    padding: 2em;
-    margin-top: 2em;
-
     h3 {
       margin-bottom: 1em;
-    }
-
-    p {
-      color: $gunsmokeGray;
     }
 
     .button {

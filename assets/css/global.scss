@@ -38,3 +38,16 @@ a.is-blue {
 .flex {
   display: flex;
 }
+
+.card {
+  width: 100%;
+  background-color: $transparentGray;
+  border-radius: 12px;
+  padding: 2em;
+  margin-top: 2em;
+  box-shadow: none;
+
+  p {
+    color: $gunsmokeGray;
+  }
+}
