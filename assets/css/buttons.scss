@@ -4,6 +4,7 @@
   background: none;
   border: 3px solid $transparentWhite;
   border-radius: 30px;
+  display: inline-block;
   padding: 24px 54px;
   margin: 0.5em;
   text-align: center;
@@ -34,6 +35,10 @@
       color: $white;
     }
   }
+}
+
+input.button {
+  line-height: 4px;
 }
 
 .buttons {
