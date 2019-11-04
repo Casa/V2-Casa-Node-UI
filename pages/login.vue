@@ -5,9 +5,10 @@
 
       <h2>Welcome home.</h2>
 
-      <InputField v-model="password" :error="error" :error-message="errorMessage" type="password" label="Node Password" />
-
-      <a class="button is-primary" @click="login()">Sign In</a>
+      <form @submit.prevent="login()">
+        <InputField v-model="password" :error="error" :error-message="errorMessage" type="password" label="Node Password" />
+        <input type="submit" value="Sign In" class="button is-primary">
+      </form>
     </main>
 
     <footer>

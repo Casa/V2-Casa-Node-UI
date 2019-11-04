@@ -1,5 +1,5 @@
 <template>
-  <div class="intro-existing-seed">
+  <form class="intro-existing-seed" @submit.prevent="submitSeed()">
     <main>
       <img src="~/assets/icons/password.svg">
 
@@ -22,11 +22,9 @@
         Cancel and Go Back
       </nuxt-link>
 
-      <a class="button is-primary" @click="submitSeed()">
-        Next
-      </a>
+      <input type="submit" class="button is-primary" value="Next">
     </footer>
-  </div>
+  </form>
 </template>
 
 <script>
@@ -54,8 +52,23 @@
 
     methods: {
       submitSeed() {
-        // Todo: Validate that all 24 words were filled in before submitting
-        this.$router.push({ name: 'intro-password', params: { seedPhrase: this.seedPhrase }});
+        let error = false;
+        this.seedError = [];
+
+        // Loop through seed phrase to make sure no fields are empty
+        for(let i = 0; i < 24; i++) {
+          if(!this.seedPhrase[i]) {
+            this.seedError[i] = true;
+            error = true;
+          }
+        }
+
+        if(error) {
+          this.isError = true;
+          this.errorMessage = "You need all 24 seed words to continue.";
+        } else {
+          this.$router.push({ name: 'intro-password', params: { seedPhrase: this.seedPhrase }});
+        }
       },
 
       handleSeedError(seedError) {
