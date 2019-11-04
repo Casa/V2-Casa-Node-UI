@@ -9,7 +9,7 @@
 
   .layout-default {
     // This child selector is necessary since Vue templates always have a single root element
-    & > div {
+    & > div, & > form {
       display: flex;
       align-items: center;
       justify-content: center;
