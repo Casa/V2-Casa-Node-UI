@@ -1,10 +1,12 @@
 <template>
-  <div>
+  <div class="lightning-index">
     <h1>
       <img src="~/assets/icons/lightning.svg">
 
       Lightning
     </h1>
+
+    <UnitSwitch />
 
     <div class="card">
       <h3>Channels</h3>
@@ -20,3 +22,11 @@
     layout: 'dashboard',
   }
 </script>
+
+<style lang="scss">
+  @import "~/assets/css/variables.scss";
+
+  .lightning-index {
+    position: relative;
+  }
+</style>
