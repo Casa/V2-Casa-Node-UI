@@ -73,25 +73,110 @@
     <div class="cards">
       <div class="card grow">
         <h3>Casa Node Summary</h3>
+
+        <div class="columns">
+          <div class="column">
+            <div class="numeric">
+              8
+            </div>
+
+            <div class="label bitcoin">
+              Bitcoin Peers
+            </div>
+          </div>
+
+          <div class="column">
+            <div class="numeric">
+              17
+            </div>
+
+            <div class="label lightning">
+              Lightning Channels
+            </div>
+          </div>
+
+          <div class="column">
+            <div class="numeric">
+              38K
+            </div>
+
+            <div class="label">
+              Max Lightning Send
+            </div>
+          </div>
+
+          <div class="column">
+            <div class="numeric">
+              20K
+            </div>
+
+            <div class="label">
+              Max Lightning Receive
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="card narrow">
-        <h3>Bitcoin</h3>
-        <h3>Lightning</h3>
+      <div class="card statuses narrow">
+        <nuxt-link to="/bitcoin">
+          <h3>Bitcoin</h3>
+
+          <div class="status active">
+            <span class="icon" />
+
+            Active
+          </div>
+        </nuxt-link>
+
+        <nuxt-link to="/lightning">
+          <h3>Lightning</h3>
+
+          <div class="status inactive">
+            <span class="icon" />
+
+            Locked
+          </div>
+        </nuxt-link>
       </div>
     </div>
 
     <div class="cards">
       <div class="card">
         <h3>Lightning Balances</h3>
+
+        <div class="columns">
+          <div class="column">
+            <div class="numeric">
+              52K
+            </div>
+
+            <div class="label">
+              Sats in Lightning
+            </div>
+          </div>
+
+          <div class="column">
+            <div class="numeric">
+              6K
+            </div>
+
+            <div class="label">
+              Sats Pending
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="card">
+      <div class="card sats-app">
+        <img src="~/assets/sats-app.png" class="is-pulled-right">
+
         <h3>Sats App</h3>
 
         <p>
           Control your Casa Node from your mobile device. Earn 10,000 SatsBack per week for keeping your Node online.
         </p>
+
+        <a class="button is-white is-small">Download Now</a>
       </div>
     </div>
   </div><!-- /.home-index -->
@@ -110,7 +195,7 @@
     position: relative;
 
     .update {
-      padding: 1.5em 3em 2em;
+      padding: 1.5em 3em;
 
       .new {
         text-transform: uppercase;
@@ -127,7 +212,7 @@
       }
 
       .buttons {
-        margin: 0.5em 0 0;
+        margin: 0 -0.5em 0;
       }
     }
 
@@ -185,6 +270,62 @@
 
       .column {
         color: $white;
+      }
+    }
+
+    .statuses {
+      a {
+        display: block;
+        margin-right: 4em;
+      }
+
+      a:first-of-type {
+        margin-bottom: 3em;
+      }
+    }
+
+    .cards {
+      .numeric {
+        font-size: 56px;
+        margin-top: 1em;
+        color: $white;
+      }
+
+      .label {
+        font-size: 12px;
+        font-weight: 900;
+        line-height: 1.42;
+        letter-spacing: 0.92px;
+        text-transform: uppercase;
+        color: $white;
+
+        &.bitcoin {
+          color: $orange;
+        }
+
+        &.lightning {
+          color: $purple;
+        }
+      }
+    }
+
+    .sats-app {
+      font-size: 18px;
+      padding-bottom: 2em;
+
+      h3 {
+        margin-bottom: 1em;
+      }
+
+      .button {
+        margin-top: 2em;
+        margin-left: -0.2em;
+      }
+
+      img {
+        margin-left: 4em;
+        max-height: 200px;
+        width: auto;
       }
     }
   }
