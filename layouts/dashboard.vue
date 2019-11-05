@@ -102,7 +102,7 @@
     }
 
     main {
-      padding: 3em 4em;
+      padding: 3em 6em 4em 4em;
       flex-grow: 1;
     }
   }

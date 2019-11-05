@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="home-index">
     <h1>
       <img src="~/assets/icons/casa.svg">
 
@@ -21,29 +21,47 @@
       <a class="button is-primary">Update Now</a>
     </div>
 
-    <div class="card">
-      <h3>
-        Balances
-      </h3>
+    <div class="card balances">
+      <div class="graph" />
 
-      <h1 class="numeric">
-        158,000
-      </h1>
+      <div class="columns flex space-between">
+        <div class="column is-one-quarter">
+          <h3>
+            Balances
+          </h3>
+        </div>
 
-      <div>
-        <p class="numeric">
-          100,000
-        </p>
-
-        Bitcoin Balance
+        <div class="column is-one-quarter timescale">
+          Past 30 Days
+        </div>
       </div>
 
-      <div>
-        <p class="numeric">
-          58,000
-        </p>
+      <div class="totals">
+        <div class="columns">
+          <div class="column is-half numeric total">
+            158,000
+          </div>
 
-        Lightning Balance
+          <div class="column is-one-quarter total">
+            <div class="numeric">
+              100,000
+            </div>
+
+            <div class="label">
+              Bitcoin Balance
+            </div>
+          </div>
+
+          <div class="column is-one-quarter total">
+            <div class="numeric">
+              58,000
+            </div>
+
+            <div class="label">
+              Lightning Balance
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -54,3 +72,70 @@
     layout: 'dashboard',
   }
 </script>
+
+<style lang="scss">
+  @import "~/assets/css/variables.scss";
+
+  .home-index {
+    position: relative;
+
+    .balances {
+      position: relative;
+      height: 300px;
+
+      .graph {
+        position: absolute;
+        top: auto;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 10em;
+        background-image: $purpleGradientVertical;
+        z-index: 0;
+      }
+
+      .timescale {
+        text-align: right;
+      }
+
+      .totals {
+        position: absolute;
+        bottom: 3em;
+        left: 3em;
+        right: 4em;
+      }
+
+      .total {
+        &.is-half {
+          font-size: 56px;
+        }
+
+        &.is-one-quarter {
+          text-align: right;
+          align-self: flex-end;
+
+          .label {
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: $white;
+          }
+
+          .numeric {
+            font-size: 20px;
+          }
+        }
+      }
+
+      .columns {
+        position: relative;
+        z-index: 1;
+      }
+
+      .column {
+        color: $white;
+      }
+    }
+  }
+</style>
