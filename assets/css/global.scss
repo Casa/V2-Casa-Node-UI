@@ -13,6 +13,7 @@
 @import "~/assets/css/headings.scss";
 @import "~/assets/css/statuses.scss";
 @import "~/assets/css/flex.scss";
+@import "~/assets/css/cards.scss";
 
 body {
   background-image: $blueGradient;
@@ -33,19 +34,5 @@ a.is-blue {
   &:hover {
     color: $lightBlue;
     border-bottom: 1px dashed $lightBlue;
-  }
-}
-
-.card {
-  width: 100%;
-  background-color: $transparentGray;
-  border-radius: 12px;
-  padding: 2.5em 3em 3em 3em;
-  margin-top: 2em;
-  box-shadow: none;
-  overflow: hidden;
-
-  p {
-    color: $gunsmokeGray;
   }
 }

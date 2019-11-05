@@ -24,7 +24,7 @@
     <div class="card balances">
       <div class="graph" />
 
-      <div class="columns flex space-between">
+      <div class="columns space-between">
         <div class="column is-one-quarter">
           <h3>
             Balances
@@ -42,7 +42,7 @@
             158,000
           </div>
 
-          <div class="column is-one-quarter total">
+          <div class="column is-one-quarter subtotal">
             <div class="numeric">
               100,000
             </div>
@@ -52,7 +52,7 @@
             </div>
           </div>
 
-          <div class="column is-one-quarter total">
+          <div class="column is-one-quarter subtotal">
             <div class="numeric">
               58,000
             </div>
@@ -62,9 +62,34 @@
             </div>
           </div>
         </div>
+      </div> <!-- /.totals -->
+    </div> <!-- /.card.balances -->
+
+    <div class="cards">
+      <div class="card grow">
+        <h3>Casa Node Summary</h3>
+      </div>
+
+      <div class="card narrow">
+        <h3>Bitcoin</h3>
+        <h3>Lightning</h3>
       </div>
     </div>
-  </div>
+
+    <div class="cards">
+      <div class="card">
+        <h3>Lightning Balances</h3>
+      </div>
+
+      <div class="card">
+        <h3>Sats App</h3>
+
+        <p>
+          Control your Casa Node from your mobile device. Earn 10,000 SatsBack per week for keeping your Node online.
+        </p>
+      </div>
+    </div>
+  </div><!-- /.home-index -->
 </template>
 
 <script>
@@ -106,25 +131,23 @@
       }
 
       .total {
-        &.is-half {
-          font-size: 56px;
+        font-size: 56px;
+      }
+
+      .subtotal {
+        text-align: right;
+        align-self: flex-end;
+
+        .label {
+          font-size: 12px;
+          font-weight: 900;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+          color: $white;
         }
 
-        &.is-one-quarter {
-          text-align: right;
-          align-self: flex-end;
-
-          .label {
-            font-size: 12px;
-            font-weight: 900;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            color: $white;
-          }
-
-          .numeric {
-            font-size: 20px;
-          }
+        .numeric {
+          font-size: 20px;
         }
       }
 
