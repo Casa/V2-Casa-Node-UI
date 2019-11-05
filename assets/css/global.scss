@@ -26,13 +26,3 @@ hr {
   background: none;
   border-bottom: solid 3px $transparentWhite;
 }
-
-a.is-blue {
-  color: $lightBlue;
-  font-weight: bold;
-
-  &:hover {
-    color: $lightBlue;
-    border-bottom: 1px dashed $lightBlue;
-  }
-}

@@ -1,3 +1,13 @@
+a.is-blue {
+  color: $lightBlue;
+  font-weight: bold;
+
+  &:hover {
+    color: $lightBlue;
+    border-bottom: 1px dashed $lightBlue;
+  }
+}
+
 .button {
   font-size: 18px;
   font-weight: bold;
