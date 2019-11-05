@@ -34,6 +34,12 @@
       color: $white;
     }
   }
+
+  &.is-small {
+    border-radius: 20px;
+    font-size: 16px;
+    padding: 1em 1.5em;
+  }
 }
 
 input.button {

@@ -8,17 +8,22 @@
 
     <UnitSwitch />
 
-    <div class="card">
-      <h5>
-        Software Update Available
-      </h5>
+    <div class="card flex space-between update">
+      <div>
+        <h5>
+          <span class="new">New</span>
+          Software Update Available
+        </h5>
 
-      <p>
-        Upgrade Casa Node to the latest version of NodeOS.
-      </p>
+        <p>
+          Upgrade Casa Node to the latest version of NodeOS.
+        </p>
+      </div>
 
-      <a class="button is-light is-arrow">Learn More</a>
-      <a class="button is-primary">Update Now</a>
+      <div class="buttons">
+        <a class="button is-light is-small is-arrow">Learn More</a>
+        <a class="button is-primary is-small">Update Now</a>
+      </div>
     </div>
 
     <div class="card balances">
@@ -103,6 +108,28 @@
 
   .home-index {
     position: relative;
+
+    .update {
+      padding: 1.5em 3em 2em;
+
+      .new {
+        text-transform: uppercase;
+        font-size: 11px;
+        font-weight: 900;
+        letter-spacing: 0.92px;
+        text-align: center;
+        color: $black;
+        background-color: $yellow;
+        border-radius: 31px;
+        padding: 0.4em 1.8em;
+        margin-right: 0.5em;
+        vertical-align: middle;
+      }
+
+      .buttons {
+        margin: 0.5em 0 0;
+      }
+    }
 
     .balances {
       position: relative;
