@@ -314,7 +314,7 @@
       padding-bottom: 2em;
 
       h3 {
-        margin-bottom: 0.7em;
+        margin-bottom: 1em;
       }
 
       .button {
