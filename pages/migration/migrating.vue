@@ -1,14 +1,16 @@
 <template>
-    <div>
-        <main>
-            <!-- TODO update image to SVG-->
-            <img src="~/assets/icons/migration.png">
+  <div>
+    <main>
+      <!-- TODO update image to SVG-->
+      <img src="~/assets/icons/migration.png">
 
-            <h2>Migrating to Casa Node 2...</h2>
-            <br/>
-            <LoadingBar :percent="percent" />
-        </main>
-    </div>
+      <h2 class="headline">
+        Migrating to Casa Node 2...
+      </h2>
+
+      <LoadingBar :percent="percent" />
+    </main>
+  </div>
 </template>
 
 <script>
@@ -26,3 +28,9 @@
     }
   }
 </script>
+
+<style lang="scss">
+  .headline {
+    padding-bottom: 1em;
+  }
+</style>

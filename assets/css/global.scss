@@ -36,3 +36,31 @@ a.is-blue {
     border-bottom: 1px dashed $lightBlue;
   }
 }
+
+.pill {
+  text-transform: uppercase;
+  border: none;
+  color: $black;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  border-radius: 8px;
+  font-weight: 900;
+  width: 120px;
+  font-size: 11px;
+
+  &.is-red {
+    background-color: $red;
+  }
+
+  &.is-yellow {
+    background-color: $yellow;
+  }
+}
+
+.migration {
+  .paragraph {
+    padding-bottom: 2em;
+  }
+}

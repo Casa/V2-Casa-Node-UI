@@ -1,17 +1,17 @@
 <template>
-    <div>
-        <main class="login">
-            <h2>Please enter your Casa Node 1 password.</h2>
-            <InputField v-model="password" :error="error" :error-message="errorMessage" type="password" label="Node Password"/>
-        </main>
+  <div>
+    <main class="login">
+      <h2>Please enter your Casa Node 1 password.</h2>
+      <InputField v-model="password" :error="error" :error-message="errorMessage" type="password" label="Node Password" />
+    </main>
 
-        <footer>
-            <nuxt-link to="/intro" class="button">
-                Cancel Migration
-            </nuxt-link>
-            <input type="submit" value="Authorize" class="button is-primary" v-on:click="login()">
-        </footer>
-    </div>
+    <footer>
+      <nuxt-link to="/intro" class="button">
+        Cancel Migration
+      </nuxt-link>
+      <input type="submit" value="Authorize" class="button is-primary" @click="login()">
+    </footer>
+  </div>
 </template>
 
 <script>
