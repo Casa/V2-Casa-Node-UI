@@ -57,7 +57,10 @@ input.button {
 }
 
 .buttons {
-  margin: 1em -0.5em 0;
   display: flex;
   justify-content: space-between;
+}
+
+.modal .buttons {
+  margin: 1em -0.5em 0;
 }
