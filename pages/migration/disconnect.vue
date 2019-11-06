@@ -8,7 +8,7 @@
     </main>
 
     <footer>
-      <nuxt-link to="/home" class="button">
+      <nuxt-link to="/home" class="button is-primary">
         Start using Casa Node 2
       </nuxt-link>
     </footer>

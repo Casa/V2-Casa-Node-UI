@@ -6,7 +6,7 @@
     </main>
 
     <footer>
-      <nuxt-link to="/disconnect" class="button is-primary">
+      <nuxt-link to="/migration/disconnect" class="button is-primary">
         Continue
       </nuxt-link>
     </footer>
