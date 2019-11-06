@@ -8,8 +8,11 @@
     </main>
 
     <footer>
-      <nuxt-link to="/intro/seed" class="button is-primary">
-        Get Started
+      <nuxt-link to="/migration" class="button">
+        Migrate from Casa Node 1
+      </nuxt-link>
+      <nuxt-link to="/intro/seed" class="button">
+        Set Up a Fresh Node
       </nuxt-link>
     </footer>
   </div>
