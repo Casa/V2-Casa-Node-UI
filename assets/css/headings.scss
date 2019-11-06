@@ -4,7 +4,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: 36px;
+  font-size: 36px !important;
 
   img {
     height: 44px;
@@ -16,25 +16,25 @@ h1 {
 }
 
 h2 {
-  font-size: 32px;
+  font-size: 32px !important;
 }
 
 h3 {
-  font-size: 28px;
+  font-size: 28px !important;
 }
 
 h4 {
-  font-size: 24px;
+  font-size: 24px !important;
 }
 
 h5 {
-  font-size: 22px;
+  font-size: 22px !important;
 }
 
 h6 {
-  font-size: 20px;
+  font-size: 20px !important;
 }
 
 .big {
-  font-size: 56px;
+  font-size: 56px !important;
 }
