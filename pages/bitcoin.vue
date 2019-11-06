@@ -1,5 +1,5 @@
 <template>
-  <div class="bitcoin-index">
+  <div class="page">
     <h1>
       <img src="~/assets/icons/bitcoin.svg">
 
@@ -25,9 +25,3 @@
     },
   }
 </script>
-
-<style lang="scss">
-  .bitcoin-index {
-    position: relative;
-  }
-</style>

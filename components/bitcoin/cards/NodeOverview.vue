@@ -4,9 +4,5 @@
       <h3>Node Overview</h3>
       <a class="button">Manage Bitcoin Node</a>
     </div>
-
-    <div class="flex space-between">
-
-    </div>
   </div>
 </template>

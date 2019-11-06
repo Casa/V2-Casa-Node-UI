@@ -1,5 +1,5 @@
 <template>
-  <div class="lightning-index">
+  <div class="page">
     <h1>
       <img src="~/assets/icons/lightning.svg">
 
@@ -22,11 +22,3 @@
     layout: 'dashboard',
   }
 </script>
-
-<style lang="scss">
-  @import "~/assets/css/variables.scss";
-
-  .lightning-index {
-    position: relative;
-  }
-</style>
