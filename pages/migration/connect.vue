@@ -25,7 +25,7 @@
         </main>
 
         <footer>
-            <nuxt-link to="/intro" class="button">
+            <nuxt-link to="/migration/prepare" class="button">
                 Go Back
             </nuxt-link>
             <nuxt-link to="/migration/migrating" class="button is-primary">
