@@ -12,6 +12,8 @@
 @import "~/assets/css/buttons.scss";
 @import "~/assets/css/headings.scss";
 @import "~/assets/css/statuses.scss";
+@import "~/assets/css/flex.scss";
+@import "~/assets/css/cards.scss";
 
 body {
   background-image: $blueGradient;
@@ -33,8 +35,4 @@ a.is-blue {
     color: $lightBlue;
     border-bottom: 1px dashed $lightBlue;
   }
-}
-
-.flex {
-  display: flex;
 }

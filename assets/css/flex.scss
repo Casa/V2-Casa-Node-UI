@@ -1,0 +1,24 @@
+.flex {
+  display: flex;
+}
+
+.centered {
+  justify-content: center;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+.centered-vertically {
+  align-self: center;
+}
+
+.grow {
+  flex-grow: 1;
+}
+
+.narrow {
+  flex-grow: 0;
+  width: auto !important;
+}

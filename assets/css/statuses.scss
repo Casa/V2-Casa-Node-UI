@@ -1,4 +1,7 @@
 .status {
+  font-size: 18px;
+  font-weight: 500;
+
   &.intro-syncing {
     color: $lightBlue;
 
@@ -42,9 +45,9 @@
   .icon {
     border-radius: 100%;
     display: inline-block;
-    margin: 0.5em;
-    height: 0.5em;
-    width: 0.5em;
+    margin: 0.25em;
+    height: 0.75em;
+    width: 0.75em;
     vertical-align: middle;
   }
 }

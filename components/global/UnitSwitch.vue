@@ -46,8 +46,8 @@ import Events from '~/helpers/events';
 
   .unit-switch {
     position: absolute;
-    right: 1em;
-    top: 1.05em;
+    right: 0;
+    top: 0.75em;
   }
 
   /* Toggle switch buttons */

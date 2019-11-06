@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="login">
     <main>
       <img src="~/assets/logos/casa-node.svg">
 
@@ -54,14 +54,16 @@
   }
 </script>
 
-<style>
-  .input-wrap {
-    margin: 1.5em auto 1em;
-    width: 500px;
-    display: block;
-  }
+<style lang="scss">
+  .login {
+    .input-wrap {
+      margin: 1.5em auto 1em;
+      width: 500px;
+      display: block;
+    }
 
-  .button {
-    width: 500px;
+    .button {
+      width: 500px;
+    }
   }
 </style>

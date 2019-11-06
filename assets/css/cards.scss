@@ -1,0 +1,25 @@
+.cards {
+  display: flex;
+
+  .card {
+    margin-right: 2em;
+  }
+
+  .card:last-of-type {
+    margin-right: 0;
+  }
+}
+
+.card {
+  width: 100%;
+  background-color: $transparentGray;
+  border-radius: 12px;
+  padding: 2.5em 3em 3em 3em;
+  margin-top: 2em;
+  box-shadow: none;
+  overflow: hidden;
+
+  p {
+    color: $gunsmokeGray;
+  }
+}
