@@ -8,17 +8,20 @@
 
     <UnitSwitch />
 
-    <div class="card">
-      <h3>Channels</h3>
-
-      <a class="button">Manage Channels</a>
-      <a class="button">Open Channel</a>
-    </div>
+    <Channels />
+    <LightningTransactions />
   </div>
 </template>
 
 <script>
+import Channels from '~/components/lightning/Channels';
+import LightningTransactions from '~/components/lightning/LightningTransactions';
+
   export default {
     layout: 'dashboard',
+
+    components: {
+      Channels, LightningTransactions,
+    },
   }
 </script>

@@ -24,12 +24,12 @@
 </template>
 
 <script>
-  import UpdateMessage from '~/components/home/cards/UpdateMessage';
-  import BalanceGraph from '~/components/home/cards/BalanceGraph';
-  import NodeSummary from '~/components/home/cards/NodeSummary';
-  import Statuses from '~/components/home/cards/Statuses';
-  import LightningBalances from '~/components/home/cards/LightningBalances';
-  import SatsApp from '~/components/home/cards/SatsApp';
+  import UpdateMessage from '~/components/home/UpdateMessage';
+  import BalanceGraph from '~/components/home/BalanceGraph';
+  import NodeSummary from '~/components/home/NodeSummary';
+  import Statuses from '~/components/home/Statuses';
+  import LightningBalances from '~/components/home/LightningBalances';
+  import SatsApp from '~/components/home/SatsApp';
 
   export default {
     layout: 'dashboard',
