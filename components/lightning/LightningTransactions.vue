@@ -13,31 +13,31 @@
       <div class="columns totals">
         <div class="column">
           <div class="big numeric">
-            101,337
+            1,345,000
           </div>
 
           <div class="label">
-            Bitcoin Balance
+            Sats Available
+          </div>
+        </div>
+
+        <div class="column">
+          <div class="big numeric">
+            1,230,000
+          </div>
+
+          <div class="label">
+            Max Incoming Payment
           </div>
         </div>
 
         <div class="column narrow">
-          <div class="numeric">
-            +1337
+          <div class="big numeric">
+            440,000
           </div>
 
           <div class="label">
-            Pending Inbound
-          </div>
-        </div>
-
-        <div class="column narrow">
-          <div class="numeric">
-            -336
-          </div>
-
-          <div class="label">
-            Pending Outbound
+            Max Outgoing Payment
           </div>
         </div>
       </div>

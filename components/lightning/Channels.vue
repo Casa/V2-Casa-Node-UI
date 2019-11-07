@@ -13,7 +13,7 @@
       <div class="columns totals">
         <div class="column">
           <div class="big numeric">
-            4
+            2
           </div>
 
           <div class="label">
@@ -23,7 +23,7 @@
 
         <div class="column">
           <div class="big numeric">
-            13
+            7
           </div>
 
           <div class="label">
@@ -102,7 +102,7 @@
     </section>
 
     <section class="foot">
-      <a class="button">See All 8 Channels</a>
+      <a class="button">See All 9 Channels</a>
     </section>
   </div>
 </template>
@@ -116,6 +116,7 @@
     }
 
     .subtitle {
+      // Todo: Refactor into min-width so when values get long it doesn't overflow
       strong {
         font-family: $standardFonts;
         color: $white;
