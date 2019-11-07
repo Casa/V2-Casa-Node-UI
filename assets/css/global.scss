@@ -27,14 +27,12 @@ hr {
   border-bottom: solid 3px $transparentWhite;
 }
 
-a.is-blue {
-  color: $lightBlue;
-  font-weight: bold;
-
-  &:hover {
-    color: $lightBlue;
-    border-bottom: 1px dashed $lightBlue;
-  }
+.label {
+  color: $white;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
 .pill {

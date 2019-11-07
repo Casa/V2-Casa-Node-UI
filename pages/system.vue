@@ -64,9 +64,9 @@
 <script>
   import API from '~/helpers/api';
   import Events from '~/helpers/events';
-  import UpdateModal from './UpdateModal';
-  import ShutdownModal from './ShutdownModal';
-  import FactoryResetModal from './FactoryResetModal';
+  import UpdateModal from '~/components/system/UpdateModal';
+  import ShutdownModal from '~/components/system/ShutdownModal';
+  import FactoryResetModal from '~/components/system/FactoryResetModal';
 
   export default {
     layout: 'dashboard',
