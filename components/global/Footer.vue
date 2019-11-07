@@ -25,15 +25,5 @@
     a {
       color: $gray;
     }
-
-    .separator {
-      background-color: $gray;
-      border-radius: 100%;
-      display: inline-block;
-      margin: 0.5em;
-      height: 0.3em;
-      width: 0.3em;
-      vertical-align: middle;
-    }
   }
 </style>
