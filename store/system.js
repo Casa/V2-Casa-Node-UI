@@ -4,6 +4,7 @@ import API from '@/helpers/api';
 export const state = () => ({
   bitcoindVersion: false,
   lndVersion: false,
+  updateAvailable: false,
 })
 
 // Functions to update the state directly

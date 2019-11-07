@@ -8,7 +8,7 @@
 
     <UnitSwitch />
 
-    <UpdateMessage />
+    <UpdateMessage v-if="$store.state.system.updateAvailable" />
     <BalanceGraph />
 
     <div class="cards">
@@ -38,6 +38,11 @@
       UpdateMessage, BalanceGraph,
       NodeSummary, Statuses,
       LightningBalances, SatsApp,
+    },
+
+    created() {
+      this.$store.dispatch('bitcoin/getStatus');
+      this.$store.dispatch('lightning/getStatus');
     },
   }
 </script>
