@@ -49,7 +49,7 @@
       <div class="columns">
         <div class="column left">
           <span class="title">Payment Sent</span>
-          <span class="subtitle">abcdef1234567890 * 1h</span>
+          <span class="subtitle">abcdef1234567890 <span class="separator" /> 1h</span>
         </div>
 
         <div class="column right">
@@ -61,7 +61,7 @@
       <div class="columns">
         <div class="column left">
           <span class="title">Payment Sent</span>
-          <span class="subtitle">abcdef1234567890 * 2h</span>
+          <span class="subtitle">abcdef1234567890 <span class="separator" /> 2h</span>
         </div>
 
         <div class="column right">
@@ -73,7 +73,7 @@
       <div class="columns">
         <div class="column left">
           <span class="title">Payment Received</span>
-          <span class="subtitle">abcdef1234567890 * 3h</span>
+          <span class="subtitle">abcdef1234567890 <span class="separator" /> 3h</span>
         </div>
 
         <div class="column right">

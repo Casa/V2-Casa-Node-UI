@@ -41,7 +41,7 @@
           </div>
         </div>
 
-        <div class="column">
+        <div class="column narrow">
           <div class="big numeric">
             400
           </div>
@@ -55,44 +55,54 @@
 
     <section class="secondary">
       <div class="columns">
-        <div class="column">
-          <span class="title">Payment Sent</span>
-          <span class="subtitle">abcdef1234567890 * 1h</span>
+        <div class="column left">
+          <span class="title">Autopilot Channel</span>
+          <span class="subtitle">0212864d59d5a902634c4a3186615446e9d56c17b14600f3b74fbabe3509aa707f</span>
         </div>
 
-        <div class="column">
-          <span class="title">-1337</span>
-          <span class="subtitle">$5.55</span>
-        </div>
-      </div>
-
-      <div class="columns">
-        <div class="column">
-          <span class="title">Payment Sent</span>
-          <span class="subtitle">abcdef1234567890 * 2h</span>
-        </div>
-
-        <div class="column">
-          <span class="title">-1337</span>
-          <span class="subtitle">$5.55</span>
+        <div class="column right">
+          <span class="title status active">Online</span>
+          <span class="subtitle numeric">
+            <strong>Can Send:</strong> 123,000<br>
+            <strong>Can Receive:</strong> 1,400
+          </span>
         </div>
       </div>
 
       <div class="columns">
-        <div class="column">
-          <span class="title">Payment Received</span>
-          <span class="subtitle">abcdef1234567890 * 3h</span>
+        <div class="column left">
+          <span class="title">Autopilot Channel</span>
+          <span class="subtitle">0212864d59d5a902634c4a3186615446e9d56c17b14600f3b74fbabe3509aa707f</span>
         </div>
 
-        <div class="column">
-          <span class="title">+100,000</span>
-          <span class="subtitle">$500.00</span>
+        <div class="column right">
+          <span class="title status inactive">Offline</span>
+          <span class="subtitle numeric">
+            <strong>Can Send:</strong> 23,000<br>
+            <strong>Can Receive:</strong> 1,410,000
+          </span>
+        </div>
+      </div>
+
+
+      <div class="columns">
+        <div class="column left">
+          <span class="title">Custom Channel</span>
+          <span class="subtitle">Hello World!</span>
+        </div>
+
+        <div class="column right">
+          <span class="title status active">Online</span>
+          <span class="subtitle numeric">
+            <strong>Can Send:</strong> 1,230,000<br>
+            <strong>Can Receive:</strong> 1,400
+          </span>
         </div>
       </div>
     </section>
 
     <section class="foot">
-      <a class="button">See All 188 Transactions</a>
+      <a class="button">See All 8 Channels</a>
     </section>
   </div>
 </template>
@@ -101,6 +111,20 @@
   @import "~/assets/css/variables.scss";
 
   .channels {
-    //
+    .title.status {
+      font-weight: bold;
+    }
+
+    .subtitle {
+      strong {
+        font-family: $standardFonts;
+        color: $white;
+        font-size: 14px;
+        font-weight: bold;
+        position: absolute;
+        width: 100px;
+        right: 140px;
+      }
+    }
   }
 </style>

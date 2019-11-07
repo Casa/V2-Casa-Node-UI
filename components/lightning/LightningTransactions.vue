@@ -45,38 +45,38 @@
 
     <section class="secondary">
       <div class="columns">
-        <div class="column">
-          <span class="title">Payment Sent</span>
-          <span class="subtitle">abcdef1234567890 * 1h</span>
+        <div class="column left">
+          <span class="title">Received Satoshis</span>
+          <span class="subtitle">Hello there! <span class="separator" /> 1h</span>
         </div>
 
-        <div class="column">
-          <span class="title">-1337</span>
-          <span class="subtitle">$5.55</span>
-        </div>
-      </div>
-
-      <div class="columns">
-        <div class="column">
-          <span class="title">Payment Sent</span>
-          <span class="subtitle">abcdef1234567890 * 2h</span>
-        </div>
-
-        <div class="column">
-          <span class="title">-1337</span>
-          <span class="subtitle">$5.55</span>
+        <div class="column right">
+          <span class="title numeric">+1337</span>
+          <span class="subtitle numeric">$5.55</span>
         </div>
       </div>
 
       <div class="columns">
-        <div class="column">
-          <span class="title">Payment Received</span>
-          <span class="subtitle">abcdef1234567890 * 3h</span>
+        <div class="column left">
+          <span class="title">Expired Request</span>
+          <span class="subtitle">Show me the money <span class="separator" /> 2h</span>
         </div>
 
-        <div class="column">
-          <span class="title">+100,000</span>
-          <span class="subtitle">$500.00</span>
+        <div class="column right">
+          <span class="title numeric">+1337</span>
+          <span class="subtitle numeric">$5.55</span>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column left">
+          <span class="title">Sent Satoshis</span>
+          <span class="subtitle">For the "thing" <span class="separator" /> 3h</span>
+        </div>
+
+        <div class="column right">
+          <span class="title numeric">-100,000</span>
+          <span class="subtitle numeric">$500.00</span>
         </div>
       </div>
     </section>
