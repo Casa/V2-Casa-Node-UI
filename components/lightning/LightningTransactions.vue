@@ -1,5 +1,5 @@
 <template>
-  <div class="card transactions">
+  <div class="card stack lightning-transactions">
     <section class="primary">
       <div class="flex space-between">
         <h3>Transactions</h3>
@@ -10,7 +10,7 @@
         </div>
       </div>
 
-      <div class="columns">
+      <div class="columns totals">
         <div class="column">
           <div class="big numeric">
             101,337
@@ -90,46 +90,7 @@
 <style lang="scss">
   @import "~/assets/css/variables.scss";
 
-  .transactions {
-    position: relative;
-    background-color: transparent;
-    border: 3px solid $transparentGray;
-
-    section.primary {
-      margin: -2.5em -3em 0;
-      padding: 2.5em 3em;
-      height: 300px;
-      background-color: $transparentGray;
-      position: relative;
-    }
-
-    section.secondary {
-      margin: 2em 0;
-      position: relative;
-      z-index: 1;
-    }
-
-    section.foot {
-      margin: 0 -3em -2.5em;
-      padding: 0.75em 0 0.25em;
-      border-top: 3px solid $transparentGray;
-      text-align: center;
-    }
-
-    .graph {
-      position: absolute;
-      top: auto;
-      left: 0;
-      right: 0;
-      bottom: 3px;
-      height: 8em;
-      background-image: $purpleGradientVertical;
-      z-index: 0;
-    }
-
-    .columns {
-      position: relative;
-      z-index: 1;
-    }
+  .lightning-transactions {
+    //
   }
 </style>

@@ -1,43 +1,53 @@
 <template>
-  <div class="card transactions">
+  <div class="card stack channels">
     <section class="primary">
       <div class="flex space-between">
         <h3>Channels</h3>
 
         <div class="buttons">
-          <a class="button">Get Paid</a>
-          <a class="button">Pay Someone</a>
+          <a class="button">Manage Channels</a>
+          <a class="button">Open Channel</a>
         </div>
       </div>
 
-      <div class="columns">
+      <div class="columns totals">
         <div class="column">
           <div class="big numeric">
-            101,337
+            4
           </div>
 
           <div class="label">
-            Bitcoin Balance
+            Lightning Channels
           </div>
         </div>
 
-        <div class="column narrow">
-          <div class="numeric">
-            +1337
+        <div class="column">
+          <div class="big numeric">
+            13
           </div>
 
           <div class="label">
-            Pending Inbound
+            Autopilot Channels
           </div>
         </div>
 
-        <div class="column narrow">
-          <div class="numeric">
-            -336
+        <div class="column">
+          <div class="big numeric">
+            14,600
           </div>
 
           <div class="label">
-            Pending Outbound
+            Sats in Lightning
+          </div>
+        </div>
+
+        <div class="column">
+          <div class="big numeric">
+            400
+          </div>
+
+          <div class="label">
+            Sats Pending
           </div>
         </div>
       </div>
@@ -90,46 +100,7 @@
 <style lang="scss">
   @import "~/assets/css/variables.scss";
 
-  .transactions {
-    position: relative;
-    background-color: transparent;
-    border: 3px solid $transparentGray;
-
-    section.primary {
-      margin: -2.5em -3em 0;
-      padding: 2.5em 3em;
-      height: 300px;
-      background-color: $transparentGray;
-      position: relative;
-    }
-
-    section.secondary {
-      margin: 2em 0;
-      position: relative;
-      z-index: 1;
-    }
-
-    section.foot {
-      margin: 0 -3em -2.5em;
-      padding: 0.75em 0 0.25em;
-      border-top: 3px solid $transparentGray;
-      text-align: center;
-    }
-
-    .graph {
-      position: absolute;
-      top: auto;
-      left: 0;
-      right: 0;
-      bottom: 3px;
-      height: 8em;
-      background-image: $purpleGradientVertical;
-      z-index: 0;
-    }
-
-    .columns {
-      position: relative;
-      z-index: 1;
-    }
+  .channels {
+    //
   }
 </style>
