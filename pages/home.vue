@@ -43,6 +43,7 @@
     created() {
       this.$store.dispatch('bitcoin/getStatus');
       this.$store.dispatch('lightning/getStatus');
+      this.$store.dispatch('system/checkForUpdates');
     },
   }
 </script>

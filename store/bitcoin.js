@@ -20,5 +20,5 @@ export const actions = {
     if(status) {
       commit('isOperational', status.operational);
     }
-  }
+  },
 }
