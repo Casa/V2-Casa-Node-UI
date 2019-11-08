@@ -12,7 +12,7 @@
           </p>
         </div>
 
-        <a class="button has-arrow" @click="update()">Update</a>
+        <a class="button has-arrow" @click="$parent.update()">Update</a>
       </div>
 
       <hr>
@@ -28,7 +28,7 @@
       </div>
 
       <!-- Todo: Make arrow button styles -->
-      <a class="button has-arrow" @click="shutdown()">Shut Down</a>
+      <a class="button has-arrow" @click="$parent.shutdown()">Shut Down</a>
     </div>
 
     <hr>
@@ -42,7 +42,7 @@
         </p>
       </div>
 
-      <a class="button has-arrow" @click="factoryReset()">Factory Reset</a>
+      <a class="button has-arrow" @click="$parent.factoryReset()">Factory Reset</a>
     </div>
   </div>
 </template>

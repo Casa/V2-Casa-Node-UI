@@ -29,7 +29,7 @@
           password: this.password,
         };
 
-        await this.$axios.post(`${this.$env.UPDATE_MANAGER}/v1/update`, data);
+        await this.$axios.post(`${this.$env.API_MANAGER}/v1/update`, data);
 
         Events.$emit('modal-closed');
         this.$router.push('/loading');

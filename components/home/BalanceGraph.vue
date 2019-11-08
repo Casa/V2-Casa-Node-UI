@@ -9,7 +9,7 @@
         </h3>
       </div>
 
-      <div class="column is-one-quarter timescale">
+      <div class="column is-one-quarter timescale is-hidden">
         Past 30 Days
       </div>
     </div>
