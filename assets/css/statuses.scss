@@ -3,7 +3,7 @@
   font-weight: 500;
 
   &.intro-syncing {
-    color: $lightBlue;
+    color: $lightBlue !important;
 
     .icon {
       background-color: $lightBlue;
@@ -11,7 +11,7 @@
   }
 
   &.loading {
-    color: $smokyGray;
+    color: $smokyGray !important;
 
     .icon {
       background-color: $smokyGray;
@@ -19,7 +19,7 @@
   }
 
   &.inactive {
-    color: $red;
+    color: $red !important;
 
     .icon {
       background-color: $red;
@@ -27,7 +27,7 @@
   }
 
   &.syncing {
-    color: $yellow;
+    color: $yellow !important;
 
     .icon {
       background-color: $yellow;
@@ -35,7 +35,7 @@
   }
 
   &.active {
-    color: $green;
+    color: $green !important;
 
     .icon {
       background-color: $green;
