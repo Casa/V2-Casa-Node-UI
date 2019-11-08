@@ -5,7 +5,7 @@
     <div class="columns">
       <div class="column">
         <div class="numeric">
-          8
+          {{ $store.state.bitcoin.peers.total }}
         </div>
 
         <div class="label bitcoin">
@@ -15,7 +15,7 @@
 
       <div class="column">
         <div class="numeric">
-          17
+          {{ $store.state.lightning.channels.length }}
         </div>
 
         <div class="label lightning">
@@ -25,7 +25,7 @@
 
       <div class="column">
         <div class="numeric">
-          38K
+          {{ $store.state.lightning.maxSend }}
         </div>
 
         <div class="label">
@@ -35,7 +35,7 @@
 
       <div class="column">
         <div class="numeric">
-          20K
+          {{ $store.state.lightning.maxReceive }}
         </div>
 
         <div class="label">

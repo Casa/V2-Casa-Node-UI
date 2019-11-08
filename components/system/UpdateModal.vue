@@ -1,15 +1,17 @@
 <template>
   <Modal class="update-modal">
-    <h3>Update Your Node</h3>
+    <form @submit.prevent="update()">
+      <h3>Update Your Node</h3>
 
-    <hr>
+      <hr>
 
-    <InputField v-model="password" label="Node Password" type="password" />
+      <InputField v-model="password" label="Node Password" type="password" />
 
-    <div class="buttons">
-      <ModalClose />
-      <a class="button is-primary" @click="update()">Update</a>
-    </div>
+      <div class="buttons">
+        <ModalClose />
+        <a class="button is-primary">Update</a>
+      </div>
+    </form>
   </Modal>
 </template>
 
@@ -29,7 +31,7 @@
           password: this.password,
         };
 
-        await this.$axios.post(`${this.$env.UPDATE_MANAGER}/v1/update`, data);
+        await this.$axios.post(`${this.$env.API_MANAGER}/v1/device/update`, data);
 
         Events.$emit('modal-closed');
         this.$router.push('/loading');

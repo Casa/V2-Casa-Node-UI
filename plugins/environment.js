@@ -10,7 +10,6 @@ export default function (context, inject) {
 
   context.$env = {
     API_MANAGER: `${apiUrl}:3000`,
-    UPDATE_MANAGER: `${apiUrl}:3001`,
     API_LND: `${apiUrl}:3002`,
     BITCOIN_EXPLORER: cookies.BITCOIN_EXPLORER,
     LIGHTNING_EXPLORER: cookies.LIGHTNING_EXPLORER,

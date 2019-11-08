@@ -5,7 +5,7 @@
     <div class="columns">
       <div class="column">
         <div class="numeric">
-          52K
+          {{ $store.state.lightning.balance.confirmed }}
         </div>
 
         <div class="label">
@@ -15,7 +15,7 @@
 
       <div class="column">
         <div class="numeric">
-          6K
+          {{ $store.state.lightning.balance.pending }}
         </div>
 
         <div class="label">

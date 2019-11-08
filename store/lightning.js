@@ -4,6 +4,16 @@ import API from '@/helpers/api';
 export const state = () => ({
   operational: false,
   unlocked: false,
+  currentBlock: 0,
+  blockHeight: 0,
+  balance: {
+    total: 1337,
+    confirmed: 1337,
+    pending: 3,
+  },
+  channels: ['1', '2'],
+  maxSend: 1336,
+  maxReceive: 1,
 })
 
 // Functions to update the state directly
