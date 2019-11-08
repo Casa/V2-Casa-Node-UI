@@ -17,12 +17,12 @@
     <div class="totals">
       <div class="columns">
         <div class="column is-half numeric total">
-          158,000
+          {{ $store.state.bitcoin.balance.confirmed + $store.state.lightning.balance.confirmed }}
         </div>
 
         <div class="column is-one-quarter subtotal">
           <div class="numeric">
-            100,000
+            {{ $store.state.bitcoin.balance.confirmed }}
           </div>
 
           <div class="label">
@@ -32,7 +32,7 @@
 
         <div class="column is-one-quarter subtotal">
           <div class="numeric">
-            58,000
+            {{ $store.state.lightning.balance.confirmed }}
           </div>
 
           <div class="label">
