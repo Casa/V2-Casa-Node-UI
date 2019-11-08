@@ -1,15 +1,17 @@
 <template>
   <Modal class="update-modal">
-    <h3>Update Your Node</h3>
+    <form @submit.prevent="update()">
+      <h3>Update Your Node</h3>
 
-    <hr>
+      <hr>
 
-    <InputField v-model="password" label="Node Password" type="password" />
+      <InputField v-model="password" label="Node Password" type="password" />
 
-    <div class="buttons">
-      <ModalClose />
-      <a class="button is-primary" @click="update()">Update</a>
-    </div>
+      <div class="buttons">
+        <ModalClose />
+        <a class="button is-primary">Update</a>
+      </div>
+    </form>
   </Modal>
 </template>
 
