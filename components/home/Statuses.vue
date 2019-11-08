@@ -3,20 +3,20 @@
     <nuxt-link to="/bitcoin">
       <h3>Bitcoin</h3>
 
-      <div class="status" :class="bitcoinClass">
+      <div class="status" :class="bitcoin.class">
         <span class="icon" />
 
-        {{ bitcoinText }}
+        {{ bitcoin.text }}
       </div>
     </nuxt-link>
 
     <nuxt-link to="/lightning">
       <h3>Lightning</h3>
 
-      <div class="status" :class="lightningClass">
+      <div class="status" :class="lightning.class">
         <span class="icon" />
 
-        {{ lightningText }}
+        {{ lightning.text }}
       </div>
     </nuxt-link>
   </div>
@@ -25,36 +25,37 @@
 <script>
   export default {
     computed: {
-      bitcoinClass() {
+      bitcoin() {
+        const data = {
+          class: 'loading',
+          text: 'Loading...',
+        };
+
         if(this.$store.state.bitcoin.operational) {
-          return 'active';
-        } else {
-          return 'loading';
+          data.class = 'active';
+          data.text = 'Operational';
         }
+
+        return data;
       },
 
-      bitcoinText() {
-        if(this.$store.state.bitcoin.operational) {
-          return 'Operational';
-        } else {
-          return 'Loading...';
-        }
-      },
+      lightning() {
+        const data = {
+          class: 'loading',
+          text: 'Loading...',
+        };
 
-      lightningClass() {
         if(this.$store.state.lightning.operational) {
-          return 'active';
-        } else {
-          return 'loading';
+          if(this.$store.state.lightning.unlocked) {
+            data.class = 'active';
+            data.text = 'Active';
+          } else {
+            data.class = 'inactive';
+            data.text = 'Locked';
+          }
         }
-      },
 
-      lightningText() {
-        if(this.$store.state.lightning.operational) {
-          return 'Operational';
-        } else {
-          return 'Loading...';
-        }
+        return data;
       },
     },
   }
