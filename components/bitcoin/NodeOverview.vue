@@ -12,7 +12,7 @@
         </h1>
 
         <h6 class="numeric">
-          172.91.133.204
+          {{ $store.state.bitcoin.ipAddress }}
         </h6>
 
         <div class="label">

@@ -14,14 +14,24 @@ export const state = () => ({
     total: 1337,
     confirmed: 1337,
     pending: 3,
-  }
+  },
+  ipAddress: '',
+  torAddress: '',
 })
 
 // Functions to update the state directly
 export const mutations = {
   isOperational(state, operational) {
     state.operational = operational;
-  }
+  },
+
+  ipAddress(state, address) {
+    state.ipAddress = address;
+  },
+
+  torAddress(state, address) {
+    state.torAddress = address;
+  },
 }
 
 // Functions to get data from the API
@@ -31,6 +41,23 @@ export const actions = {
 
     if(status) {
       commit('isOperational', status.operational);
+    }
+  },
+
+  async getAddresses({ commit, state }) {
+    // We can only make this request when bitcoind is operational
+    if(state.operational) {
+      const addresses = await API.get(this.$axios, `${this.$env.API_LND}/v1/bitcoind/info/addresses`);
+
+      if(addresses) {
+        addresses.forEach(address => {
+          if(address.includes('.onion')) {
+            commit('torAddress', address);
+          } else {
+            commit('ipAddress', address);
+          }
+        });
+      }
     }
   },
 }

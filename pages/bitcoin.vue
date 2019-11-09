@@ -23,5 +23,10 @@
     components: {
       NodeOverview, BitcoinTransactions,
     },
+
+    created() {
+      this.$store.dispatch('bitcoin/getStatus');
+      this.$store.dispatch('bitcoin/getAddresses');
+    },
   }
 </script>
