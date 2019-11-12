@@ -59,6 +59,14 @@ export default {
   auth: {
     strategies: {
       local: {
+        // The Nuxt auth module expects specific endpoints for logging in and getting user data which we don't need
+        endpoints: {
+          login: false,
+          user: false,
+          logout: false,
+          loading: false,
+        },
+
         tokenType: 'JWT'
       },
     },
