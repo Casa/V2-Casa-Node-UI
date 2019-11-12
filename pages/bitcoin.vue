@@ -24,8 +24,11 @@
       NodeOverview, BitcoinTransactions,
     },
 
-    created() {
-      this.$store.dispatch('bitcoin/getStatus');
+    async created() {
+      if(!this.$store.state.bitcoin.operational) {
+        await this.$store.dispatch('bitcoin/getStatus');
+      }
+
       this.$store.dispatch('bitcoin/getAddresses');
     },
   }

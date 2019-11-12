@@ -12,7 +12,7 @@
         </h1>
 
         <h6 class="numeric">
-          {{ $store.state.bitcoin.ipAddress }}
+          {{ $store.state.bitcoin.ipAddress || 'Loading...' }}
         </h6>
 
         <div class="label">
