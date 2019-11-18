@@ -7,8 +7,8 @@
 
     <div class="columns space-between">
       <div class="column narrow">
-        <h1 class="status active">
-          Online
+        <h1 class="status" :class="bitcoinStatus.class">
+          {{ bitcoinStatus.text }}
         </h1>
 
         <h6 class="numeric">
@@ -54,6 +54,19 @@
     </div>
   </div>
 </template>
+
+<script>
+  import { mapGetters } from 'vuex';
+
+  export default {
+    computed: {
+      // Create a local copy of the node's status for better readability in templates
+      ...mapGetters({
+        bitcoinStatus: 'bitcoin/status',
+      })
+    },
+  }
+</script>
 
 <style lang="scss">
   @import "~/assets/css/variables.scss";

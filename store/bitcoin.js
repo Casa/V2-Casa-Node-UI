@@ -32,7 +32,7 @@ export const mutations = {
   torAddress(state, address) {
     state.torAddress = address;
   },
-}
+};
 
 // Functions to get data from the API
 export const actions = {
@@ -60,4 +60,20 @@ export const actions = {
       }
     }
   },
-}
+};
+
+export const getters = {
+  status(state) {
+    const data = {
+      class: 'loading',
+      text: 'Loading...',
+    };
+
+    if(state.operational) {
+      data.class = 'active';
+      data.text = 'Operational';
+    }
+
+    return data;
+  },
+};

@@ -38,3 +38,24 @@ export const actions = {
     }
   }
 }
+
+export const getters = {
+  status(state) {
+    const data = {
+      class: 'loading',
+      text: 'Loading...',
+    };
+
+    if(state.operational) {
+      if(state.unlocked) {
+        data.class = 'active';
+        data.text = 'Active';
+      } else {
+        data.class = 'inactive';
+        data.text = 'Locked';
+      }
+    }
+
+    return data;
+  },
+};
