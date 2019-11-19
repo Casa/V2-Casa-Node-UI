@@ -21,14 +21,14 @@
       </div>
 
       <div class="column narrow">
-        <h1 class="numeric status syncing">
-          98%
+        <h1 class="numeric status" :class="bitcoinStatus.class">
+          {{ $store.state.bitcoin.percent }}%
         </h1>
 
         <h6>
-          <span class="numeric">584,768</span>
+          <span class="numeric">{{ $store.state.bitcoin.currentBlock | localized }}</span>
           <span class="spacer">of</span>
-          <span class="numeric">596,703</span>
+          <span class="numeric">{{ $store.state.bitcoin.blockHeight | localized }}</span>
         </h6>
 
         <div class="label">
@@ -83,6 +83,7 @@
     h6 {
       color: $gray;
       font-weight: normal;
+      white-space: nowrap;
     }
 
     .spacer {

@@ -3,8 +3,10 @@ import API from '@/helpers/api';
 // Initial state
 export const state = () => ({
   operational: false,
+  calibrating: false,
   currentBlock: 0,
   blockHeight: 0,
+  percent: 0,
   peers: {
     total: 4,
     inbound: 2,
@@ -32,15 +34,31 @@ export const mutations = {
   torAddress(state, address) {
     state.torAddress = address;
   },
+
+  syncStatus(state, sync) {
+    state.percent = parseFloat(sync.percent) * 100;
+    state.currentBlock = sync.currentBlock;
+    state.blockHeight = sync.headerCount;
+
+    if(sync.status === 'calibrating') {
+      state.calibrating = true;
+    } else {
+      state.calibrating = false;
+    }
+  },
 };
 
 // Functions to get data from the API
 export const actions = {
-  async getStatus({ commit }) {
+  async getStatus({ commit, dispatch }) {
     const status = await API.get(this.$axios, `${this.$env.API_LND}/v1/bitcoind/info/status`);
 
     if(status) {
       commit('isOperational', status.operational);
+
+      if(status.operational) {
+        dispatch('getSync');
+      }
     }
   },
 
@@ -57,6 +75,17 @@ export const actions = {
             commit('ipAddress', address);
           }
         });
+      }
+    }
+  },
+
+  async getSync({ commit, state }) {
+    // We can only make this request when bitcoind is operational
+    if(state.operational) {
+      const sync = await API.get(this.$axios, `${this.$env.API_LND}/v1/bitcoind/info/sync`);
+
+      if(sync) {
+        commit('syncStatus', sync);
       }
     }
   },
