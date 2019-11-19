@@ -38,12 +38,12 @@
 
       <div class="column narrow">
         <h1>
-          <span class="numeric">8</span>
+          <span class="numeric">{{ $store.state.bitcoin.peers.outbound }}</span>
           Outbound
         </h1>
 
         <h6>
-          <span class="numeric">10</span>
+          <span class="numeric">{{ $store.state.bitcoin.peers.inbound }}</span>
           Inbound
         </h6>
 

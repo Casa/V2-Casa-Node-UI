@@ -8,9 +8,9 @@ export const state = () => ({
   blockHeight: 0,
   percent: 0,
   peers: {
-    total: 4,
-    inbound: 2,
-    outbound: 2,
+    total: 0,
+    inbound: 0,
+    outbound: 0,
   },
   balance: {
     total: 1337,
@@ -46,6 +46,12 @@ export const mutations = {
       state.calibrating = false;
     }
   },
+
+  peers(state, peers) {
+    state.peers.total = peers.total || 0;
+    state.peers.inbound = peers.inbound || 0;
+    state.peers.outbound = peers.outbound || 0;
+  },
 };
 
 // Functions to get data from the API
@@ -80,12 +86,21 @@ export const actions = {
   },
 
   async getSync({ commit, state }) {
-    // We can only make this request when bitcoind is operational
     if(state.operational) {
       const sync = await API.get(this.$axios, `${this.$env.API_LND}/v1/bitcoind/info/sync`);
 
       if(sync) {
         commit('syncStatus', sync);
+      }
+    }
+  },
+
+  async getPeers({ commit, state }) {
+    if(state.operational) {
+      const peers = await API.get(this.$axios, `${this.$env.API_LND}/v1/bitcoind/info/connections`);
+
+      if(peers) {
+        commit('peers', peers);
       }
     }
   },

@@ -30,6 +30,7 @@
       }
 
       this.$store.dispatch('bitcoin/getAddresses');
+      this.$store.dispatch('bitcoin/getPeers');
     },
   }
 </script>
