@@ -8,15 +8,29 @@
     </main>
 
     <footer>
-      <nuxt-link to="/intro" class="button">
-        Cancel Migration
-      </nuxt-link>
+      <input type="submit" value="Cancel Migration" class="button" @click="cancelMigration()">
       <nuxt-link to="/migration" class="button is-primary">
         Restart Migration
       </nuxt-link>
     </footer>
   </div>
 </template>
+
+<script>
+  export default {
+
+    methods: {
+
+      async cancelMigration() {
+        const data = {};
+        await this.$axios.post(`${this.$env.API_MANAGER}/v1/device/user-reset`, data);
+
+        this.$router.push('/intro');
+      },
+    }
+  }
+</script>
+
 
 <style lang="scss">
     @import "~/assets/css/variables.scss";

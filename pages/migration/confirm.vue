@@ -35,21 +35,10 @@
     methods: {
 
       async cancelMigration() {
-        try {
-          const data = {};
-          await this.$axios.post(`${this.$env.API_MANAGER}/v1/device/user-reset`, data);
+        const data = {};
+        await this.$axios.post(`${this.$env.API_MANAGER}/v1/device/user-reset`, data);
 
-          this.$router.push('/intro');
-        } catch(error) {
-
-          this.error = true;
-
-          if(error && error.response && error.response.status === 401) {
-            this.errorMessage = 'Unable to authorize this request';
-          } else {
-            this.errorMessage = "An unknown error has occured, please contact support.";
-          }
-        }
+        this.$router.push('/intro');
       },
 
       async login() {
