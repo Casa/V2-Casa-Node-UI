@@ -28,9 +28,25 @@
       <nuxt-link to="/migration/prepare" class="button">
         Go Back
       </nuxt-link>
-      <nuxt-link to="/migration/migrating" class="button is-primary">
+      <span class="button is-primary" @click="startMigration()">
         Begin Migration
-      </nuxt-link>
+      </span>
     </footer>
   </div>
 </template>
+
+<script>
+  export default {
+    methods: {
+
+      async startMigration() {
+        try {
+          await this.$axios.post(`${this.$env.API_MANAGER}/v1/device/migration`);
+          this.$router.push('/migration/migrating');
+        } catch (error) {
+          // TODO handle error
+        }
+      }
+    }
+  }
+</script>

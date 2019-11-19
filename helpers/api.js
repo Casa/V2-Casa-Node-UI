@@ -1,4 +1,4 @@
-// An object to store the ressponse time of completed API requests
+// An object to store the response time of completed API requests
 const responseTime = {};
 
 // An object to store pending API requests
@@ -45,6 +45,6 @@ const API = {
 
     return duration;
   }
-}
+};
 
 export default API;
