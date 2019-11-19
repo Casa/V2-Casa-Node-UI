@@ -50,7 +50,6 @@
       redirectTimeout = undefined;
     },
 
-
     methods: {
 
       async getLoadingPercent() {

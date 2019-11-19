@@ -28,7 +28,7 @@
       <nuxt-link to="/migration/prepare" class="button">
         Go Back
       </nuxt-link>
-      <span type="submit" class="button is-primary" @click="startMigration()">
+      <span class="button is-primary" @click="startMigration()">
         Begin Migration
       </span>
     </footer>
@@ -36,21 +36,17 @@
 </template>
 
 <script>
-  import API from '@/helpers/api';
-
   export default {
     methods: {
 
       async startMigration() {
-        const migration = await API.post(this.$axios, `${this.$env.API_MANAGER}/v1/device/migration`);
-
-        if (migration) {
+        try {
+          await this.$axios.post(`${this.$env.API_MANAGER}/v1/device/migration`);
           this.$router.push('/migration/migrating');
-        } else {
+        } catch (error) {
           // TODO handle error
         }
       }
-
     }
   }
 </script>

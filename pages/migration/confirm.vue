@@ -6,7 +6,7 @@
     </main>
 
     <footer>
-      <input type="submit" value="Cancel Migration" class="button" @click="cancelMigration()">
+      <span class="button" @click="cancelMigration()">Cancel Migration</span>
       <input type="submit" value="Authorize" class="button is-primary" @click="login()">
     </footer>
   </div>

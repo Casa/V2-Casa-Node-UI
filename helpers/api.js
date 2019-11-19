@@ -1,4 +1,4 @@
-// An object to store the ressponse time of completed API requests
+// An object to store the response time of completed API requests
 const responseTime = {};
 
 // An object to store pending API requests
@@ -9,7 +9,7 @@ const API = {
   async get(axios, url, query = {}) {
     let response;
 
-    if (responsePending[url] === undefined || responsePending[url] === false) {
+    if(responsePending[url] === undefined || responsePending[url] === false) {
       responsePending[url] = true;
 
       try {
@@ -18,9 +18,9 @@ const API = {
         const endTime = new Date();
 
         responseTime[url] = (endTime.getTime() - startTime.getTime()) / 1000;
-      } catch (error) {
+      } catch(error) {
         // Only display error messages in the browser console
-        if (process.browser) {
+        if(process.browser) {
           console.error(error);
         }
 
@@ -34,6 +34,17 @@ const API = {
 
     return response;
   },
+
+  // Return the response time if this URL has already been fetched
+  responseTime(url) {
+    let duration = -1;
+
+    if(responseTime[url] !== undefined) {
+      duration = responseTime[url];
+    }
+
+    return duration;
+  }
 };
 
 export default API;
