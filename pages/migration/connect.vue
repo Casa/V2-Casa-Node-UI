@@ -28,9 +28,9 @@
       <nuxt-link to="/migration/prepare" class="button">
         Go Back
       </nuxt-link>
-      <nuxt-link to="/migration/migrating" class="button is-primary" @click="startMigration()">
+      <span type="submit" class="button is-primary" @click="startMigration()">
         Begin Migration
-      </nuxt-link>
+      </span>
     </footer>
   </div>
 </template>
@@ -45,7 +45,7 @@
         const migration = await API.post(this.$axios, `${this.$env.API_MANAGER}/v1/device/migration`);
 
         if (migration) {
-          this.$router.push('/migrating');
+          this.$router.push('/migration/migrating');
         } else {
           // TODO handle error
         }

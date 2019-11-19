@@ -33,7 +33,7 @@
     },
 
     created() {
-      // Immediately check the node boot status
+      // Immediately check the node migration status
       this.getLoadingPercent();
 
       // Periodically check for updates
@@ -47,6 +47,7 @@
 
     destroyed() {
       clearInterval(loadingInterval);
+      redirectTimeout = undefined;
     },
 
 
@@ -70,12 +71,13 @@
 
         const loading = await API.get(this.$axios, `${this.$env.API_MANAGER}/v1/device/migration/status`);
 
-        if(loading.status.error) {
+        // IF 500 or 200 with error
+        if(!loading || loading.status.error) {
           this.error = true;
           this.percent = 100;
 
           redirect(this.$router, '/migration/failed');
-        } else if (loading.status === 'completed'){
+        } else if (loading.status.details === 'completed'){
           this.percent = 100;
 
           redirect(this.$router, '/migration/confirm');
