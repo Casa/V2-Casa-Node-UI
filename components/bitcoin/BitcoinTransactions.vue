@@ -15,7 +15,7 @@
       <div class="columns totals">
         <div class="column">
           <div class="big numeric">
-            101,337
+            {{ $store.state.bitcoin.balance.total }}
           </div>
 
           <div class="label">
@@ -25,7 +25,7 @@
 
         <div class="column narrow">
           <div class="numeric">
-            +1337
+            +{{ $store.state.bitcoin.balance.pendingIn }}
           </div>
 
           <div class="label">
@@ -35,7 +35,7 @@
 
         <div class="column narrow">
           <div class="numeric">
-            -336
+            -{{ $store.state.bitcoin.balance.pendingOut }}
           </div>
 
           <div class="label">
@@ -46,39 +46,31 @@
     </section> <!-- /.primary -->
 
     <section class="secondary">
-      <div class="columns">
+      <div class="columns" v-for="(transaction, index) in $store.state.bitcoin.pending" :key="index">
         <div class="column left">
-          <span class="title">Payment Sent</span>
-          <span class="subtitle">abcdef1234567890 <span class="separator" /> 1h</span>
+          <span v-if="transaction.type === 'ON_CHAIN_TRANSACTION_SENT'" class="title">Payment Sent (Pending)</span>
+          <span v-else class="title">Payment Received (Pending)</span>
+
+          <span class="subtitle">{{ transaction.destAddresses[0] }} <span class="separator" /> 1h</span>
         </div>
 
         <div class="column right">
-          <span class="title numeric">-1337</span>
+          <span class="title numeric">{{ transaction.amount }}</span>
           <span class="subtitle numeric">$5.55</span>
         </div>
       </div>
 
-      <div class="columns">
+      <div class="columns" v-for="(transaction, index) in $store.state.bitcoin.transactions" :key="index">
         <div class="column left">
-          <span class="title">Payment Sent</span>
-          <span class="subtitle">abcdef1234567890 <span class="separator" /> 2h</span>
+          <span v-if="transaction.type === 'ON_CHAIN_TRANSACTION_SENT'" class="title">Payment Sent</span>
+          <span v-else class="title">Payment Received</span>
+
+          <span class="subtitle">{{ transaction.destAddresses[0] }} <span class="separator" /> 2h</span>
         </div>
 
         <div class="column right">
-          <span class="title numeric">-1337</span>
+          <span class="title numeric">{{ transaction.amount }}</span>
           <span class="subtitle numeric">$5.55</span>
-        </div>
-      </div>
-
-      <div class="columns">
-        <div class="column left">
-          <span class="title">Payment Received</span>
-          <span class="subtitle">abcdef1234567890 <span class="separator" /> 3h</span>
-        </div>
-
-        <div class="column right">
-          <span class="title numeric">+100,000</span>
-          <span class="subtitle numeric">$500.00</span>
         </div>
       </div>
     </section>

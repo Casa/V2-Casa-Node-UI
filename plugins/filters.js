@@ -7,6 +7,11 @@ Vue.filter('btc', value => satsToBtc(value));
 // Convert Bitcoin to Satoshis
 Vue.filter('sats', value => btcToSats(value));
 
+// Display a number based on the browser's language settings (comma, period, space, etc.)
+Vue.filter('localized', (value) => {
+  return Number(value).toLocaleString();
+});
+
 /**
  * Vue filter to convert the given value to percent.
  *

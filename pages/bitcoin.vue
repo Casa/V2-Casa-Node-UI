@@ -23,5 +23,14 @@
     components: {
       NodeOverview, BitcoinTransactions,
     },
+
+    async created() {
+      if(!this.$store.state.bitcoin.operational) {
+        await this.$store.dispatch('bitcoin/getStatus');
+      }
+
+      this.$store.dispatch('bitcoin/getAddresses');
+      this.$store.dispatch('bitcoin/getPeers');
+    },
   }
 </script>

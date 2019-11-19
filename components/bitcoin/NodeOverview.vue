@@ -7,12 +7,12 @@
 
     <div class="columns space-between">
       <div class="column narrow">
-        <h1 class="status active">
-          Online
+        <h1 class="status" :class="bitcoinStatus.class">
+          {{ bitcoinStatus.text }}
         </h1>
 
         <h6 class="numeric">
-          172.91.133.204
+          {{ $store.state.bitcoin.ipAddress || 'Loading...' }}
         </h6>
 
         <div class="label">
@@ -21,14 +21,14 @@
       </div>
 
       <div class="column narrow">
-        <h1 class="numeric status syncing">
-          98%
+        <h1 class="numeric status" :class="bitcoinStatus.class">
+          {{ $store.state.bitcoin.percent }}%
         </h1>
 
         <h6>
-          <span class="numeric">584,768</span>
+          <span class="numeric">{{ $store.state.bitcoin.currentBlock | localized }}</span>
           <span class="spacer">of</span>
-          <span class="numeric">596,703</span>
+          <span class="numeric">{{ $store.state.bitcoin.blockHeight | localized }}</span>
         </h6>
 
         <div class="label">
@@ -38,12 +38,12 @@
 
       <div class="column narrow">
         <h1>
-          <span class="numeric">8</span>
+          <span class="numeric">{{ $store.state.bitcoin.peers.outbound }}</span>
           Outbound
         </h1>
 
         <h6>
-          <span class="numeric">10</span>
+          <span class="numeric">{{ $store.state.bitcoin.peers.inbound }}</span>
           Inbound
         </h6>
 
@@ -54,6 +54,19 @@
     </div>
   </div>
 </template>
+
+<script>
+  import { mapGetters } from 'vuex';
+
+  export default {
+    computed: {
+      // Create a local copy of the node's status for better readability in templates
+      ...mapGetters({
+        bitcoinStatus: 'bitcoin/status',
+      })
+    },
+  }
+</script>
 
 <style lang="scss">
   @import "~/assets/css/variables.scss";
@@ -70,6 +83,7 @@
     h6 {
       color: $gray;
       font-weight: normal;
+      white-space: nowrap;
     }
 
     .spacer {
