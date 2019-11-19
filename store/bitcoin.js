@@ -4,6 +4,8 @@ import API from '@/helpers/api';
 export const state = () => ({
   operational: false,
   calibrating: false,
+  ipAddress: '',
+  torAddress: '',
   currentBlock: 0,
   blockHeight: 0,
   percent: 0,
@@ -15,10 +17,13 @@ export const state = () => ({
   balance: {
     total: 1337,
     confirmed: 1337,
-    pending: 3,
+    pending: 6,
+    pendingIn: 3,
+    pendingOut: 3,
   },
-  ipAddress: '',
-  torAddress: '',
+  transactions: [],
+  pending: [],
+  price: 0,
 })
 
 // Functions to update the state directly
@@ -51,6 +56,33 @@ export const mutations = {
     state.peers.total = peers.total || 0;
     state.peers.inbound = peers.inbound || 0;
     state.peers.outbound = peers.outbound || 0;
+  },
+
+  balance(state, balance) {
+    console.log(balance);
+    state.wallet = balance;
+  },
+
+  transactions(state, transactions) {
+    // Clear previously loaded data
+    state.transactions = [];
+    state.pending = [];
+
+    // Loop through transactions and sort them by type
+    transactions.forEach((transaction) => {
+      // Only display Bitcoin transactions
+      if(transaction.type === 'ON_CHAIN_TRANSACTION_SENT' || transaction.type === 'ON_CHAIN_TRANSACTION_RECEIVED') {
+        if(transaction.numConfirmations > 0) {
+          state.transactions.push(transaction);
+        } else {
+          state.pending.push(transaction);
+        }
+      }
+    });
+  },
+
+  price(state, usd) {
+    state.price = usd;
   },
 };
 
@@ -104,6 +136,35 @@ export const actions = {
       }
     }
   },
+
+  async getBalance({ commit, state }) {
+    if(state.operational) {
+      const balance = await API.get(this.$axios, `${this.$env.API_LND}/v1/lnd/wallet/btc`);
+
+      if(balance) {
+        commit('balance', balance);
+      }
+    }
+  },
+
+  async getTransactions({ commit, state }) {
+    if(state.operational) {
+      const transactions = await API.get(this.$axios, `${this.$env.API_LND}/v1/lnd/transaction`);
+
+      if(transactions) {
+        commit('transactions', transactions);
+      }
+    }
+  },
+
+  async getPrice({ commit }) {
+    // Todo: Cache this value on the node instead of making a 3rd party request
+    const price = await API.get(this.$axios, 'https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD');
+
+    if(price) {
+      commit('price', price.usd);
+    }
+  }
 };
 
 export const getters = {
