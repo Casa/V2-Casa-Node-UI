@@ -27,14 +27,6 @@
       }
     },
 
-    created() {
-      this.$auth.strategies.local.options.endpoints.login = {
-        url: `${this.$env.API_MANAGER}/v1/accounts/login`,
-        method: 'post',
-        propertyName: 'jwt'
-      };
-    },
-
     methods: {
       async login() {
         try {

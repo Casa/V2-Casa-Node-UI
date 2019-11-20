@@ -15,5 +15,11 @@ export default function (context, inject) {
     LIGHTNING_EXPLORER: cookies.LIGHTNING_EXPLORER,
   };
 
+  context.$auth.strategies.local.options.endpoints.login = {
+    url: `${context.$env.API_MANAGER}/v1/accounts/login`,
+    method: 'post',
+    propertyName: 'jwt'
+  };
+
   inject('env', context.$env);
 }

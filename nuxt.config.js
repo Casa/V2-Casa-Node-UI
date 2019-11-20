@@ -34,7 +34,6 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: '~/plugins/environment' },
     { src: '~/plugins/filters' },
     { src: '~/plugins/interceptor' },
     { src: '~/plugins/global-components' },
@@ -70,6 +69,10 @@ export default {
         tokenType: 'JWT'
       },
     },
+
+    plugins: [
+      { src: '~/plugins/environment' },
+    ]
   },
 
   /*
