@@ -20,6 +20,21 @@
 
     <div class="flex">
       <div>
+        <h6>Download Logs</h6>
+
+        <p>
+          Note: Error logs can currently only be decrypted by Casa engineers - please send logs to <span class="lightBlue">help@team.casa</span> when requested.
+        </p>
+      </div>
+
+      <!-- Todo: Make arrow button styles -->
+      <a class="button has-arrow" @click="$parent.shutdown()">Download Now</a>
+    </div>
+
+    <hr>
+
+    <div class="flex">
+      <div>
         <h6>Shut Down</h6>
 
         <p>
@@ -29,6 +44,38 @@
 
       <!-- Todo: Make arrow button styles -->
       <a class="button has-arrow" @click="$parent.shutdown()">Shut Down</a>
+    </div>
+
+    <hr>
+
+    <div class="flex">
+      <div>
+
+        <img src="~/assets/icons/sats-extension.svg">
+
+        <p>
+          Access Casa Node from anywhere in the world. Send and accept payments.
+        </p>
+      </div>
+
+      <!-- Todo: Make arrow button styles -->
+      <a class="button has-arrow" @click="$parent.shutdown()">Download Now</a>
+    </div>
+
+    <hr>
+
+    <div class="flex">
+      <div>
+
+        <h6>Node Password</h6>
+
+        <p>
+          Change your node's password.
+        </p>
+      </div>
+
+      <!-- Todo: Make arrow button styles -->
+      <a class="button has-arrow" @click="$parent.shutdown()">Change Password</a>
     </div>
 
     <hr>
@@ -57,6 +104,10 @@
 
     .button {
       margin-left: auto;
+    }
+
+    .lightBlue {
+      color: $lightBlue;
     }
   }
 </style>
