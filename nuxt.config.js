@@ -34,7 +34,6 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: '~/plugins/environment' },
     { src: '~/plugins/filters' },
     { src: '~/plugins/interceptor' },
     { src: '~/plugins/global-components' },
@@ -67,9 +66,17 @@ export default {
           loading: false,
         },
 
-        tokenType: 'JWT'
+        tokenType: 'JWT',
       },
+
+      // Prevent Nuxt from automatically redirecting when logged in (otherwise the intro gets interrupted)
+      redirect: false,
+      watchLoggedIn: false,
     },
+
+    plugins: [
+      { src: '~/plugins/environment' },
+    ]
   },
 
   /*

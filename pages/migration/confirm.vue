@@ -24,16 +24,7 @@
       }
     },
 
-    created() {
-      this.$auth.strategies.local.options.endpoints.login = {
-        url: `${this.$env.API_MANAGER}/v1/accounts/login`,
-        method: 'post',
-        propertyName: 'jwt'
-      };
-    },
-
     methods: {
-
       async cancelMigration() {
         const data = {};
         await this.$axios.post(`${this.$env.API_MANAGER}/v1/device/user-reset`, data);
@@ -90,8 +81,6 @@
             this.errorMessage = "Your node's internal IP address has changed. Please restart the device to continue.";
           }
         }
-
-
       },
     }
   }
