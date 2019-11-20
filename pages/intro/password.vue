@@ -54,7 +54,15 @@
             seed: this.seedPhrase,
           };
 
-          await this.$axios.post(`${this.$env.API_MANAGER}/v1/accounts/register`, data);
+          const register = await this.$axios.post(`${this.$env.API_MANAGER}/v1/accounts/register`, data);
+
+          // We can't use $auth.setUserToken beacuse it forces a redirect to the home page and does not respect the watchLoggedIn option
+          // Todo: Fix this upstream?
+          const token = `JWT ${register.data.jwt}`;
+
+          this.$auth.setToken('local', token);
+          this.$auth.strategy._setToken(token);
+
           this.$router.push({path: '/intro/got-it'});
         } catch(error) {
           let errorMessage, seedError;

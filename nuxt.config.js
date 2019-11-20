@@ -66,8 +66,12 @@ export default {
           loading: false,
         },
 
-        tokenType: 'JWT'
+        tokenType: 'JWT',
       },
+
+      // Prevent Nuxt from automatically redirecting when logged in (otherwise the intro gets interrupted)
+      redirect: false,
+      watchLoggedIn: false,
     },
 
     plugins: [
