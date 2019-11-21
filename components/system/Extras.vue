@@ -50,7 +50,6 @@
 
     <div class="flex">
       <div>
-
         <img src="~/assets/icons/sats-extension.svg">
 
         <p>
@@ -66,7 +65,6 @@
 
     <div class="flex">
       <div>
-
         <h6>Node Password</h6>
 
         <p>

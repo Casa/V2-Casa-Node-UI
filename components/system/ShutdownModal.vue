@@ -14,7 +14,7 @@
         Please enter your password to confirm the shutdown.
       </p>
 
-      <InputField v-model="password" :error="error" :error-message="errorMessage" label="Node Password" type="password" class="pass"/>
+      <InputField v-model="password" :error="error" :error-message="errorMessage" label="Node Password" type="password" class="pass" />
 
       <div class="buttons">
         <ModalClose />
