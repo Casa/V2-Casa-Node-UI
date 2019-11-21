@@ -85,7 +85,7 @@
         <h6>Factory Reset</h6>
 
         <p>
-          Wipes all Node data. Resets channels, passwords, and more.
+          Returns to factory condition. Wipes passwords, channels, and wallets, but leaving block data.
         </p>
       </div>
 
