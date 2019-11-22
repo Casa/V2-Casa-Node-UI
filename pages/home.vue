@@ -1,31 +1,25 @@
 <template>
-  <div class="wrapper">
-    <div class="page">
-      <h1>
-        <img src="~/assets/icons/casa.svg">
+  <div class="page">
+    <h1>
+      <img src="~/assets/icons/casa.svg">
 
-        Home
-      </h1>
+      Home
+    </h1>
 
-      <UnitSwitch />
+    <UnitSwitch />
 
-      <UpdateMessage v-if="$store.state.system.updateAvailable" />
-      <BalanceGraph />
+    <UpdateMessage v-if="$store.state.system.updateAvailable" />
+    <BalanceGraph />
 
-      <div class="cards">
-        <NodeSummary />
-        <Statuses />
-      </div>
-
-      <div class="cards">
-        <LightningBalances />
-        <SatsApp />
-      </div>
+    <div class="cards">
+      <NodeSummary />
+      <Statuses />
     </div>
 
-    <template v-if="activeModal">
-      <component :is="activeModal" />
-    </template>
+    <div class="cards">
+      <LightningBalances />
+      <SatsApp />
+    </div>
   </div>
 </template>
 
@@ -37,7 +31,7 @@
   import Statuses from '~/components/home/Statuses';
   import LightningBalances from '~/components/home/LightningBalances';
   import SatsApp from '~/components/home/SatsApp';
-  import UpdateModal from '~/components/system/UpdateModal';
+  import UpdateModal from '~/components/system/modals/Update';
 
   export default {
     layout: 'dashboard',
@@ -48,12 +42,6 @@
       LightningBalances, SatsApp,
     },
 
-    data() {
-      return {
-        activeModal: false,
-      }
-    },
-
     created() {
       this.$store.dispatch('bitcoin/getStatus');
       this.$store.dispatch('lightning/getStatus');
@@ -61,13 +49,8 @@
     },
 
     methods: {
-      openModal(modal) {
-        this.activeModal = modal;
-        Events.$emit('modal-opened');
-      },
-
       update() {
-        this.openModal(UpdateModal);
+        Events.$emit('modal-open', UpdateModal);
       },
     }
   }

@@ -33,7 +33,7 @@
 
         await this.$axios.post(`${this.$env.API_MANAGER}/v1/device/update`, data);
 
-        Events.$emit('modal-closed');
+        Events.$emit('modal-close');
         this.$router.push('/loading');
       }
     }

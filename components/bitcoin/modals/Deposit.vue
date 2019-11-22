@@ -16,7 +16,7 @@
     <div class="flex centered">
       <CopyField :value="address" />
 
-      [qr code]
+      
     </div>
     <hr>
 

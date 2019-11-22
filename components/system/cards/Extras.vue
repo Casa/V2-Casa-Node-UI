@@ -12,7 +12,7 @@
           </p>
         </div>
 
-        <a class="button has-arrow" @click="$parent.update()">Update</a>
+        <a class="button has-arrow" @click="update()">Update</a>
       </div>
 
       <hr>
@@ -28,7 +28,7 @@
       </div>
 
       <!-- Todo: Make arrow button styles -->
-      <a class="button has-arrow" @click="$parent.shutdown()">Download Now</a>
+      <a class="button has-arrow" @click="shutdown()">Download Now</a>
     </div>
 
     <hr>
@@ -43,7 +43,7 @@
       </div>
 
       <!-- Todo: Make arrow button styles -->
-      <a class="button has-arrow" @click="$parent.shutdown()">Shut Down</a>
+      <a class="button has-arrow" @click="shutdown()">Shut Down</a>
     </div>
 
     <hr>
@@ -58,7 +58,7 @@
       </div>
 
       <!-- Todo: Make arrow button styles -->
-      <a class="button has-arrow" @click="$parent.shutdown()">Download Now</a>
+      <a class="button has-arrow" @click="shutdown()">Download Now</a>
     </div>
 
     <hr>
@@ -73,7 +73,7 @@
       </div>
 
       <!-- Todo: Make arrow button styles -->
-      <a class="button has-arrow" @click="$parent.shutdown()">Change Password</a>
+      <a class="button has-arrow" @click="shutdown()">Change Password</a>
     </div>
 
     <hr>
@@ -87,10 +87,33 @@
         </p>
       </div>
 
-      <a class="button has-arrow" @click="$parent.factoryReset()">Factory Reset</a>
+      <a class="button has-arrow" @click="factoryReset()">Factory Reset</a>
     </div>
   </div>
 </template>
+
+<script>
+  import Events from '~/helpers/events';
+  import UpdateModal from '~/components/system/modals/Update';
+  import ShutdownModal from '~/components/system/modals/Shutdown';
+  import FactoryResetModal from '~/components/system/modals/FactoryReset';
+
+  export default {
+    methods: {
+      update() {
+        Events.$emit('modal-open', UpdateModal);
+      },
+
+      shutdown() {
+        Events.$emit('modal-open', ShutdownModal);
+      },
+
+      factoryReset() {
+        Events.$emit('modal-open', FactoryResetModal);
+      },
+    }
+  }
+</script>
 
 <style lang="scss">
   @import "~/assets/css/variables.scss";
