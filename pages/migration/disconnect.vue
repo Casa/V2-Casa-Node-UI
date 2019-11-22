@@ -4,7 +4,7 @@
       <img src="~/assets/icons/adapter.svg">
 
       <h2 class="headline">
-        Almost there. Please unplug the hard drive cable from the back of Casa Node 2.
+        Almost there. Please unplug the Casa Node 1's hard drive cable from the back of Casa Node 2.
       </h2>
     </main>
     <footer>

@@ -3,7 +3,7 @@
     <main>
       <img src="~/assets/icons/adapter.svg">
 
-      <h2>Not, it's time to connect the hard drive cable.</h2>
+      <h2>Now it's time to connect the hard drive cable.</h2>
       <p class="paragraph">
         This step will enable you to transfer data between the two nodes.
       </p>

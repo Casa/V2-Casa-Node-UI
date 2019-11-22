@@ -4,7 +4,7 @@
       <img src="~/assets/icons/password.svg">
 
       <h2>Okay, let's import your seed phrase.</h2>
-      <p>Important: you can only import seed phrases from LND wallets. Importing from a typical Bitcoin wallet won’t work.</p>
+      <p>Important: you can only import "aezeed" phrases from LND wallets. Importing from a typical Bitcoin wallet won’t work.</p>
 
       <div class="seed-phrase">
         <template v-for="count in 24">
