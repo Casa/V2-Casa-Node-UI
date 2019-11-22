@@ -5,7 +5,7 @@
 
       <hr>
 
-      <p>Coming soon 😛</p>
+      <p>Coming soon™</p>
 
       <hr>
 

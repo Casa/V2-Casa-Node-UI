@@ -75,7 +75,7 @@
       </div>
     </section>
 
-    <section class="foot">
+    <section class="foot is-hidden">
       <a class="button">See All 188 Transactions</a>
     </section>
   </div>

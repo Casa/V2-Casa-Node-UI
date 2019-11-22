@@ -44,6 +44,7 @@
 
     created() {
       this.$store.dispatch('bitcoin/getStatus');
+      this.$store.dispatch('bitcoin/getBalance');
       this.$store.dispatch('lightning/getStatus');
       this.$store.dispatch('system/checkForUpdates');
     },
