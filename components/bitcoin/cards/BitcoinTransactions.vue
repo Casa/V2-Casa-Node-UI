@@ -7,8 +7,8 @@
         <h3>Transactions</h3>
 
         <div class="buttons">
-          <a class="button">Get Paid</a>
-          <a class="button">Pay Someone</a>
+          <a class="button" @click="deposit()">Get Paid</a>
+          <a class="button" @click="withdraw()">Pay Someone</a>
         </div>
       </div>
 
@@ -81,6 +81,23 @@
   </div>
 </template>
 
+<script>
+  import Events from '~/helpers/events';
+  import DepositModal from '~/components/bitcoin/modals/Deposit';
+  import WithdrawModal from '~/components/bitcoin/modals/Withdraw';
+
+  export default {
+    methods: {
+      deposit() {
+        Events.$emit('modal-open', DepositModal);
+      },
+
+      withdraw() {
+        Events.$emit('modal-open', WithdrawModal);
+      },
+    }
+  }
+</script>
 
 <style lang="scss">
   @import "~/assets/css/variables.scss";
