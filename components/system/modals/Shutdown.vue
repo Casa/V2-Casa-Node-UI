@@ -1,8 +1,7 @@
 <template>
   <Modal>
-    <hr>
     <form>
-      <h3>Shutdown Your Node</h3>
+      <h3>Shut Down Your Node</h3>
 
       <hr>
 
@@ -15,7 +14,7 @@
       </p>
 
       <InputField v-model="password" :error="error" :error-message="errorMessage" label="Node Password" type="password" class="pass" />
-
+      <hr>
       <div class="buttons">
         <ModalClose />
         <a class="button is-primary" @click="shutdown()">Confirm</a>
