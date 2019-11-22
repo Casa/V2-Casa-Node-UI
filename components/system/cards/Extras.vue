@@ -58,7 +58,7 @@
       </div>
 
       <!-- Todo: Make arrow button styles -->
-      <a class="button has-arrow" @click="shutdown()">Download Now</a>
+      <a href="https://chrome.google.com/webstore/detail/sats-extension-by-casa/lnaedehiikghclgaikolambpbpeknpef" class="button has-arrow">Download Now</a>
     </div>
 
     <hr>
