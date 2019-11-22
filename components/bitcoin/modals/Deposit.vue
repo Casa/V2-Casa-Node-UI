@@ -1,16 +1,23 @@
 <template>
   <Modal class="bitcoin-deposit-modal">
-    <h3>
-      Deposit Bitcoin
-    </h3>
+    <div class="columns modal-heading">
+      <div class="column">
+        <h3>
+          Deposit Bitcoin
+        </h3>
+      </div>
 
-    <p>Receive Bitcoin on your Casa Node using this address or QR code.</p>
-
+      <div class="column is-two-thirds modal-description">
+        Receive Bitcoin on your Casa Node using this address or QR code.
+      </div>
+    </div>
     <hr>
 
-    <CopyField value="bitcoin address" />
-    [qr code]
+    <div class="flex centered">
+      <CopyField :value="address" />
 
+      [qr code]
+    </div>
     <hr>
 
     <div class="buttons centered">
@@ -21,12 +28,18 @@
 
 <script>
   import Events from '~/helpers/events';
+  import API from '@/helpers/api';
 
   export default {
     data() {
       return {
-        //
+        address: false,
       }
+    },
+
+    async created() {
+      const bitcoinAddress = await API.get(this.$axios, `${this.$env.API_LND}/v1/lnd/address`);
+      this.address = bitcoinAddress.address;
     },
 
     methods: {
@@ -39,6 +52,8 @@
 
 <style lang="scss">
   .bitcoin-deposit-modal {
-
+    .modal-content {
+      min-width: 50%;
+    }
   }
 </style>

@@ -21,5 +21,19 @@
       border-radius: 12px;
       padding: 2em;
     }
+
+    .modal-heading {
+      margin-bottom: 0;
+
+      .column {
+        padding-bottom: 0.5em;
+      }
+    }
+
+    .modal-description {
+      text-align: right;
+      align-self: flex-end;
+      color: $translucentWhite;
+    }
   }
 </style>

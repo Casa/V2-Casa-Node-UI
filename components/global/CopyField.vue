@@ -26,6 +26,8 @@
         copyInput.setSelectionRange(0, this.value.length);
 
         document.execCommand("copy");
+
+        // Todo - add confirmation toast message
       }
     }
   }
