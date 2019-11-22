@@ -1,17 +1,21 @@
 <template>
-  <Modal class="update-modal">
-    <form @submit.prevent="update()">
-      <h3>Deposit Bitcoin</h3>
+  <Modal class="bitcoin-deposit-modal">
+    <h3>
+      Deposit Bitcoin
+    </h3>
 
-      <hr>
+    <p>Receive Bitcoin on your Casa Node using this address or QR code.</p>
 
-      <InputField v-model="password" label="Node Password" type="password" />
+    <hr>
 
-      <div class="buttons">
-        <ModalClose />
-        <a class="button is-primary">Update</a>
-      </div>
-    </form>
+    <CopyField />
+    [qr code]
+
+    <hr>
+
+    <div class="buttons centered">
+      <a class="button is-primary" @click="close()">Close</a>
+    </div>
   </Modal>
 </template>
 
@@ -21,30 +25,20 @@
   export default {
     data() {
       return {
-        password: '',
+        //
       }
     },
 
     methods: {
-      async update() {
-        const data = {
-          password: this.password,
-        };
-
-        await this.$axios.post(`${this.$env.API_MANAGER}/v1/device/update`, data);
-
-        Events.$emit('modal-closed');
-        this.$router.push('/loading');
+      close() {
+        Events.$emit('modal-close');
       }
     }
   }
 </script>
 
 <style lang="scss">
-  .update-modal {
-    .input-wrap {
-      width: 100%;
-      display: block;
-    }
+  .bitcoin-deposit-modal {
+
   }
 </style>
