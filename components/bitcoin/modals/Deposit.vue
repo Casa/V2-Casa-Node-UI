@@ -8,7 +8,7 @@
 
     <hr>
 
-    <CopyField />
+    <CopyField value="bitcoin address" />
     [qr code]
 
     <hr>
