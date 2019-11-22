@@ -14,8 +14,8 @@
 </template>
 
 <script>
-  import NodeOverview from '~/components/bitcoin/NodeOverview';
-  import BitcoinTransactions from '~/components/bitcoin/BitcoinTransactions';
+  import NodeOverview from '~/components/bitcoin/cards/NodeOverview';
+  import BitcoinTransactions from '~/components/bitcoin/cards/BitcoinTransactions';
 
   export default {
     layout: 'dashboard',
