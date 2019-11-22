@@ -1,4 +1,10 @@
+// 3rd party components
 import Vue from 'vue';
+import VueQriously from 'vue-qriously';
+
+Vue.use(VueQriously);
+
+// Custom components
 import UnitSwitch from '~/components/global/UnitSwitch';
 import Footer from '~/components/global/Footer';
 import InputField from '~/components/global/InputField';

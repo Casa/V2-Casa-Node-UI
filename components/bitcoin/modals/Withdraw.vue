@@ -5,6 +5,10 @@
 
       <hr>
 
+      <p>Coming soon 😛</p>
+
+      <hr>
+
       <div class="buttons">
         <ModalClose />
         <a class="button is-primary">Update</a>

@@ -15,9 +15,12 @@
 
     <div class="flex centered">
       <CopyField :value="address" />
-
-      
     </div>
+
+    <div class="flex centered qr-code">
+      <qriously :value="address" :size="320" foreground="#865efc" />
+    </div>
+
     <hr>
 
     <div class="buttons centered">
@@ -54,6 +57,14 @@
   .bitcoin-deposit-modal {
     .modal-content {
       min-width: 50%;
+    }
+
+    .qr-code {
+      margin: 3em 0 2.5em;
+
+      canvas {
+        border-radius: 16px;
+      }
     }
   }
 </style>
