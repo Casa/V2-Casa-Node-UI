@@ -28,7 +28,7 @@
       </div>
 
       <!-- Todo: Make arrow button styles -->
-      <a class="button has-arrow" @click="shutdown()">Download Now</a>
+      <a class="button has-arrow" :href="downloadUrl" @click.prevent="downloadLogs()">Download Now</a>
     </div>
 
     <hr>
@@ -93,12 +93,18 @@
 </template>
 
 <script>
+  import API from '@/helpers/api';
   import Events from '~/helpers/events';
   import UpdateModal from '~/components/system/modals/Update';
   import ShutdownModal from '~/components/system/modals/Shutdown';
   import FactoryResetModal from '~/components/system/modals/FactoryReset';
 
   export default {
+    data() {
+      return {
+        downloadUrl: this.$env.API_MANAGER + '/v1/logs/download',
+      }
+    },
     methods: {
       update() {
         Events.$emit('modal-open', UpdateModal);
@@ -110,6 +116,19 @@
 
       factoryReset() {
         Events.$emit('modal-open', FactoryResetModal);
+      },
+
+      // Download the casa node logs
+      async downloadLogs() {
+
+        const response = await API.get(this.$axios, `${this.$env.API_MANAGER}/v1/logs/download`, {responseType: 'arraybuffer'});
+
+        const url = window.URL.createObjectURL(new Blob([response]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'casa-node-logs.tar.bz2'); //or any other extension
+        document.body.appendChild(link);
+        link.click();
       },
     }
   }
