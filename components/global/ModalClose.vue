@@ -10,7 +10,7 @@
   export default {
     methods: {
       closeModal() {
-        Events.$emit('modal-closed');
+        Events.$emit('modal-close');
       }
     }
   }

@@ -14,8 +14,8 @@
 </template>
 
 <script>
-  import NodeOverview from '~/components/bitcoin/NodeOverview';
-  import BitcoinTransactions from '~/components/bitcoin/BitcoinTransactions';
+  import NodeOverview from '~/components/bitcoin/cards/NodeOverview';
+  import BitcoinTransactions from '~/components/bitcoin/cards/BitcoinTransactions';
 
   export default {
     layout: 'dashboard',
@@ -31,6 +31,9 @@
 
       this.$store.dispatch('bitcoin/getAddresses');
       this.$store.dispatch('bitcoin/getPeers');
+      this.$store.dispatch('bitcoin/getBalance');
+      this.$store.dispatch('bitcoin/getTransactions');
+      this.$store.dispatch('bitcoin/getPrice');
     },
   }
 </script>

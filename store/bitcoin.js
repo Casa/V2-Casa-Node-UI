@@ -15,11 +15,11 @@ export const state = () => ({
     outbound: 0,
   },
   balance: {
-    total: 1337,
-    confirmed: 1337,
-    pending: 6,
-    pendingIn: 3,
-    pendingOut: 3,
+    total: 0,
+    confirmed: 0,
+    pending: 0,
+    pendingIn: 0,
+    pendingOut: 0,
   },
   transactions: [],
   pending: [],
@@ -59,8 +59,9 @@ export const mutations = {
   },
 
   balance(state, balance) {
-    console.log(balance);
-    state.wallet = balance;
+    state.balance.total = parseInt(balance.totalBalance);
+    state.balance.confirmed = parseInt(balance.confirmedBalance);
+    state.balance.pending = parseInt(balance.unconfirmedBalance);
   },
 
   transactions(state, transactions) {

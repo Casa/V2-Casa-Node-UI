@@ -7,13 +7,13 @@ export const state = () => ({
   currentBlock: 0,
   blockHeight: 0,
   balance: {
-    total: 1337,
-    confirmed: 1337,
-    pending: 3,
+    total: 0,
+    confirmed: 0,
+    pending: 0,
   },
-  channels: ['1', '2'],
-  maxSend: 1336,
-  maxReceive: 1,
+  channels: [],
+  maxSend: 0,
+  maxReceive: 0,
 })
 
 // Functions to update the state directly

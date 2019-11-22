@@ -33,7 +33,13 @@
     </aside>
 
     <main>
-      <nuxt />
+      <div class="wrapper">
+        <nuxt />
+
+        <template v-if="activeModal">
+          <component :is="activeModal" />
+        </template>
+      </div>
     </main>
   </div>
 </template>
@@ -44,16 +50,19 @@
   export default {
     data() {
       return {
+        activeModal: false,
         blurred: false,
       }
     },
 
     created() {
-      Events.$on('modal-opened', () => {
+      Events.$on('modal-open', (modal) => {
+        this.activeModal = modal;
         this.blurred = true;
       });
 
-      Events.$on('modal-closed', () => {
+      Events.$on('modal-close', () => {
+        this.activeModal = false;
         this.blurred = false;
       });
     },
