@@ -1,6 +1,6 @@
 <template>
   <Modal class="bitcoin-withdraw-modal">
-    <form @submit.prevent="review()">
+    <form v-if="step == 'input'" @submit.prevent="review()">
       <div class="columns modal-heading">
         <div class="column">
           <h3>
@@ -69,7 +69,38 @@
 
       <div class="buttons">
         <ModalClose />
-        <a class="button is-primary">Review Withdrawal</a>
+        <button type="submit" class="button is-primary">Review Withdrawal</button>
+      </div>
+    </form>
+
+    <form v-else-if="step == 'review'" @submit.prevent="withdraw()">
+      <div class="columns modal-heading">
+        <div class="column">
+          <h3>
+            Review Bitcoin Withdrawal
+          </h3>
+        </div>
+
+        <div class="column modal-description">
+          <UnitSwitch />
+        </div>
+      </div>
+      <hr>
+
+      To <span class="numeric">Address</span>
+
+      Total amount in units
+      Total amount in dollars
+
+      <div class="label">Miner fee</div>
+
+      <div class="label">New Balance</div>
+
+      <hr>
+
+      <div class="buttons">
+        <a class="button" @click="edit()">Go Back and Edit</a>
+        <button type="submit" class="button is-primary">Confirm Withdrawal</button>
       </div>
     </form>
   </Modal>
@@ -84,6 +115,7 @@
   export default {
     data() {
       return {
+        step: 'input',
         feeTimeout: false,
         chosenFee: 'normal',
 
@@ -189,8 +221,16 @@
         this.estimateFees();
       },
 
+      review() {
+        this.step = 'review';
+      },
+
+      edit() {
+        this.step = 'input';
+      },
+
       withdraw() {
-        //
+        alert('withdraw btc!');
       },
     }
   }
