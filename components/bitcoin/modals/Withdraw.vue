@@ -43,7 +43,7 @@
         </p>
 
         <div class="fee-options">
-          <div class="fee-option" :class="{active: chosenFee === 'fast'}" @click="setFee('fast')">
+          <div class="fee-option left" :class="{active: chosenFee === 'fast'}" @click="setFee('fast')">
             <div class="fee-cost">Fast: {{fee.fast.total | usd}}</div>
             <div class="fee-time">~10 min</div>
           </div>
@@ -58,7 +58,7 @@
             <div class="fee-time">~4 hours</div>
           </div>
 
-          <div class="fee-option" :class="{active: chosenFee === 'cheapest'}" @click="setFee('cheapest')">
+          <div class="fee-option right" :class="{active: chosenFee === 'cheapest'}" @click="setFee('cheapest')">
             <div class="fee-cost">Cheapest: {{fee.cheapest.total | usd}}</div>
             <div class="fee-time">~24 hours</div>
           </div>
@@ -237,6 +237,8 @@
 </script>
 
 <style lang="scss">
+  @import "~/assets/css/variables.scss";
+
   .bitcoin-withdraw-modal {
     .modal-content {
       min-width: 50%;
@@ -247,22 +249,26 @@
       right: 2.1em;
     }
 
-
     .withdrawal-fee {
       margin-top: 2.5em;
+
+      .label {
+        font-size: 13px;
+        margin-bottom: 2em;
+        letter-spacing: 1.08px;
+      }
 
       .fee-options {
         position: relative;
         display: flex;
-        color: #b5b4bd;
 
         &::before {
           position: absolute;
-          width: 75%;
-          left: 10%;
+          width: 95%;
+          left: 2.5%;
           top: 0.75em;
           content: '';
-          border-top: 3px solid rgba(181, 180, 189, 0.5);
+          border-top: 3px solid rgba(255, 255, 255, 0.1);
         }
       }
 
@@ -277,40 +283,62 @@
         .fee-time {
           font-size: 15px;
           font-weight: normal;
+          color: $lightGray;
         }
 
         &::before {
           position: absolute;
-          top: 0;
+          top: -0.2em;
           left: calc(50% - 0.85em);
-          width: 1.7em;
-          height: 1.7em;
-          background-color: #fff;
+          width: 2em;
+          height: 2em;
           content: '';
           border-radius: 100%;
-          border: 3px solid rgba(181, 180, 189, 0.5);
+          border: solid 2px $transparentWhite;
+          background-color: $blue;
+        }
+      }
+
+      .fee-option.left {
+        text-align: left;
+        flex-grow: 0;
+        width: 9em;
+
+        &::before {
+          left: 0;
+        }
+      }
+
+      .fee-option.right {
+        text-align: right;
+        flex-grow: 0;
+        width: 9em;
+
+        &::before {
+          left: auto;
+          right: 0;
         }
       }
 
       .fee-option:hover {
         .fee-cost {
-          color: #865efc;
+          color: $lightBlue;
         }
 
         &::before {
-          border-color: #865efc;
+          border-color: $lightBlue;
           opacity: 1;
         }
       }
 
       .fee-option.active {
         .fee-cost {
-          color: #865efc;
+          color: $lightBlue;
         }
 
         &::before {
-          border-color: #865efc;
-          background-color: #865efc;
+          border-color: $lightBlue;
+          background-color: $lightBlue;
           background-image: url('~assets/icons/checkmark.svg');
           background-size: 1em;
           background-repeat: no-repeat;
