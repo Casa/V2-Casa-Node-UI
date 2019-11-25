@@ -41,6 +41,7 @@
 </template>
 
 <script>
+  import API from '@/helpers/api';
   import Events from '~/helpers/events';
 
   export default {
@@ -54,7 +55,7 @@
 
     methods: {
       async factoryReset() {
-        await this.$axios.post(`${this.$env.API_MANAGER}/v1/device/factory-reset`);
+        await API.post({ axios: this.$axios, url: `${this.$env.API_MANAGER}/v1/device/factory-reset` });
 
         Events.$emit('modal-closed');
         this.$router.push('/');

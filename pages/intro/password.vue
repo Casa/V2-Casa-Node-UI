@@ -18,6 +18,9 @@
 </template>
 
 <script>
+
+  import API from '@/helpers/api';
+
   export default {
     data() {
       return {
@@ -60,8 +63,8 @@
             password: this.password,
             seed: this.seedPhrase,
           };
-          
-          const register = await this.$axios.post(`${this.$env.API_MANAGER}/v1/accounts/register`, data, auth);
+
+          const register = await API.post({axios: this.$axios, url: `${this.$env.API_MANAGER}/v1/accounts/register`, data, auth});
 
           // We can't use $auth.setUserToken beacuse it forces a redirect to the home page and does not respect the watchLoggedIn option
           // Todo: Fix this upstream?

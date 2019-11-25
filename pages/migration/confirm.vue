@@ -26,9 +26,7 @@
 
     methods: {
       async cancelMigration() {
-        const data = {};
-        await this.$axios.post(`${this.$env.API_MANAGER}/v1/device/user-reset`, data);
-
+        await API.post({ axios: this.$axios, url: `${this.$env.API_MANAGER}/v1/device/factory-reset` });
         this.$router.push('/intro');
       },
 

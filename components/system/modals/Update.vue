@@ -17,6 +17,7 @@
 
 <script>
   import Events from '~/helpers/events';
+  import API from '@/helpers/api';
 
   export default {
     data() {
@@ -31,7 +32,7 @@
           password: this.password,
         };
 
-        await this.$axios.post(`${this.$env.API_MANAGER}/v1/device/update`, data);
+        await API.post({ axios: this.$axios, url: `${this.$env.API_MANAGER}/v1/device/update`, data });
 
         Events.$emit('modal-close');
         this.$router.push('/loading');
