@@ -6,7 +6,7 @@
 
       <h2>You've chosen to migrate from Casa Node 1.</h2>
       <p class="paragraph">
-        Migrating from Casa Node 1 will transfer your channels, funds, and settings. To preform the migration, you'll need physical access to both Casa Nodes.
+        Migrating from Casa Node 1 will transfer your channels, funds, and settings. To perform the migration you'll need physical access to both Casa Nodes.
       </p>
 
       <span class="pill is-red">Important Note</span>
