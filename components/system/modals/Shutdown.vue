@@ -25,6 +25,7 @@
 
 <script>
   import Events from '~/helpers/events';
+  import API from '@/helpers/api';
 
   export default {
     data() {
@@ -48,7 +49,7 @@
         };
 
         try {
-          await this.$axios.post(`${this.$env.API_MANAGER}/v1/device/shutdown`, data, auth);
+          await API.post({ url: `${this.$env.API_MANAGER}/v1/device/shutdown`, data, auth });
 
           Events.$emit('modal-close');
           this.$router.push('/shutdown');

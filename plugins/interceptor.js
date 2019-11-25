@@ -14,11 +14,6 @@ export default function ({$axios, app}) {
         return Promise.reject(error);
       }
 
-      // Do not redirect to login for the following routes
-      if (error.response.config.url.endsWith('/v1/device/shutdown')) {
-        return Promise.reject(error);
-      }
-
       const code = parseInt(error.response && error.response.status);
 
       // If the error is 401 (unauthorized), log the user out and redirect to the login page
