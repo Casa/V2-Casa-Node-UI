@@ -14,12 +14,25 @@
       </div>
       <hr>
 
-      input
+      <div class="columns">
+        <div class="column is-full">
+          <input class="primary-input numeric" v-model="amountUsd">
+        </div>
+      </div>
 
-      0 sats
+      <div class="columns">
+        <div class="column left">
+          <a class="button is-small">Send Max</a>
+        </div>
 
-      <a class="button is-small">Send Max</a>
-      <a class="button is-small">Switch to Sats</a>
+        <div class="column centered centered-vertically">
+          <span class="numeric">0</span> sats
+        </div>
+
+        <div class="column right">
+          <a class="button is-small">Switch to Sats</a>
+        </div>
+      </div>
 
       <InputField label="Recipient Bitcoin Address" />
 
@@ -116,6 +129,10 @@
     data() {
       return {
         step: 'input',
+        amountSats: 0,
+        amountBtc: 0,
+        amountUsd: '$0',
+
         feeTimeout: false,
         chosenFee: 'normal',
 
@@ -249,6 +266,21 @@
       right: 2.1em;
     }
 
+    .primary-input {
+      background: none;
+      border: none;
+      outline: none;
+      color: $white;
+      font-size: 60px;
+      text-align: center;
+      margin: 0 auto;
+      display: block;
+    }
+
+    .input-wrap {
+      width: 100%;
+    }
+
     .withdrawal-fee {
       margin-top: 2.5em;
 
@@ -268,7 +300,7 @@
           left: 2.5%;
           top: 0.75em;
           content: '';
-          border-top: 3px solid rgba(255, 255, 255, 0.1);
+          border-top: 3px solid $transparentWhite;
         }
       }
 
