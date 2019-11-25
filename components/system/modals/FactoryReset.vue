@@ -34,7 +34,7 @@
 
       <div class="buttons">
         <ModalClose />
-        <a class="button is-primary" @click="factorReset()">I understand, reset device</a>
+        <a class="button is-primary" @click="factoryReset()">I understand, reset device</a>
       </div>
     </form>
   </Modal>
@@ -53,25 +53,11 @@
     },
 
     methods: {
-      async factorReset() {
+      async factoryReset() {
+        await this.$axios.post(`${this.$env.API_MANAGER}/v1/device/factory-reset`);
 
-        try {
-          await this.$axios.post(`${this.$env.API_MANAGER}/v1/device/factory-reset`);
-
-          Events.$emit('modal-closed');
-          this.$router.push('/');
-        } catch (error) {
-          this.error = true;
-
-          if(error && error.response && error.response.status === 401) {
-            this.errorMessage = 'Sorry, that password is incorrect.';
-          } else {
-            console.error('Unexpected error while logging in', error);
-            this.errorMessage = "Your node's internal IP address has changed. Please restart the device to continue.";
-          }
-        } finally {
-          //this.enabled = true;
-        }
+        Events.$emit('modal-closed');
+        this.$router.push('/');
       }
     }
   }
