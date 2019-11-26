@@ -1,5 +1,5 @@
 <template>
-  <Modal class="bitcoin-deposit-modal">
+  <Modal class="connection-code-modal">
     <div class="columns modal-heading">
       <div class="column">
         <h3>
@@ -43,7 +43,7 @@
 </script>
 
 <style lang="scss">
-  .bitcoin-deposit-modal {
+  .connection-code-modal {
     .modal-content {
       min-width: 50%;
     }
