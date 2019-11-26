@@ -1,8 +1,7 @@
 <template>
-  <Modal>
-    <hr>
+  <Modal class="shutdown-modal">
     <form>
-      <h3>Shutdown Your Node</h3>
+      <h3>Shut Down Your Node</h3>
 
       <hr>
 
@@ -15,7 +14,7 @@
       </p>
 
       <InputField v-model="password" :error="error" :error-message="errorMessage" label="Node Password" type="password" class="pass" />
-
+      <hr>
       <div class="buttons">
         <ModalClose />
         <a class="button is-primary" @click="shutdown()">Confirm</a>
@@ -26,6 +25,7 @@
 
 <script>
   import Events from '~/helpers/events';
+  import API from '@/helpers/api';
 
   export default {
     data() {
@@ -49,7 +49,7 @@
         };
 
         try {
-          await this.$axios.post(`${this.$env.API_MANAGER}/v1/device/shutdown`, data, auth);
+          await API.post({ url: `${this.$env.API_MANAGER}/v1/device/shutdown`, data, auth });
 
           Events.$emit('modal-close');
           this.$router.push('/shutdown');
@@ -71,13 +71,13 @@
 </script>
 
 <style lang="scss">
-  @import "~/assets/css/variables.scss";
+  .shutdown-modal {
+    .info {
+      margin-bottom: 1em;
+    }
 
-  .info {
-    margin-bottom: 1em;
-  }
-
-  .pass {
-    display: block;
+    .pass {
+      display: block;
+    }
   }
 </style>

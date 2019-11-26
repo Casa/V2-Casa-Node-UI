@@ -36,12 +36,14 @@
 </template>
 
 <script>
+  import API from '@/helpers/api';
+
   export default {
     methods: {
 
       async startMigration() {
         try {
-          await this.$axios.post(`${this.$env.API_MANAGER}/v1/device/migration`);
+          await API.post({ axios: this.$axios, url: `${this.$env.API_MANAGER}/v1/device/migration` });
           this.$router.push('/migration/migrating');
         } catch (error) {
           // TODO handle error

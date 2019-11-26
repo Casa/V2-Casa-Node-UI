@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 // An object to store the response time of completed API requests
 const responseTime = {};
 
@@ -33,6 +35,18 @@ const API = {
     }
 
     return response;
+  },
+
+  // Wrap a post call
+  async post(options) {
+
+    // If an instance of axios is passed, use it to make the call. Otherwise, use a fresh instance.
+    if(options.axios) {
+      return await options.axios.post(options.url, options.data, options.auth);
+    } else {
+      return axios.post(options.url, options.data, options.auth);
+    }
+
   },
 
   // Return the response time if this URL has already been fetched
