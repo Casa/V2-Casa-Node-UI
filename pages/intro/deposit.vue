@@ -12,10 +12,12 @@
     <main>
       <h2>Here's your Bitcoin address.</h2>
 
-      <img src="~/assets/qr-code.svg" class="address">
+      <div class="flex centered qr-code">
+        <qriously :value="address" :size="320" foreground="#865efc" />
+      </div>
 
       <p class="numeric">
-        3BVAW9-not-a-real-address-3280JX
+        {{address}}
       </p>
     </main>
 
@@ -28,9 +30,20 @@
 </template>
 
 <script>
+  import API from '@/helpers/api';
+
   export default {
+    data() {
+      return {
+        address: false,
+      }
+    },
+
     async created() {
       await this.$store.dispatch('bitcoin/getStatus');
+
+      const bitcoinAddress = await API.get(this.$axios, `${this.$env.API_LND}/v1/lnd/address`);
+      this.address = bitcoinAddress.address;
     },
   }
 </script>
@@ -43,6 +56,14 @@
 
     .numeric {
       font-size: 36px;
+    }
+
+    .qr-code {
+      margin: 3em 0 2.5em;
+
+      canvas {
+        border-radius: 16px;
+      }
     }
   }
 </style>
