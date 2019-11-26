@@ -100,14 +100,35 @@
       </div>
       <hr>
 
-      To <span class="numeric">Address</span>
+      <div class="review-total">
+        <div class="flex centered">
+          <span class="dot label">To</span> <span class="numeric">1BoatS923JJSOjdnjiwe8201TtpyT</span>
+        </div>
 
-      Total amount in units
-      Total amount in dollars
+        <div class="flex centered big">
+          <span class="numeric">99,934</span>&nbsp;sats
+        </div>
 
-      <div class="label">Miner fee</div>
+        <div class="flex centered">
+          <span class="numeric">$31.40</span>
+        </div>
+      </div>
 
-      <div class="label">New Balance</div>
+      <hr>
+
+      <div class="columns misc-total">
+        <div class="column centered">
+          <div class="numeric">$0.06</div>
+          <div class="label">Miner fee</div>
+        </div>
+
+        <div class="column centered border-left">
+          <div>
+            <span class="numeric">19,328</span> sats
+          </div>
+          <div class="label">New Balance</div>
+        </div>
+      </div>
 
       <hr>
 
@@ -377,6 +398,42 @@
           background-position: center;
           opacity: 1;
         }
+      }
+    }
+
+    .dot {
+      background-color: $transparentSand;
+      border-radius: 100%;
+      width: 3em;
+      height: 3em;
+      line-height: 3em;
+      vertical-align: middle;
+      text-align: center;
+      margin: -0.5em 1em 0 0;
+    }
+
+    .review-total {
+      margin: 3em;
+
+      .big {
+        font-size: 60px;
+        margin: 15px;
+      }
+    }
+
+    .misc-total {
+      padding: 0;
+      margin: 1.5em 0;
+      font-size: 24px;
+
+      .column {
+        padding: 0;
+      }
+
+      .label {
+        color: $gray;
+        letter-spacing: 1px;
+        font-size: 13px;
       }
     }
   }
