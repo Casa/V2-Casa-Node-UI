@@ -12,12 +12,16 @@
     <main>
       <h2>Here's your Bitcoin address.</h2>
 
-      <div class="flex centered qr-code">
+      <div v-if="address" class="flex centered qr-code">
         <qriously :value="address" :size="320" foreground="#865efc" />
       </div>
 
-      <p class="numeric">
-        {{address}}
+      <p v-if="address" class="numeric">
+        {{ address }}
+      </p>
+
+      <p v-else class="numeric">
+        loading...
       </p>
     </main>
 
