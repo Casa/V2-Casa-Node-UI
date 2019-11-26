@@ -16,7 +16,7 @@
 
       <div class="columns">
         <div class="column is-full">
-          <input class="primary-input numeric" v-model="amountUsd">
+          <input v-model="amountUsd" class="primary-input numeric dollars">
         </div>
       </div>
 
@@ -37,7 +37,9 @@
       <InputField label="Recipient Bitcoin Address" />
 
       <div class="withdrawal-fee">
-        <div class="label">Choose the fee you're willing to pay</div>
+        <div class="label">
+          Choose the fee you're willing to pay
+        </div>
 
         <p v-if="fee[chosenFee].error === 'INSUFFICIENT_FUNDS'" class="help is-danger">
           This transaction is too large. Make sure have enough funds to cover the amount plus a withdrawal fee.
@@ -57,23 +59,39 @@
 
         <div class="fee-options">
           <div class="fee-option left" :class="{active: chosenFee === 'fast'}" @click="setFee('fast')">
-            <div class="fee-cost">Fast: {{fee.fast.total | usd}}</div>
-            <div class="fee-time">~10 min</div>
+            <div class="fee-cost">
+              Fast: {{ fee.fast.total | usd }}
+            </div>
+            <div class="fee-time">
+              ~10 min
+            </div>
           </div>
 
           <div class="fee-option" :class="{active: chosenFee === 'normal'}" @click="setFee('normal')">
-            <div class="fee-cost">Normal: {{fee.normal.total | usd}}</div>
-            <div class="fee-time">~60 min</div>
+            <div class="fee-cost">
+              Normal: {{ fee.normal.total | usd }}
+            </div>
+            <div class="fee-time">
+              ~60 min
+            </div>
           </div>
 
           <div class="fee-option" :class="{active: chosenFee === 'slow'}" @click="setFee('slow')">
-            <div class="fee-cost">Slow: {{fee.slow.total | usd}}</div>
-            <div class="fee-time">~4 hours</div>
+            <div class="fee-cost">
+              Slow: {{ fee.slow.total | usd }}
+            </div>
+            <div class="fee-time">
+              ~4 hours
+            </div>
           </div>
 
           <div class="fee-option right" :class="{active: chosenFee === 'cheapest'}" @click="setFee('cheapest')">
-            <div class="fee-cost">Cheapest: {{fee.cheapest.total | usd}}</div>
-            <div class="fee-time">~24 hours</div>
+            <div class="fee-cost">
+              Cheapest: {{ fee.cheapest.total | usd }}
+            </div>
+            <div class="fee-time">
+              ~24 hours
+            </div>
           </div>
         </div>
       </div>
@@ -82,7 +100,9 @@
 
       <div class="buttons">
         <ModalClose />
-        <button type="submit" class="button is-primary">Review Withdrawal</button>
+        <button type="submit" class="button is-primary">
+          Review Withdrawal
+        </button>
       </div>
     </form>
 
@@ -118,15 +138,21 @@
 
       <div class="columns misc-total">
         <div class="column centered">
-          <div class="numeric">$0.06</div>
-          <div class="label">Miner fee</div>
+          <div class="numeric">
+            $0.06
+          </div>
+          <div class="label">
+            Miner fee
+          </div>
         </div>
 
         <div class="column centered border-left">
           <div>
             <span class="numeric">19,328</span> sats
           </div>
-          <div class="label">New Balance</div>
+          <div class="label">
+            New Balance
+          </div>
         </div>
       </div>
 
@@ -134,7 +160,9 @@
 
       <div class="buttons">
         <a class="button" @click="edit()">Go Back and Edit</a>
-        <button type="submit" class="button is-primary">Confirm Withdrawal</button>
+        <button type="submit" class="button is-primary">
+          Confirm Withdrawal
+        </button>
       </div>
     </form>
   </Modal>
@@ -152,7 +180,7 @@
         step: 'input',
         amountSats: 0,
         amountBtc: 0,
-        amountUsd: '$0',
+        amountUsd: 0,
 
         feeTimeout: false,
         chosenFee: 'normal',
@@ -296,6 +324,12 @@
       text-align: center;
       margin: 0 auto;
       display: block;
+    }
+
+    .dollars {
+      &::before {
+        content: '$';
+      }
     }
 
     .input-wrap {
