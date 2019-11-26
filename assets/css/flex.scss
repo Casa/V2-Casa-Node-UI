@@ -22,3 +22,17 @@
   flex-grow: 0;
   width: auto !important;
 }
+
+.column {
+  &.right {
+    text-align: right;
+  }
+
+  &.left {
+    text-align: left;
+  }
+
+  &.centered {
+    text-align: center;
+  }
+}

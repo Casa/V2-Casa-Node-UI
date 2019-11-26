@@ -16,14 +16,11 @@ $blue: #383163;
 
 $lightBlue: #3bccfc;
 $lightPurple: #a29bbc;
+$lightGray: #b5b4bd;
 
 $darkBlue: #322c4f;
 $darkGray: #3e3b53;
 $darkPurple: #181236;
-
-// Names for ambiguous colors come from this tool - http://chir.ag/projects/name-that-color/
-$smokyGray: #555075;
-$gunsmokeGray: #8d8e8e;
 
 $transparent: rgba(0, 0, 0, 0);
 $transparentFaintWhite: rgba(255, 255, 255, 0.04);
@@ -31,3 +28,8 @@ $transparentWhite: rgba(255, 255, 255, 0.1);
 $transparentGray: rgba(216, 216, 216, 0.05);
 
 $translucentWhite: rgba(255, 255, 255, 0.7);
+
+// Names for ambiguous colors come from this tool - http://chir.ag/projects/name-that-color/
+$smokyGray: #555075;
+$gunsmokeGray: #8d8e8e;
+$transparentSand: rgba(245, 245, 245, 0.2);
