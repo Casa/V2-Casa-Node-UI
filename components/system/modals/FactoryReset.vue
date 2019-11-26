@@ -1,5 +1,5 @@
 <template>
-  <Modal>
+  <Modal class="factory-reset-modal">
     <form>
       <h3>Are you sure?</h3>
 
@@ -65,13 +65,13 @@
 </script>
 
 <style lang="scss">
-  @import "~/assets/css/variables.scss";
+  .factory-reset-modal {
+    .info {
+      margin-bottom: 1em;
+    }
 
-  .info {
-    margin-bottom: 1em;
-  }
-
-  .pass {
-    display: block;
+    .pass {
+      display: block;
+    }
   }
 </style>

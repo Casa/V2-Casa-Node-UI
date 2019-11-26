@@ -1,5 +1,5 @@
 <template>
-  <Modal>
+  <Modal class="shutdown-modal">
     <form>
       <h3>Shut Down Your Node</h3>
 
@@ -71,13 +71,13 @@
 </script>
 
 <style lang="scss">
-  @import "~/assets/css/variables.scss";
+  .shutdown-modal {
+    .info {
+      margin-bottom: 1em;
+    }
 
-  .info {
-    margin-bottom: 1em;
-  }
-
-  .pass {
-    display: block;
+    .pass {
+      display: block;
+    }
   }
 </style>
