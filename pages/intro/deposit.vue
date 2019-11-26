@@ -6,7 +6,7 @@
         <span class="icon" />
       </h5>
 
-      <h6>24%</h6>
+      <h6>{{ $store.state.bitcoin.percent }}%</h6>
     </header>
 
     <main>
@@ -26,6 +26,14 @@
     </footer>
   </div>
 </template>
+
+<script>
+  export default {
+    async created() {
+      await this.$store.dispatch('bitcoin/getStatus');
+    },
+  }
+</script>
 
 <style lang="scss">
   .intro-deposit {
