@@ -16,7 +16,7 @@
 
       <div class="columns">
         <div class="column is-full">
-          <input v-model="amountUsd" class="primary-input numeric dollars">
+          <input @input="updateAmount" @click="prepareInput" v-model="amountDisplayed" class="primary-input numeric">
         </div>
       </div>
 
@@ -169,7 +169,7 @@
 </template>
 
 <script>
-  import {satsToBtc, btcToSats} from '@/helpers/units';
+  import {satsToBtc, btcToSats, toPrecision} from '@/helpers/units';
   import API from '@/helpers/api';
 
 //  import Events from '~/helpers/events';
@@ -178,6 +178,8 @@
     data() {
       return {
         step: 'input',
+        inputMode: 'usd',
+        amountDisplayed: '$0',
         amountSats: 0,
         amountBtc: 0,
         amountUsd: 0,
@@ -211,6 +213,33 @@
     },
 
     methods: {
+      // Automatically clear the input field unless the user has already entered a value
+      prepareInput() {
+        if(this.inputMode === 'usd') {
+          if(this.amountUsd) {
+            this.amountDisplayed = '$' + this.amountUsd;
+          } else {
+            this.amountDisplayed = '$';
+          }
+        }
+      },
+
+      // Update the amount displayed and the amount saved in local memory
+      updateAmount(event) {
+        if(this.inputMode === 'usd') {
+          let value = event.target.value.replace(/\$/g, '');
+
+          // Force the dollar amount to only have two decimals when it gets too long
+          if(value.match(/\.[0-9]{3,}/)) {
+            // toPrecision() truncates trailing zeroes, using toFixed fixes that
+            value = parseFloat(toPrecision(value, 2)).toFixed(2);
+          }
+
+          this.amountDisplayed = '$' + value;
+          this.amountUsd = value;
+        }
+      },
+
       async estimateFees() {
         if(this.feeTimeout) {
           clearTimeout(this.feeTimeout);
@@ -324,12 +353,6 @@
       text-align: center;
       margin: 0 auto;
       display: block;
-    }
-
-    .dollars {
-      &::before {
-        content: '$';
-      }
     }
 
     .input-wrap {

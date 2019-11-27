@@ -2,8 +2,6 @@ import Vue from 'vue';
 import {satsToBtc, btcToSats} from '@/helpers/units';
 
 export default ({ app: { store } }) => {
-  console.log('state', store.state.bitcoin)
-
   // Convert Satoshis to Bitcoin
   Vue.filter('btc', value => satsToBtc(value));
 
