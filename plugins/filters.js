@@ -1,34 +1,48 @@
 import Vue from 'vue';
 import {satsToBtc, btcToSats} from '@/helpers/units';
 
-// Convert Satoshis to Bitcoin
-Vue.filter('btc', value => satsToBtc(value));
+export default ({ app: { store } }) => {
+  console.log('state', store.state.bitcoin)
 
-// Convert Bitcoin to Satoshis
-Vue.filter('sats', value => btcToSats(value));
+  // Convert Satoshis to Bitcoin
+  Vue.filter('btc', value => satsToBtc(value));
 
-// Display a number based on the browser's language settings (comma, period, space, etc.)
-Vue.filter('localized', (value) => {
-  return Number(value).toLocaleString();
-});
+  // Convert Bitcoin to Satoshis
+  Vue.filter('sats', value => btcToSats(value));
 
-/**
- * Vue filter to convert the given value to percent.
- *
- * @param {String} value    The value string.
- * @param {Number} decimals The number of decimal places.
- */
-Vue.filter('percentage', function(value, decimals) {
-  if(!value) {
-    value = 0;
-  }
+  // Display a number based on the browser's language settings (comma, period, space, etc.)
+  Vue.filter('localized', (value) => {
+    return Number(value).toLocaleString();
+  });
 
-  if(!decimals) {
-    decimals = 0;
-  }
+  // Convert Satoshis to USD
+  Vue.filter('usd', value => {
+    // If the value passed is not a number, output it as is
+    if(isNaN(parseInt(value))) {
+      return value;
+    } else {
+      return '$' + (satsToBtc(value) * store.state.bitcoin.price).toFixed(2);
+    }
+  });
 
-  value = value * 100;
-  value = Math.floor(value * Math.pow(10, decimals)) / Math.pow(10, decimals);
-  value = value + '%';
-  return value;
-});
+  /**
+   * Vue filter to convert the given value to percent.
+   *
+   * @param {String} value    The value string.
+   * @param {Number} decimals The number of decimal places.
+   */
+  Vue.filter('percentage', function(value, decimals) {
+    if(!value) {
+      value = 0;
+    }
+
+    if(!decimals) {
+      decimals = 0;
+    }
+
+    value = value * 100;
+    value = Math.floor(value * Math.pow(10, decimals)) / Math.pow(10, decimals);
+    value = value + '%';
+    return value;
+  });
+}
