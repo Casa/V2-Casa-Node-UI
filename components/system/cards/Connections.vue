@@ -147,12 +147,13 @@
     },
 
     async created() {
-      await this.$store.dispatch('system/getAddresses');
+      if(!this.$store.state.bitcoin.operational) {
+        await this.$store.dispatch('bitcoin/getStatus');
+      }
 
-      // TODO how to short circuit this?
-      await this.$store.dispatch('bitcoin/getStatus');
-      await this.$store.dispatch('bitcoin/getAddresses');
-      await this.$store.dispatch('lightning/getConnectionCode');
+      this.$store.dispatch('system/getAddresses');
+      this.$store.dispatch('bitcoin/getAddresses');
+      this.$store.dispatch('lightning/getConnectionCode');
     },
   }
 </script>
