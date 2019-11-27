@@ -190,6 +190,7 @@
     .copy {
       margin-left: auto;
       width: 500px;
+      color: $white;
     }
 
     .lightBlue {
