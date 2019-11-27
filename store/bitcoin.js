@@ -4,8 +4,8 @@ import API from '@/helpers/api';
 export const state = () => ({
   operational: false,
   calibrating: false,
-  ipAddress: 'unknown',
-  onionAddress: 'unknown',
+  ipAddress: '',
+  onionAddress: '',
   currentBlock: 0,
   blockHeight: 0,
   percent: 0,
@@ -108,7 +108,6 @@ export const actions = {
 
       if(addresses) {
         addresses.forEach(address => {
-          console.log(address)
           if(address.includes('.onion')) {
             commit('onionAddress', address);
           } else {

@@ -5,8 +5,8 @@ export const state = () => ({
   bitcoindVersion: false,
   lndVersion: false,
   updateAvailable: false,
-  onionAddress: 'unknown',
-  localHostAddress: 'unknown',
+  onionAddress: '',
+  localHostAddress: '',
 })
 
 // Functions to update the state directly

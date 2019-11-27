@@ -14,7 +14,7 @@
     <hr>
 
     <div class="flex centered">
-      <CopyField :value="$store.state.lightning.connectionCode" />
+      <CopyField :value="$store.state.lightning.connectionCode" class="copy"/>
     </div>
 
     <div class="flex centered qr-code">
@@ -44,6 +44,11 @@
 
 <style lang="scss">
   .connection-code-modal {
+
+    .copy {
+      width: 500px;
+    }
+
     .modal-content {
       min-width: 50%;
     }

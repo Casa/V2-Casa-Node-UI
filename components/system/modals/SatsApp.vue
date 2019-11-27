@@ -1,5 +1,5 @@
 <template>
-  <Modal class="bitcoin-deposit-modal">
+  <Modal class="sats-app-modal">
     <div class="columns modal-heading">
       <div class="column">
         <h3>
@@ -14,7 +14,7 @@
     <hr>
 
     <div class="flex centered">
-      <CopyField :value="$store.state.system.onionAddress" />
+      <CopyField :value="$store.state.system.onionAddress" class="copy"/>
     </div>
 
     <div class="flex centered qr-code">
@@ -43,7 +43,12 @@
 </script>
 
 <style lang="scss">
-  .bitcoin-deposit-modal {
+  .sats-app-modal {
+
+    .copy {
+      width: 500px;
+    }
+
     .modal-content {
       min-width: 50%;
     }
