@@ -3,7 +3,7 @@
     <div class="flex">
       <input ref="copyInput" :value="value">
 
-      <span class="numeric centered-vertically">{{ displayValue }}</span>
+      <span class="numeric centered-vertically copy-content">{{ value }}</span>
       <a class="button is-small" @click="copy()">Copy</a>
     </div>
   </div>
@@ -16,15 +16,6 @@
         default: 'Copy me!',
         type: String,
       },
-    },
-
-    created() {
-      const numOfDisplayedChars = 30;
-      if (this.value.length > numOfDisplayedChars) {
-        this.displayValue = this.value.substr(0, numOfDisplayedChars) + '...';
-      } else {
-        this.displayValue = this.value;
-      }
     },
 
     methods: {
@@ -60,6 +51,11 @@
       margin-right: 0.55em;
       margin-left: auto;
       padding: 0 2em;
+    }
+
+    .copy-content {
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     input {

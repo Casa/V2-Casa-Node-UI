@@ -43,6 +43,13 @@
 
       <hr>
 
+      <div class="flex">
+        <img src="~/assets/icons/lightning-purple.svg" class="crypto-icon">
+        <h5 class="centered-vertically">
+          Share Your Lightning Node
+        </h5>
+      </div>
+
       <div class="columns space-between">
         <div class="column">
           <h6>
@@ -80,7 +87,15 @@
 
       <hr>
 
+      <div class="flex">
+        <img src="~/assets/icons/bitcoin-orange.svg" class="crypto-icon">
+        <h5 class="centered-vertically">
+          Share Your Bitcoin Node
+        </h5>
+      </div>
+
       <div class="columns space-between">
+
         <div class="column">
           <h6>
             Bitcoin Node IP Address
@@ -147,10 +162,13 @@
 
   .connections {
 
-
     .tor-icon {
       width: 75px;
       margin-right: 1em;
+    }
+
+    .crypto-icon {
+      width: 35px;
     }
 
     h3 {
