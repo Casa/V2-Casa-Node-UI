@@ -4,8 +4,8 @@ import API from '@/helpers/api';
 export const state = () => ({
   operational: false,
   calibrating: false,
-  ipAddress: '',
-  onionAddress: '',
+  ipAddress: 'unknown',
+  onionAddress: 'unknown',
   currentBlock: 0,
   blockHeight: 0,
   percent: 0,

@@ -146,13 +146,13 @@
       }
     },
 
-    created() {
-      this.$store.dispatch('system/getAddresses');
+    async created() {
+      await this.$store.dispatch('system/getAddresses');
 
       // TODO how to short circuit this?
-      this.$store.dispatch('bitcoin/getStatus');
-      this.$store.dispatch('bitcoin/getAddresses');
-      this.$store.dispatch('lightning/getConnectionCode');
+      await this.$store.dispatch('bitcoin/getStatus');
+      await this.$store.dispatch('bitcoin/getAddresses');
+      await this.$store.dispatch('lightning/getConnectionCode');
     },
   }
 </script>
