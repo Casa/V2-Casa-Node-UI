@@ -16,7 +16,7 @@
 
       <div class="columns">
         <div class="column is-full">
-          <input @input="updateAmount" @click="prepareInput" v-model="amountDisplayed" class="primary-input numeric">
+          <input v-model="amountDisplayed" class="primary-input numeric" @input="updateAmount" @click="prepareInput">
         </div>
       </div>
 
@@ -26,7 +26,7 @@
         </div>
 
         <div class="column centered centered-vertically">
-          <span class="numeric">0</span> sats
+          <span class="numeric">{{ amountSats }}</span> sats
         </div>
 
         <div class="column right">
@@ -34,7 +34,7 @@
         </div>
       </div>
 
-      <InputField label="Recipient Bitcoin Address" />
+      <InputField v-model="address" label="Recipient Bitcoin Address" @input="estimateFees" />
 
       <div class="withdrawal-fee">
         <div class="label">
@@ -122,7 +122,7 @@
 
       <div class="review-total">
         <div class="flex centered">
-          <span class="dot label">To</span> <span class="numeric">1BoatS923JJSOjdnjiwe8201TtpyT</span>
+          <span class="dot label">To</span> <span class="numeric">{{ address }}</span>
         </div>
 
         <div class="flex centered big">
@@ -183,9 +183,8 @@
         amountSats: 0,
         amountBtc: 0,
         amountUsd: 0,
-
-        feeTimeout: false,
-        chosenFee: 'normal',
+        address: '',
+        sweep: false,
 
         fee: {
           fast: {
@@ -209,6 +208,9 @@
             error: false,
           },
         },
+
+        feeTimeout: false,
+        chosenFee: 'normal',
       }
     },
 
@@ -237,7 +239,12 @@
 
           this.amountDisplayed = '$' + value;
           this.amountUsd = value;
+          this.amountBtc = value / this.$store.state.bitcoin.price;
+          this.amountSats = Math.round(btcToSats(this.amountBtc));
         }
+
+        this.sweep = false;
+        this.estimateFees();
       },
 
       async estimateFees() {
@@ -246,20 +253,16 @@
         }
 
         this.feeTimeout = setTimeout(async () => {
-          if(this.txData.address && (this.txData.amount || this.sweep)) {
+          if(this.address && (this.amountSats || this.sweep)) {
             const payload = {
-              address: this.txData.address,
+              address: this.address,
               confTarget: 0,
             };
 
             if(this.sweep) {
               payload.sweep = true;
             } else {
-              if(this.system.displayUnit === 'btc') {
-                payload.amt = btcToSats(this.txData.amount);
-              } else {
-                payload.amt = this.txData.amount;
-              }
+              payload.amt = this.amountSats;
             }
 
             const estimates = await API.get(this.$axios, `${this.$env.API_LND}/v1/lnd/transaction/estimateFee`, payload);
