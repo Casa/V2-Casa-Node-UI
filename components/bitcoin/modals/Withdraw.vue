@@ -26,11 +26,18 @@
         </div>
 
         <div class="column centered centered-vertically">
-          <span class="numeric">{{ amountSats | localized }}</span> sats
+          <template v-if="inputMode === 'usd'">
+            <span class="numeric">{{ amountSats | localized }}</span> sats
+          </template>
+
+          <template v-else-if="inputMode === 'sats'">
+            <span class="numeric">${{ amountUsd | localized }}</span>
+          </template>
         </div>
 
         <div class="column right">
-          <a class="button is-small">Switch to Sats</a>
+          <a v-if="inputMode === 'usd'" class="button is-small" @click="setInput('sats')">Switch to Sats</a>
+          <a v-else-if="inputMode === 'sats'" class="button is-small" @click="setInput('usd')">Switch to USD</a>
         </div>
       </div>
 
@@ -223,13 +230,17 @@
           } else {
             this.amountDisplayed = '$';
           }
+        } else if(this.inputMode === 'sats') {
+          if(!this.amountSats) {
+            this.amountDisplayed = '';
+          }
         }
       },
 
       // Update the amount displayed and the amount saved in local memory
       updateAmount(event) {
         if(this.inputMode === 'usd') {
-          let value = event.target.value.replace(/\$/g, '');
+          let value = event.target.value.replace(/[^0-9.]/g, '');
 
           // Force the dollar amount to only have two decimals when it gets too long
           if(value.match(/\.[0-9]{3,}/)) {
@@ -241,10 +252,29 @@
           this.amountUsd = value;
           this.amountBtc = value / this.$store.state.bitcoin.price;
           this.amountSats = Math.round(btcToSats(this.amountBtc));
+        } else if(this.inputMode === 'sats') {
+          let value = parseInt(event.target.value) || 0;
+
+          this.amountDisplayed = value;
+          this.amountSats = value;
+          this.amountBtc = satsToBtc(value);
+          this.amountUsd = parseFloat(this.amountBtc * this.$store.state.bitcoin.price).toFixed(2);
         }
 
         this.sweep = false;
         this.estimateFees();
+      },
+
+      setInput(mode) {
+        this.inputMode = mode;
+
+        if(mode === 'usd') {
+          this.amountDisplayed = '$' + this.amountUsd;
+        } else if(mode === 'sats') {
+          this.amountDisplayed = this.amountSats;
+        } else if(mode === 'btc') {
+          // Todo - Requires btc / sats switch button to integrate with the store
+        }
       },
 
       async estimateFees() {
