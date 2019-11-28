@@ -26,7 +26,7 @@
         </div>
 
         <div class="column centered centered-vertically">
-          <span class="numeric">{{ amountSats }}</span> sats
+          <span class="numeric">{{ amountSats | localized }}</span> sats
         </div>
 
         <div class="column right">
@@ -42,7 +42,7 @@
         </div>
 
         <p v-if="fee[chosenFee].error === 'INSUFFICIENT_FUNDS'" class="help is-danger">
-          This transaction is too large. Make sure have enough funds to cover the amount plus a withdrawal fee.
+          This transaction is too large. Make sure you have enough funds to cover the amount plus a withdrawal fee.
         </p>
 
         <p v-if="fee[chosenFee].error === 'OUTPUT_IS_DUST'" class="help is-danger">
@@ -495,6 +495,11 @@
         letter-spacing: 1px;
         font-size: 13px;
       }
+    }
+
+    .help.is-danger {
+      font-size: 16px;
+      margin: -1em 0 1.5em 0;
     }
   }
 </style>

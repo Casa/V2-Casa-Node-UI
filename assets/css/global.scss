@@ -76,3 +76,7 @@ hr {
 .border-left {
   border-left: 3px solid $transparentWhite;
 }
+
+.help.is-danger {
+  color: $red;
+}
