@@ -16,13 +16,13 @@
 
       <div class="columns">
         <div class="column is-full">
-          <input v-model="amountDisplayed" class="primary-input numeric" @input="updateAmount" @click="prepareInput">
+          <input v-model="amountDisplayed" class="primary-input numeric" @input="updateAmount" @click="updateAmountDisplayed">
         </div>
       </div>
 
       <div class="columns">
         <div class="column left">
-          <a class="button is-small">Send Max</a>
+          <a class="button is-small" @click="sendMax">Send Max</a>
         </div>
 
         <div class="column centered centered-vertically">
@@ -223,7 +223,7 @@
 
     methods: {
       // Automatically clear the input field unless the user has already entered a value
-      prepareInput() {
+      updateAmountDisplayed() {
         if(this.inputMode === 'usd') {
           if(this.amountUsd) {
             this.amountDisplayed = '$' + this.amountUsd;
@@ -231,7 +231,9 @@
             this.amountDisplayed = '$';
           }
         } else if(this.inputMode === 'sats') {
-          if(!this.amountSats) {
+          if(this.amountSats) {
+            this.amountDisplayed = this.amountSats;
+         } else {
             this.amountDisplayed = '';
           }
         }
@@ -239,6 +241,8 @@
 
       // Update the amount displayed and the amount saved in local memory
       updateAmount(event) {
+        this.sweep = false;
+
         if(this.inputMode === 'usd') {
           let value = event.target.value.replace(/[^0-9.]/g, '');
 
@@ -248,20 +252,18 @@
             value = parseFloat(toPrecision(value, 2)).toFixed(2);
           }
 
-          this.amountDisplayed = '$' + value;
           this.amountUsd = value;
           this.amountBtc = value / this.$store.state.bitcoin.price;
           this.amountSats = Math.round(btcToSats(this.amountBtc));
         } else if(this.inputMode === 'sats') {
           let value = parseInt(event.target.value) || 0;
 
-          this.amountDisplayed = value;
           this.amountSats = value;
           this.amountBtc = satsToBtc(value);
           this.amountUsd = parseFloat(this.amountBtc * this.$store.state.bitcoin.price).toFixed(2);
         }
 
-        this.sweep = false;
+        this.updateAmountDisplayed();
         this.estimateFees();
       },
 
@@ -273,7 +275,7 @@
         } else if(mode === 'sats') {
           this.amountDisplayed = this.amountSats;
         } else if(mode === 'btc') {
-          // Todo - Requires btc / sats switch button to integrate with the store
+          // Todo - Requires btc / sats switch button integrated with the vuex store
         }
       },
 
@@ -321,12 +323,14 @@
       },
 
       estimateSweep() {
-        if(this.balance.btc && this.fee[this.chosenFee].total) {
-          if(this.system.displayUnit === 'btc') {
-            this.txData.amount = satsToBtc(this.fee[this.chosenFee].sweepAmount);
-          } else {
-            this.txData.amount = this.fee[this.chosenFee].sweepAmount;
-          }
+        if(this.fee[this.chosenFee].total) {
+          let sweepAmount = this.fee[this.chosenFee].sweepAmount;
+
+          this.amountSats = sweepAmount;
+          this.amountBtc = satsToBtc(sweepAmount);
+          this.amountUsd = parseFloat(this.amountBtc * this.$store.state.bitcoin.price).toFixed(2);
+
+          this.updateAmountDisplayed();
         }
       },
 
@@ -338,14 +342,8 @@
         }
       },
 
-      sendAmount() {
-        this.sweep = false;
-        this.estimateFees();
-      },
-
       sendMax() {
         this.sweep = true;
-        this.txData.amount = null;
         this.estimateFees();
       },
 
