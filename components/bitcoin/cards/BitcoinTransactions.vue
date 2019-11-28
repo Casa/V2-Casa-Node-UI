@@ -70,7 +70,7 @@
 
         <div class="column right">
           <span class="title numeric">{{ transaction.amount }}</span>
-          <span class="subtitle numeric">$5.55</span>
+          <span class="subtitle numeric">{{ transaction.amount | usd }}</span>
         </div>
       </div>
     </section>

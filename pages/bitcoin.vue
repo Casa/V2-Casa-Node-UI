@@ -29,11 +29,11 @@
         await this.$store.dispatch('bitcoin/getStatus');
       }
 
+      this.$store.dispatch('bitcoin/getPrice');
       this.$store.dispatch('bitcoin/getAddresses');
       this.$store.dispatch('bitcoin/getPeers');
       this.$store.dispatch('bitcoin/getBalance');
       this.$store.dispatch('bitcoin/getTransactions');
-      this.$store.dispatch('bitcoin/getPrice');
     },
   }
 </script>

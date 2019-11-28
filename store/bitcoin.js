@@ -163,7 +163,7 @@ export const actions = {
     const price = await API.get(this.$axios, 'https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD');
 
     if(price) {
-      commit('price', price.usd);
+      commit('price', price.USD);
     }
   }
 };
