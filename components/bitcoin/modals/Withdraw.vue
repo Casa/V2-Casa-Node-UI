@@ -132,13 +132,25 @@
           <span class="dot label">To</span> <span class="numeric">{{ address }}</span>
         </div>
 
-        <div class="flex centered big">
-          <span class="numeric">99,934</span>&nbsp;sats
-        </div>
+        <template v-if="inputMode === 'usd'">
+          <div class="flex centered big">
+            <span class="numeric">${{ amountUsd }}</span>
+          </div>
 
-        <div class="flex centered">
-          <span class="numeric">$31.40</span>
-        </div>
+          <div class="flex centered">
+            <span class="numeric">{{ amountSats | localized }}</span>&nbsp;sats
+          </div>
+        </template>
+
+        <template v-else-if="inputMode === 'sats'">
+          <div class="flex centered big">
+            <span class="numeric">{{ amountSats | localized }}</span>&nbsp;sats
+          </div>
+
+          <div class="flex centered">
+            <span class="numeric">${{ amountUsd }}</span>
+          </div>
+        </template>
       </div>
 
       <hr>
@@ -146,7 +158,7 @@
       <div class="columns misc-total">
         <div class="column centered">
           <div class="numeric">
-            $0.06
+            {{ fee[chosenFee].total | usd }}
           </div>
           <div class="label">
             Miner fee
@@ -155,7 +167,7 @@
 
         <div class="column centered border-left">
           <div>
-            <span class="numeric">19,328</span> sats
+            <span class="numeric">{{ $store.state.bitcoin.balance.confirmed - amountSats | localized }}</span> sats
           </div>
           <div class="label">
             New Balance
