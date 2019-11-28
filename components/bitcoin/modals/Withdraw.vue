@@ -190,8 +190,7 @@
 <script>
   import {satsToBtc, btcToSats, toPrecision} from '@/helpers/units';
   import API from '@/helpers/api';
-
-//  import Events from '~/helpers/events';
+  import Events from '~/helpers/events';
 
   export default {
     data() {
@@ -367,8 +366,22 @@
         this.step = 'input';
       },
 
-      withdraw() {
-        alert('withdraw btc!');
+      async withdraw() {
+        const payload = {
+          sweep: this.sweep,
+          addr: this.address,
+          amt: this.amountSats,
+          satPerByte: parseInt(this.fee[this.chosenFee].perByte),
+        };
+
+        try {
+          await this.$axios.post(`${this.$env.API_LND}/v1/lnd/transaction`, payload);
+
+          // Todo - Toast notification
+          Events.$emit('modal-close');
+        } catch (error) {
+          console.error('Error sending BTC - ', error);
+        }
       },
     }
   }
