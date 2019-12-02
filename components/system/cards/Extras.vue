@@ -73,7 +73,7 @@
       </div>
 
       <!-- Todo: Make arrow button styles -->
-      <a class="button has-arrow" @click="shutdown()">Change Password</a>
+      <a class="button has-arrow">Change Password</a>
     </div>
 
     <hr>

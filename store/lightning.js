@@ -12,6 +12,7 @@ export const state = () => ({
     pending: 0,
   },
   channels: [],
+  connectionCode: 'unknown',
   maxSend: 0,
   maxReceive: 0,
 })
@@ -24,6 +25,10 @@ export const mutations = {
 
   isUnlocked(state, unlocked) {
     state.unlocked = unlocked;
+  },
+
+  setConnectionCode(state, code) {
+    state.connectionCode = code;
   }
 }
 
@@ -35,6 +40,16 @@ export const actions = {
     if(status) {
       commit('isOperational', status.operational);
       commit('isUnlocked', status.unlocked);
+    }
+  },
+
+  async getConnectionCode({ commit }) {
+    const uris = await API.get(this.$axios, `${this.$env.API_LND}/v1/lnd/info/uris`);
+
+    if(uris && uris.length > 0) {
+      commit('setConnectionCode', uris[0]);
+    } else {
+      commit('setConnectionCode', 'Could not determine lnd connection code');
     }
   }
 }

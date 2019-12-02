@@ -3,7 +3,7 @@
     <div class="flex">
       <input ref="copyInput" :value="value">
 
-      <span class="numeric centered-vertically">{{ value }}</span>
+      <span class="numeric centered-vertically copy-content">{{ value }}</span>
       <a class="button is-small" @click="copy()">Copy</a>
     </div>
   </div>
@@ -49,8 +49,13 @@
 
     .button {
       margin-right: 0.55em;
-      margin-left: 1em;
+      margin-left: auto;
       padding: 0 2em;
+    }
+
+    .copy-content {
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     input {
