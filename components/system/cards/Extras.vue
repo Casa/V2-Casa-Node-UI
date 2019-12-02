@@ -73,7 +73,7 @@
       </div>
 
       <!-- Todo: Make arrow button styles -->
-      <a class="button has-arrow">Change Password</a>
+      <a class="button has-arrow" @click="changePassword()">Change Password</a>
     </div>
 
     <hr>
@@ -106,6 +106,10 @@
       }
     },
     methods: {
+      changePassword() {
+        this.$router.push('/system/change-password');
+      },
+
       update() {
         Events.$emit('modal-open', UpdateModal);
       },
