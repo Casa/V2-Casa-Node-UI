@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import Channels from '~/components/lightning/Channels';
-import LightningTransactions from '~/components/lightning/LightningTransactions';
+  import Channels from '~/components/lightning/cards/Channels';
+  import LightningTransactions from '~/components/lightning/cards/LightningTransactions';
 
   export default {
     layout: 'dashboard',

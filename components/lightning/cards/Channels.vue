@@ -6,7 +6,7 @@
 
         <div class="buttons">
           <a class="button">Manage Channels</a>
-          <a class="button">Open Channel</a>
+          <a class="button" @click="newChannel">Open Channel</a>
         </div>
       </div>
 
@@ -106,6 +106,20 @@
     </section>
   </div>
 </template>
+
+<script>
+  import Events from '~/helpers/events';
+  import NewChannel from '~/components/lightning/modals/NewChannel';
+
+  export default {
+    methods: {
+      newChannel() {
+        Events.$emit('modal-open', NewChannel);
+      },
+    }
+  }
+</script>
+
 
 <style lang="scss">
   @import "~/assets/css/variables.scss";
