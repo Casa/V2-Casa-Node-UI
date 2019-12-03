@@ -42,8 +42,12 @@
       LightningBalances, SatsApp,
     },
 
-    created() {
-      this.$store.dispatch('bitcoin/getStatus');
+    async created() {
+      if(!this.$store.state.bitcoin.operational) {
+        await this.$store.dispatch('bitcoin/getStatus');
+      }
+
+      this.$store.dispatch('bitcoin/getPeers');
       this.$store.dispatch('bitcoin/getBalance');
       this.$store.dispatch('lightning/getStatus');
       this.$store.dispatch('system/checkForUpdates');
