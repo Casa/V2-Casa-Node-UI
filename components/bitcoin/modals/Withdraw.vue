@@ -335,7 +335,7 @@
 
       estimateSweep() {
         if(this.fee[this.chosenFee].total) {
-          let sweepAmount = this.fee[this.chosenFee].sweepAmount;
+          let sweepAmount = this.fee[this.chosenFee].sweepAmount || 0;
 
           this.amountSats = sweepAmount;
           this.amountBtc = satsToBtc(sweepAmount);
@@ -359,7 +359,12 @@
       },
 
       review() {
-        this.step = 'review';
+        if(this.fee[this.chosenFee].error || !this.amountSats || !this.address) {
+          // Todo - Display error message via toast?
+          console.error('Unable to continue. Please make sure all fields are filled in.');
+        } else {
+          this.step = 'review';
+        }
       },
 
       edit() {
