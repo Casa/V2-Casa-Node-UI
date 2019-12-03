@@ -15,7 +15,7 @@
             <h6>
               Custom Lightning Channels
             </h6>
-            <button v-tooltip="'You have new messages.'"/>
+            <img src="~/assets/icons/info-blue.svg" v-tooltip.top-center="'Open and manage channels with specific nodes on the network, giving you more control over who you connect with.'" class="tooltip icon">
           </div>
 
           <p>
@@ -65,7 +65,7 @@
       <hr>
 
       <div class="columns space-between">
-        <div class="column">
+        <div class="column space-between">
           <h6>
             Node Color
           </h6>
@@ -74,8 +74,11 @@
           </p>
         </div>
 
-        <div class="column right">
-          <InputField v-model="color" type="text" label="#8865DF"/>
+        <div class="column right custom-color">
+          <div class="control skinny">
+            <input type="text" class="input" placeholder="#8865DF" v-model="color" @input="formatColor" name="nodeColor" v-validate="{regex: /^#[0-9a-f]{6}$/}">
+            <div class="color-output" :style="{'background-color': color}"></div>
+          </div>
         </div>
       </div>
 
@@ -90,6 +93,7 @@
 
         <div class="column right">
           <span>Visit Lightning Explorer</span>
+          <img src="~/assets/icons/external-link.svg" class="icon">
         </div>
       </div>
 
@@ -112,12 +116,22 @@
     data() {
       return {
         minChanSize: '',
+        color: '#8865DF',
       }
     },
 
     methods: {
 
       save() {
+      },
+      formatColor() {
+        // Prepend # symbol if none is included
+        if(this.color.length && this.color[0] != '#') {
+          this.color = '#' + this.color;
+        }
+
+        // Remove duplicate # symbols if necessary
+        this.color = this.color.replace(/#+/, '#');
       },
     }
   }
@@ -135,36 +149,49 @@
 
   .lightning-manage-modal {
 
+    .icon {
+      width: 16px;
+      height: 16px;
+    }
+
     .input-wrap {
       width: 256px;
     }
 
+    .color-output {
+      position: absolute;
+      top: 1px;
+      bottom: 1px;
+      width: 3em;
+      background-color: #8865DF;
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
+    }
+
+    // TODO right align this field
+    .skinny {
+      width: 256px;
+    }
+
+    .custom-color {
+
+      input {
+        padding-left: 4em !important;
+      }
+
+      .color-output {
+        position: absolute;
+        top: 0px;
+        bottom: 0px;
+        width: 3em;
+        background-color: #8865DF;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+      }
+    }
+
     .tooltip {
-      display: none;
-      opacity: 0;
-      transition: opacity .15s;
-      pointer-events: none;
-      padding: 4px;
-      z-index: 10000;
-    }
-
-    .tooltip .tooltip-content {
-      background: white;
-      color: white;
-      border-radius: 16px;
-      padding: 5px 10px 4px;
-      z-index: 10000;
-
-    }
-
-    .tooltip.tooltip-open-transitionend {
-      display: block;
-      z-index: 10000;
-    }
-
-    .tooltip.tooltip-after-open {
-      opacity: 1;
-      z-index: 10000;
+      margin-left: 0.5em;
     }
   }
 </style>
