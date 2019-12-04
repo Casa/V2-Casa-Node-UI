@@ -14,14 +14,35 @@
       </div>
       <hr>
 
-      <InputField v-model="address" label="Peer Name" @input="estimateFees" />
-      <InputField v-model="address" label="Channel Purpose" @input="estimateFees" />
-      <InputField v-model="address" label="Peer Connection Code" @input="estimateFees" />
-      <InputField v-model="address" label="Channel Funding" @input="estimateFees" />
+      <div class="columns">
+        <div class="column">
+          <InputField v-model="address" label="Peer Name" @input="estimateFees" />
+        </div>
+
+        <div class="column">
+          <InputField v-model="address" label="Channel Purpose" @input="estimateFees" />
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column">
+          <InputField v-model="address" label="Peer Connection Code" @input="estimateFees" />
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column">
+          <InputField v-model="amountSats" label="Channel Funding" @input="estimateFees" />
+        </div>
+      </div>
+
+      <p>
+        You have {{ $store.state.bitcoin.balance.confirmed | localized }} sats available in your Bitcoin wallet.
+      </p>
 
       <div class="withdrawal-fee">
         <div class="label">
-          Choose the fee you're willing to pay
+          Choose the fee you're willing to pay to open this channel
         </div>
 
         <p v-if="fee[chosenFee].error === 'INSUFFICIENT_FUNDS'" class="help is-danger">
@@ -84,7 +105,7 @@
       <div class="buttons">
         <ModalClose />
         <button type="submit" class="button is-primary">
-          Review Withdrawal
+          Open Channel
         </button>
       </div>
     </form>
@@ -208,6 +229,15 @@
       }
     },
 
+    async created() {
+      if(!this.$store.state.bitcoin.operational) {
+        await this.$store.dispatch('bitcoin/getStatus');
+      }
+
+      this.$store.dispatch('bitcoin/getBalance');
+      this.$store.dispatch('bitcoin/getPrice');
+    },
+
     methods: {
       // Automatically clear the input field unless the user has already entered a value
       updateAmountDisplayed() {
@@ -272,19 +302,13 @@
         }
 
         this.feeTimeout = setTimeout(async () => {
-          if(this.address && (this.amountSats || this.sweep)) {
+          if(this.amountSats) {
             const payload = {
-              address: this.address,
               confTarget: 0,
+              amt: this.amountSats,
             };
 
-            if(this.sweep) {
-              payload.sweep = true;
-            } else {
-              payload.amt = this.amountSats;
-            }
-
-            const estimates = await API.get(this.$axios, `${this.$env.API_LND}/v1/lnd/transaction/estimateFee`, payload);
+            const estimates = await API.get(this.$axios, `${this.$env.API_LND}/v1/lnd/channel/estimateFee`, {params: payload});
 
             if(estimates) {
               for(const [speed, estimate] of Object.entries(estimates)) {
@@ -374,6 +398,12 @@
     .unit-switch {
       top: 2em;
       right: 2.1em;
+    }
+
+    p {
+      color: $translucentWhite;
+      margin-top: -0.75em;
+      margin-left: 2px;
     }
 
     .primary-input {
