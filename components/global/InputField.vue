@@ -116,7 +116,7 @@
 
     label {
       position: absolute;
-      top: 1.1em;
+      top: calc(50% - 0.7em);
       left: 18px;
       font-weight: 500;
       color: $lightPurple;

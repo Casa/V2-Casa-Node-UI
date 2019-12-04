@@ -5,7 +5,7 @@ export const state = () => ({
   operational: false,
   calibrating: false,
   ipAddress: '',
-  torAddress: '',
+  onionAddress: '',
   currentBlock: 0,
   blockHeight: 0,
   percent: 0,
@@ -36,8 +36,8 @@ export const mutations = {
     state.ipAddress = address;
   },
 
-  torAddress(state, address) {
-    state.torAddress = address;
+  onionAddress(state, address) {
+    state.onionAddress = address;
   },
 
   syncStatus(state, sync) {
@@ -109,7 +109,7 @@ export const actions = {
       if(addresses) {
         addresses.forEach(address => {
           if(address.includes('.onion')) {
-            commit('torAddress', address);
+            commit('onionAddress', address);
           } else {
             commit('ipAddress', address);
           }
@@ -163,7 +163,7 @@ export const actions = {
     const price = await API.get(this.$axios, 'https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD');
 
     if(price) {
-      commit('price', price.usd);
+      commit('price', price.USD);
     }
   }
 };
