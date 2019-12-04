@@ -1,6 +1,6 @@
 <template>
   <Modal class="new-channel-modal">
-    <form v-if="step == 'input'" @submit.prevent="review()">
+    <form @submit.prevent="validate()">
       <div class="columns modal-heading">
         <div class="column">
           <h3>
@@ -16,23 +16,23 @@
 
       <div class="columns">
         <div class="column">
-          <InputField v-model="address" label="Peer Name" @input="estimateFees" />
+          <InputField v-model="peerName" label="Peer Name" />
         </div>
 
         <div class="column">
-          <InputField v-model="address" label="Channel Purpose" @input="estimateFees" />
-        </div>
-      </div>
-
-      <div class="columns">
-        <div class="column">
-          <InputField v-model="address" label="Peer Connection Code" @input="estimateFees" />
+          <InputField v-model="channelPurpose" label="Channel Purpose" />
         </div>
       </div>
 
       <div class="columns">
         <div class="column">
-          <InputField v-model="amountSats" label="Channel Funding" @input="estimateFees" />
+          <InputField v-model="connectionCode" label="Peer Connection Code" />
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column">
+          <InputField v-model="amountDisplayed" label="Channel Funding" @input="updateAmount" />
         </div>
       </div>
 
@@ -109,97 +109,24 @@
         </button>
       </div>
     </form>
-
-    <form v-else-if="step == 'review'" @submit.prevent="withdraw()">
-      <div class="columns modal-heading">
-        <div class="column">
-          <h3>
-            Review Bitcoin Withdrawal
-          </h3>
-        </div>
-
-        <div class="column modal-description">
-          <UnitSwitch />
-        </div>
-      </div>
-      <hr>
-
-      <div class="review-total">
-        <div class="flex centered">
-          <span class="dot label">To</span> <span class="numeric">{{ address }}</span>
-        </div>
-
-        <template v-if="inputMode === 'usd'">
-          <div class="flex centered big">
-            <span class="numeric">${{ amountUsd }}</span>
-          </div>
-
-          <div class="flex centered">
-            <span class="numeric">{{ amountSats | localized }}</span>&nbsp;sats
-          </div>
-        </template>
-
-        <template v-else-if="inputMode === 'sats'">
-          <div class="flex centered big">
-            <span class="numeric">{{ amountSats | localized }}</span>&nbsp;sats
-          </div>
-
-          <div class="flex centered">
-            <span class="numeric">${{ amountUsd }}</span>
-          </div>
-        </template>
-      </div>
-
-      <hr>
-
-      <div class="columns misc-total">
-        <div class="column centered">
-          <div class="numeric">
-            {{ fee[chosenFee].total | usd }}
-          </div>
-          <div class="label">
-            Miner fee
-          </div>
-        </div>
-
-        <div class="column centered border-left">
-          <div>
-            <span class="numeric">{{ $store.state.bitcoin.balance.confirmed - amountSats | localized }}</span> sats
-          </div>
-          <div class="label">
-            New Balance
-          </div>
-        </div>
-      </div>
-
-      <hr>
-
-      <div class="buttons">
-        <a class="button" @click="edit()">Go Back and Edit</a>
-        <button type="submit" class="button is-primary">
-          Confirm Withdrawal
-        </button>
-      </div>
-    </form>
   </Modal>
 </template>
 
 <script>
-  import {satsToBtc, btcToSats, toPrecision} from '@/helpers/units';
+  import {satsToBtc} from '@/helpers/units';
   import API from '@/helpers/api';
   import Events from '~/helpers/events';
 
   export default {
     data() {
       return {
-        step: 'input',
-        inputMode: 'usd',
-        amountDisplayed: '$0',
+        peerName: '',
+        channelPurpose: '',
+        connectionCode: '',
+        amountDisplayed: '',
         amountSats: 0,
         amountBtc: 0,
-        amountUsd: 0,
         address: '',
-        sweep: false,
 
         fee: {
           fast: {
@@ -239,61 +166,14 @@
     },
 
     methods: {
-      // Automatically clear the input field unless the user has already entered a value
-      updateAmountDisplayed() {
-        if(this.inputMode === 'usd') {
-          if(this.amountUsd) {
-            this.amountDisplayed = '$' + this.amountUsd;
-          } else {
-            this.amountDisplayed = '$';
-          }
-        } else if(this.inputMode === 'sats') {
-          if(this.amountSats) {
-            this.amountDisplayed = this.amountSats;
-         } else {
-            this.amountDisplayed = '';
-          }
-        }
-      },
-
       // Update the amount displayed and the amount saved in local memory
-      updateAmount(event) {
-        this.sweep = false;
+      updateAmount() {
+        let value = parseInt(this.amountDisplayed) || 0;
 
-        if(this.inputMode === 'usd') {
-          let value = event.target.value.replace(/[^0-9.]/g, '');
+        this.amountSats = value;
+        this.amountBtc = satsToBtc(value);
 
-          // Force the dollar amount to only have two decimals when it gets too long
-          if(value.match(/\.[0-9]{3,}/)) {
-            // toPrecision() truncates trailing zeroes, using toFixed fixes that
-            value = parseFloat(toPrecision(value, 2)).toFixed(2);
-          }
-
-          this.amountUsd = value;
-          this.amountBtc = value / this.$store.state.bitcoin.price;
-          this.amountSats = Math.round(btcToSats(this.amountBtc));
-        } else if(this.inputMode === 'sats') {
-          let value = parseInt(event.target.value) || 0;
-
-          this.amountSats = value;
-          this.amountBtc = satsToBtc(value);
-          this.amountUsd = parseFloat(this.amountBtc * this.$store.state.bitcoin.price).toFixed(2);
-        }
-
-        this.updateAmountDisplayed();
         this.estimateFees();
-      },
-
-      setInput(mode) {
-        this.inputMode = mode;
-
-        if(mode === 'usd') {
-          this.amountDisplayed = '$' + this.amountUsd;
-        } else if(mode === 'sats') {
-          this.amountDisplayed = this.amountSats;
-        } else if(mode === 'btc') {
-          // Todo - Requires btc / sats switch button integrated with the vuex store
-        }
       },
 
       async estimateFees() {
@@ -333,18 +213,6 @@
         }, 500);
       },
 
-      estimateSweep() {
-        if(this.fee[this.chosenFee].total) {
-          let sweepAmount = this.fee[this.chosenFee].sweepAmount;
-
-          this.amountSats = sweepAmount;
-          this.amountBtc = satsToBtc(sweepAmount);
-          this.amountUsd = parseFloat(this.amountBtc * this.$store.state.bitcoin.price).toFixed(2);
-
-          this.updateAmountDisplayed();
-        }
-      },
-
       setFee(choice) {
         this.chosenFee = choice;
 
@@ -353,34 +221,54 @@
         }
       },
 
-      sendMax() {
-        this.sweep = true;
-        this.estimateFees();
+      validate() {
+        if(!this.peerName || !this.channelPurpose || !this.connectionCode || !this.amountSats) {
+          // Todo - Display error messages in a toast based on vee validate rules
+          console.error("Please make sure all required fields are filled in");
+        } else {
+          this.openChannel();
+        }
       },
 
-      review() {
-        this.step = 'review';
-      },
-
-      edit() {
-        this.step = 'input';
-      },
-
-      async withdraw() {
+      async openChannel() {
         const payload = {
-          sweep: this.sweep,
-          addr: this.address,
           amt: this.amountSats,
+          name: this.peerName,
+          purpose: this.channelPurpose,
           satPerByte: parseInt(this.fee[this.chosenFee].perByte),
         };
 
-        try {
-          await this.$axios.post(`${this.$env.API_LND}/v1/lnd/transaction`, payload);
+        const parsedConnectionCode = this.connectionCode.match(/^(.*?)@(.*?)(?::([0-9]+))?$/);
 
-          // Todo - Toast notification
+        if(parsedConnectionCode) {
+          payload.pubKey = parsedConnectionCode[1];
+          payload.ip = parsedConnectionCode[2];
+
+          // If we matched a port in the connection code
+          // Otherwise the backend will automatically determine which port to use
+          if(parsedConnectionCode[3]) {
+            payload.port = parsedConnectionCode[3];
+          }
+        } else {
+          // Todo - Display toast message
+          console.error("Unable to parse connection code.");
+          return;
+        }
+
+        // Todo - We need the settings route to get this information
+        /*
+        if(payload.ip.match(/\.onion$/) && !this.system.settings.bitcoind.bitcoindTor && !this.system.settings.lnd.lndTor) {
+          this.$toast.open({duration: 10000, message: "You can't connect to a Tor node unless you are running Tor yourself. You can enable Tor from the Connections menu on your dashboard.", position: 'is-top', type: 'is-danger'});
+          return;
+        }
+        */
+
+        try {
+          await this.$axios.post(`${this.$env.API_LND}/v1/lnd/channel/open`, payload);
           Events.$emit('modal-close');
-        } catch (error) {
-          console.error('Error sending BTC - ', error);
+        } catch(error) {
+          // Todo - Display toast message
+          console.error(error.response.data);
         }
       },
     }
