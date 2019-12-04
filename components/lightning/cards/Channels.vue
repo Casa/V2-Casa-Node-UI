@@ -13,7 +13,7 @@
       <div class="columns totals">
         <div class="column">
           <div class="big numeric">
-            2
+            {{ $store.state.lightning.channels.length }}
           </div>
 
           <div class="label">
@@ -23,7 +23,7 @@
 
         <div class="column">
           <div class="big numeric">
-            7
+            0
           </div>
 
           <div class="label">
@@ -33,7 +33,7 @@
 
         <div class="column">
           <div class="big numeric">
-            14,600
+            {{ $store.state.lightning.balance.total }}
           </div>
 
           <div class="label">
@@ -43,7 +43,7 @@
 
         <div class="column narrow">
           <div class="big numeric">
-            400
+            {{ $store.state.lightning.balance.pending }}
           </div>
 
           <div class="label">
@@ -54,54 +54,23 @@
     </section> <!-- /.primary -->
 
     <section class="secondary">
-      <div class="columns">
+      <div class="columns" v-for="(channel, index) in $store.state.lightning.channels" :key="index">
         <div class="column left">
-          <span class="title">Autopilot Channel</span>
-          <span class="subtitle">0212864d59d5a902634c4a3186615446e9d56c17b14600f3b74fbabe3509aa707f</span>
+          <span class="title">{{ channel.name }}</span>
+          <span class="subtitle">{{ channel.purpose }}</span>
         </div>
 
         <div class="column right">
           <span class="title status active">Online</span>
           <span class="subtitle numeric">
-            <strong>Can Send:</strong> 123,000<br>
-            <strong>Can Receive:</strong> 1,400
-          </span>
-        </div>
-      </div>
-
-      <div class="columns">
-        <div class="column left">
-          <span class="title">Autopilot Channel</span>
-          <span class="subtitle">0212864d59d5a902634c4a3186615446e9d56c17b14600f3b74fbabe3509aa707f</span>
-        </div>
-
-        <div class="column right">
-          <span class="title status inactive">Offline</span>
-          <span class="subtitle numeric">
-            <strong>Can Send:</strong> 23,000<br>
-            <strong>Can Receive:</strong> 1,410,000
-          </span>
-        </div>
-      </div>
-
-
-      <div class="columns">
-        <div class="column left">
-          <span class="title">Custom Channel</span>
-          <span class="subtitle">Hello World!</span>
-        </div>
-
-        <div class="column right">
-          <span class="title status active">Online</span>
-          <span class="subtitle numeric">
-            <strong>Can Send:</strong> 1,230,000<br>
-            <strong>Can Receive:</strong> 1,400
+            <strong>Can Send:</strong> {{ channel.localBalance }}<br>
+            <strong>Can Receive:</strong> {{ channel.remoteBalance }}
           </span>
         </div>
       </div>
     </section>
 
-    <section class="foot">
+    <section class="foot is-hidden">
       <a class="button">See All 9 Channels</a>
     </section>
   </div>

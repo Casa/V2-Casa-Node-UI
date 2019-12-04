@@ -29,6 +29,22 @@ export const mutations = {
 
   setConnectionCode(state, code) {
     state.connectionCode = code;
+  },
+
+  setChannels(state, channels) {
+    state.channels = channels;
+  },
+
+  setPendingBalance(state, pendingBalance) {
+    state.balance.pending = pendingBalance;
+  },
+
+  setMaxReceive(state, maxReceive) {
+    state.maxReceive = maxReceive;
+  },
+
+  setMaxSend(state, maxSend) {
+    state.maxSend = maxSend;
   }
 }
 
@@ -51,7 +67,51 @@ export const actions = {
     } else {
       commit('setConnectionCode', 'Could not determine lnd connection code');
     }
-  }
+  },
+
+
+  async getChannels({ commit, state }) {
+    if(state.operational && state.unlocked) {
+      const rawChannels = await API.get(this.$axios, `${this.$env.API_LND}/v1/lnd/channel`);
+      const channels = [];
+      let pending = 0;
+      let maxReceive = 0;
+      let maxSend = 0;
+
+      if(rawChannels) {
+        // Loop through channels to determine pending balance, max payment amount, and sort channels by type
+        rawChannels.forEach((channel) => {
+          const localBalance = parseInt(channel.localBalance) || 0;
+          const remoteBalance = parseInt(channel.remoteBalance) || 0;
+
+          if(channel.type === 'OPEN') {
+            channel.status = 'open';
+
+            if(remoteBalance > maxReceive) {
+              maxReceive = remoteBalance;
+            }
+
+            if(localBalance > maxSend) {
+              maxSend = localBalance;
+            }
+          } else if (['WAITING_CLOSING_CHANNEL', 'FORCE_CLOSING_CHANNEL', 'PENDING_CLOSING_CHANNEL', 'PENDING_OPEN_CHANNEL'].indexOf(channel.type) > -1) {
+            pending += localBalance;
+            channel.status = 'pending';
+          } else {
+            channel.status = 'unknown';
+          }
+
+          channels.push(channel);
+        });
+
+        commit('setChannels', channels);
+        commit('setPendingBalance', pending);
+        commit('setMaxReceive', maxReceive);
+        commit('setMaxSend', maxSend);
+      }
+    }
+  },
+
 }
 
 export const getters = {
