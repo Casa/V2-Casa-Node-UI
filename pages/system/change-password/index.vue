@@ -9,12 +9,14 @@
         <InputField v-model="currentPassword" :error="!!currentPasswordErrorMessage" :error-message="currentPasswordErrorMessage" type="password" label="Current Password" />
         <InputField v-model="newPassword" :error="!!newPasswordErrorMessage" :error-message="newPasswordErrorMessage" type="password" label="New Password" />
 
-        <div class="instructions">Please generate your new password with a password manager. You can’t reset your password if you forget it.</div>
+        <div class="instructions">
+          Please generate your new password with a password manager. You can’t reset your password if you forget it.
+        </div>
         <nuxt-link to="/system" class="button">
           Go Back
         </nuxt-link>
-        <input type="submit" value="Set New Password" class="button is-primary" :disabled="!currentPassword || !newPassword">
 
+        <input type="submit" value="Set New Password" class="button is-primary" :disabled="!currentPassword || !newPassword">
       </form>
     </main>
 
