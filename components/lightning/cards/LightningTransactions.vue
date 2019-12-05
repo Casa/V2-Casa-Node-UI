@@ -34,44 +34,46 @@
     </section> <!-- /.primary -->
 
     <section class="secondary">
-      <div class="columns">
+      <div v-for="(transaction, index) in $store.state.lightning.pendingTransactions" :key="index" class="columns">
         <div class="column left">
-          <span class="title">Received Satoshis</span>
-          <span class="subtitle">Hello there! <span class="separator" /> 1h</span>
+          <span class="title" v-if="Math.sign(parseInt(transaction.value)) === -1">Sending Lightning Payment</span>
+          <span class="title" v-else>Receiving Lightning Payment</span>
+          <span class="subtitle">
+            <template  v-if="transaction.memo">
+              {{ transaction.memo }} <span class="separator" />
+            </template>
+
+            1h
+          </span>
         </div>
 
         <div class="column right">
-          <span class="title numeric">+1337</span>
-          <span class="subtitle numeric">$5.55</span>
+          <span class="title numeric">{{ transaction.value }}</span>
+          <span class="subtitle numeric">{{ Math.abs(transaction.value) | usd }}</span>
         </div>
       </div>
 
-      <div class="columns">
+      <div v-for="(transaction, index) in $store.state.lightning.confirmedTransactions" :key="index" class="columns">
         <div class="column left">
-          <span class="title">Expired Request</span>
-          <span class="subtitle">Show me the money <span class="separator" /> 2h</span>
+          <span class="title" v-if="Math.sign(parseInt(transaction.value)) === -1">Sent Lightning Payment</span>
+          <span class="title" v-else>Received Lightning Payment</span>
+          <span class="subtitle">
+            <template  v-if="transaction.memo">
+              {{ transaction.memo }} <span class="separator" />
+            </template>
+
+            1h
+          </span>
         </div>
 
         <div class="column right">
-          <span class="title numeric">+1337</span>
-          <span class="subtitle numeric">$5.55</span>
-        </div>
-      </div>
-
-      <div class="columns">
-        <div class="column left">
-          <span class="title">Sent Satoshis</span>
-          <span class="subtitle">For the "thing" <span class="separator" /> 3h</span>
-        </div>
-
-        <div class="column right">
-          <span class="title numeric">-100,000</span>
-          <span class="subtitle numeric">$500.00</span>
+          <span class="title numeric">{{ transaction.value | localized }}</span>
+          <span class="subtitle numeric">{{ Math.abs(transaction.value) | usd }}</span>
         </div>
       </div>
     </section>
 
-    <section class="foot">
+    <section class="foot is-hidden">
       <a class="button">See All 188 Transactions</a>
     </section>
   </div>
