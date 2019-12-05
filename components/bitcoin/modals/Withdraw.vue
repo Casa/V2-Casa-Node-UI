@@ -297,18 +297,19 @@
 
         this.feeTimeout = setTimeout(async () => {
           if(this.address && (this.amountSats || this.sweep)) {
-            const payload = {
+
+            const params = {
               address: this.address,
               confTarget: 0,
             };
 
             if(this.sweep) {
-              payload.sweep = true;
+              params.sweep = true;
             } else {
-              payload.amt = this.amountSats;
+              params.amt = this.amountSats;
             }
 
-            const estimates = await API.get(this.$axios, `${this.$env.API_LND}/v1/lnd/transaction/estimateFee`, payload);
+            const estimates = await API.get(this.$axios, `${this.$env.API_LND}/v1/lnd/transaction/estimateFee`, {params});
 
             if(estimates) {
               for(const [speed, estimate] of Object.entries(estimates)) {
