@@ -92,7 +92,7 @@
         </div>
 
         <div class="column right">
-          <a class="link" :href="lnExplorer + lightning.pubkey" target="_blank">
+          <a class="link" :href="lnExplorer + $store.state.lightning.pubkey" target="_blank">
             <span class="link">Visit Lightning Explorer</span>
             <img src="~/assets/icons/external-link.svg" class="icon">
           </a>
@@ -130,11 +130,14 @@
     async created() {
       const settings = await API.get(this.$axios, `${this.$env.API_MANAGER}/v1/settings/read`);
 
-      console.log(settings)
       if (settings) {
         this.nickname = settings.lnd.nickname || '';
         this.color = settings.lnd.color || defaultColor;
         this.minChanSize = settings.lnd.minChanSize || '';
+      }
+
+      if(!this.$store.state.lightning.pubkey) {
+        await this.$store.dispatch('lightning/getLndPageData');
       }
     },
 
