@@ -69,10 +69,10 @@
       <hr>
 
       <div class="buttons">
-        <ModalClose />
+        <a class="button" @click="edit()">Go Back and Edit</a>
 
         <button type="submit" class="button is-primary">
-          Review Payment
+          Confirm Payment
         </button>
       </div>
     </form>
@@ -80,9 +80,8 @@
 </template>
 
 <script>
-//  import {satsToBtc} from '@/helpers/units';
-//  import API from '@/helpers/api';/
-//  import Events from '~/helpers/events';
+  import Events from '~/helpers/events';
+  import API from '@/helpers/api';
 
   export default {
     data() {
@@ -93,13 +92,33 @@
       }
     },
 
+    async created() {
+      if(!this.$store.state.lightning.operational) {
+        await this.$store.dispatch('lightning/getStatus');
+      }
+
+      this.$store.dispatch('lightning/getBalance');
+      this.$store.dispatch('bitcoin/getPrice');
+    },
+
     methods: {
-      review() {
-        if(!this.paymentCode) {
+      async review() {
+        if(this.paymentCode) {
+          const payload = {
+            paymentRequest: this.paymentCode,
+          };
+
+          const invoice = await API.get(this.$axios, `${this.$env.API_LND}/v1/lnd/lightning/invoice`, {params: payload});
+
+          if(invoice) {
+            this.amountSats = parseInt(invoice.numSatoshis);
+            this.step = 'review';
+          } else {
+            console.error('Unable to parse payment code.');
+          }
+        } else {
           // Todo - Display error message via toast
           console.error('Unable to continue. Please make sure all fields are filled in.');
-        } else {
-          this.step = 'review';
         }
       },
 
@@ -107,8 +126,18 @@
         this.step = 'input';
       },
 
-      submit() {
+      async submit() {
+        const payload = {
+          paymentRequest: this.paymentCode,
+        };
 
+        try {
+          await this.$axios.post(`${this.$env.API_LND}/v1/lnd/lightning/payInvoice`, payload);
+          console.log('Payment sent successfully!');
+          Events.$emit('modal-close');
+        } catch(error) {
+          console.error('There was an error while paying the invoice.');
+        }
       },
     }
   }
