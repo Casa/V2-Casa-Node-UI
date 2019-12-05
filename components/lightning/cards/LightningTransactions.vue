@@ -5,8 +5,8 @@
         <h3>Transactions</h3>
 
         <div class="buttons">
-          <a class="button">Get Paid</a>
-          <a class="button">Pay Someone</a>
+          <a class="button" @click="createInvoice()">Get Paid</a>
+          <a class="button" @click="payInvoice()">Pay Someone</a>
         </div>
       </div>
 
@@ -86,6 +86,24 @@
     </section>
   </div>
 </template>
+
+<script>
+  import Events from '~/helpers/events';
+  import CreateInvoiceModal from '~/components/lightning/modals/CreateInvoice';
+  import PayInvoiceModal from '~/components/lightning/modals/PayInvoice';
+
+  export default {
+    methods: {
+      createInvoice() {
+        Events.$emit('modal-open', CreateInvoiceModal);
+      },
+
+      payInvoice() {
+        Events.$emit('modal-open', PayInvoiceModal);
+      },
+    }
+  }
+</script>
 
 <style lang="scss">
   @import "~/assets/css/variables.scss";
