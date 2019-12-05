@@ -21,6 +21,9 @@
           <p>
             Open and close channels with specific nodes.
           </p>
+          <div>
+            Active
+          </div>
         </div>
 
         <div class="column right">
@@ -58,7 +61,7 @@
         </div>
 
         <div class="column right">
-          <InputField v-model="nickname" type="text" label="Node Nickname"/>
+          <InputField v-model="nickName" type="text" label="Node Nickname"/>
         </div>
       </div>
 
@@ -111,19 +114,21 @@
 
 <script>
   import API from '@/helpers/api';
-
-  //  import Events from '~/helpers/events';
+  //import Events from '~/helpers/events';
 
   const defaultColor = '#8865DF';
+  const defaultString = '';
+  const defaultAutopilot = false;
 
   export default {
 
     data() {
       return {
         lnExplorer: this.$env.LIGHTNING_EXPLORER,
-        nickname: '',
+        nickName: defaultString,
         color: defaultColor,
-        minChanSize: '',
+        minChanSize: defaultString,
+        autopilot: defaultAutopilot,
       }
     },
 
@@ -131,9 +136,10 @@
       const settings = await API.get(this.$axios, `${this.$env.API_MANAGER}/v1/settings/read`);
 
       if (settings) {
-        this.nickname = settings.lnd.nickname || '';
+        this.nickName = settings.lnd.nickName || defaultString;
         this.color = settings.lnd.color || defaultColor;
-        this.minChanSize = settings.lnd.minChanSize || '';
+        this.minChanSize = settings.lnd.minChanSize || defaultString;
+        this.autopilot = settings.lnd.autopilot || defaultAutopilot;
       }
 
       if(!this.$store.state.lightning.pubkey) {
@@ -143,8 +149,25 @@
 
     methods: {
 
-      save() {
+      async save() {
+        const data = {};
+
+        if (this.nickName) {
+          data.nickName = this.nickName;
+        }
+
+        if (this.color) {
+          data.color = this.color;
+        }
+
+        if (this.minChanSize) {
+          data.minChanSize = parseInt(this.minChanSize, 10);
+        }
+
+        await API.post({ axios: this.$axios, url: `${this.$env.API_MANAGER}/v1/settings/save`, data });
+
       },
+
       formatColor() {
         // Prepend # symbol if none is included
         if(this.color.length && this.color[0] != '#') {
