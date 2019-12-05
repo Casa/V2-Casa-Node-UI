@@ -58,7 +58,7 @@
         </div>
 
         <div class="column right">
-          <InputField v-model="minChanSize" type="text" label="Node Nickname"/>
+          <InputField v-model="nickname" type="text" label="Node Nickname"/>
         </div>
       </div>
 
@@ -76,7 +76,7 @@
 
         <div class="column right custom-color">
           <div class="control skinny">
-            <input type="text" class="input" placeholder="#8865DF" v-model="color" @input="formatColor" name="nodeColor" v-validate="{regex: /^#[0-9a-f]{6}$/}">
+            <input type="text" class="input" v-model="color" @input="formatColor" name="nodeColor">
             <div class="color-output" :style="{'background-color': color}"></div>
           </div>
         </div>
@@ -92,8 +92,10 @@
         </div>
 
         <div class="column right">
-          <span>Visit Lightning Explorer</span>
-          <img src="~/assets/icons/external-link.svg" class="icon">
+          <a class="link" :href="lnExplorer + lightning.pubkey" target="_blank">
+            <span class="link">Visit Lightning Explorer</span>
+            <img src="~/assets/icons/external-link.svg" class="icon">
+          </a>
         </div>
       </div>
 
@@ -108,15 +110,31 @@
 </template>
 
 <script>
-  //import API from '@/helpers/api';
+  import API from '@/helpers/api';
 
   //  import Events from '~/helpers/events';
 
+  const defaultColor = '#8865DF';
+
   export default {
+
     data() {
       return {
+        lnExplorer: this.$env.LIGHTNING_EXPLORER,
+        nickname: '',
+        color: defaultColor,
         minChanSize: '',
-        color: '#8865DF',
+      }
+    },
+
+    async created() {
+      const settings = await API.get(this.$axios, `${this.$env.API_MANAGER}/v1/settings/read`);
+
+      console.log(settings)
+      if (settings) {
+        this.nickname = settings.lnd.nickname || '';
+        this.color = settings.lnd.color || defaultColor;
+        this.minChanSize = settings.lnd.minChanSize || '';
       }
     },
 
@@ -149,6 +167,9 @@
 
   .lightning-manage-modal {
 
+    h3 {
+      margin-bottom: 1em;
+    }
     .icon {
       width: 16px;
       height: 16px;
