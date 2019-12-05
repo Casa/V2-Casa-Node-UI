@@ -19,10 +19,13 @@
           </div>
 
           <p>
-            Open and close channels with specific nodes.
+            Automatically connect your node to others in the network.
           </p>
-          <div>
+          <div v-if="autopilot" class="autopilot is-green">
             Active
+          </div>
+          <div v-else class="autopilot is-red">
+            Not Active
           </div>
         </div>
 
@@ -192,6 +195,28 @@
   }
 
   .lightning-manage-modal {
+
+    .autopilot {
+      text-transform: uppercase;
+      width: 120px;
+      height: 30px;
+      border: solid 2px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      border-radius: 18px;
+      font-weight: 900;
+      font-size: 13px;
+      margin-top: 1em;
+
+      &.is-green {
+        color: $green;
+      }
+
+      &.is-red {
+        color: $red;
+      }
+    }
 
     h3 {
       margin-bottom: 1em;
