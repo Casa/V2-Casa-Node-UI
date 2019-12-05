@@ -20,7 +20,7 @@
 
       <span class="pill is-yellow">Step 3</span>
       <p>
-        Plug the cable from the Casa Node 1 into the USB Port on Casa Node 2.
+        Plug the hard drive cable from the Casa Node 1 into any available USB Port on Casa Node 2.
       </p>
     </main>
 
