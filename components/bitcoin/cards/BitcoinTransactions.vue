@@ -15,7 +15,7 @@
       <div class="columns totals">
         <div class="column">
           <div class="big numeric">
-            {{ $store.state.bitcoin.balance.total }}
+            {{ $store.state.bitcoin.balance.total | localized }}
           </div>
 
           <div class="label">
@@ -23,9 +23,9 @@
           </div>
         </div>
 
-        <div class="column narrow">
+        <div v-if="$store.state.bitcoin.balance.pendingIn > 0" class="column narrow">
           <div class="numeric">
-            +{{ $store.state.bitcoin.balance.pendingIn }}
+            +{{ $store.state.bitcoin.balance.pendingIn | localized }}
           </div>
 
           <div class="label">
@@ -33,9 +33,9 @@
           </div>
         </div>
 
-        <div class="column narrow">
+        <div v-if="$store.state.bitcoin.balance.pendingOut > 0" class="column narrow">
           <div class="numeric">
-            -{{ $store.state.bitcoin.balance.pendingOut }}
+            -{{ $store.state.bitcoin.balance.pendingOut | localized }}
           </div>
 
           <div class="label">
@@ -103,6 +103,8 @@
   @import "~/assets/css/variables.scss";
 
   .bitcoin-transactions {
-    //
+    .column.narrow {
+      min-width: 250px;
+    }
   }
 </style>

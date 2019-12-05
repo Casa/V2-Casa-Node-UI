@@ -13,17 +13,7 @@
       <div class="columns totals">
         <div class="column">
           <div class="big numeric">
-            1,345,000
-          </div>
-
-          <div class="label">
-            Sats Available
-          </div>
-        </div>
-
-        <div class="column">
-          <div class="big numeric">
-            1,230,000
+            {{ $store.state.lightning.maxReceive | localized }}
           </div>
 
           <div class="label">
@@ -33,7 +23,7 @@
 
         <div class="column narrow">
           <div class="big numeric">
-            440,000
+            {{ $store.state.lightning.maxSend | localized }}
           </div>
 
           <div class="label">

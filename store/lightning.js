@@ -36,12 +36,12 @@ export const mutations = {
   },
 
   setBalance(state, balance) {
-    state.balance.confirmed = balance;
+    state.balance.confirmed = parseInt(balance);
     state.balance.total = state.balance.confirmed + state.balance.pending;
   },
 
   setPendingBalance(state, pendingBalance) {
-    state.balance.pending = pendingBalance;
+    state.balance.pending = parseInt(pendingBalance);
     state.balance.total = state.balance.confirmed + state.balance.pending;
   },
 

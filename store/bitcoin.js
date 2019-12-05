@@ -1,4 +1,5 @@
 import API from '@/helpers/api';
+import {toPrecision} from '@/helpers/units';
 
 // Initial state
 export const state = () => ({
@@ -41,7 +42,7 @@ export const mutations = {
   },
 
   syncStatus(state, sync) {
-    state.percent = (parseFloat(sync.percent) * 100).toFixed(2);
+    state.percent = toPrecision(parseFloat(sync.percent) * 100, 2);
     state.currentBlock = sync.currentBlock;
     state.blockHeight = sync.headerCount;
 
