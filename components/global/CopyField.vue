@@ -1,8 +1,6 @@
 <template>
   <div class="copy-field">
     <div class="flex">
-      <input ref="copyInput" :value="value">
-
       <span class="numeric centered-vertically copy-content">{{ value }}</span>
       <a class="button is-small" @click="copy()">Copy</a>
     </div>
@@ -20,14 +18,12 @@
 
     methods: {
       copy() {
-        var copyInput = this.$refs.copyInput;
-
-        copyInput.select();
-        copyInput.setSelectionRange(0, this.value.length);
-
+        const dummy = document.createElement("textarea");
+        document.body.appendChild(dummy);
+        dummy.value = this.value + '';
+        dummy.select();
         document.execCommand("copy");
-
-        // Todo - add confirmation toast message
+        document.body.removeChild(dummy);
       }
     }
   }
