@@ -31,9 +31,9 @@
           </div>
         </div>
 
-        <div class="column">
+        <div class="column right">
           <div class="big numeric">
-            {{ $store.state.lightning.balance.total }}
+            {{ $store.state.lightning.balance.total | localized }}
           </div>
 
           <div class="label">
@@ -41,9 +41,9 @@
           </div>
         </div>
 
-        <div class="column narrow">
+        <div class="column right">
           <div class="big numeric">
-            {{ $store.state.lightning.balance.pending }}
+            {{ $store.state.lightning.balance.pending | localized }}
           </div>
 
           <div class="label">
@@ -63,8 +63,8 @@
         <div class="column right">
           <span class="title status active">Online</span>
           <span class="subtitle numeric">
-            <strong>Can Send:</strong> {{ channel.localBalance }}<br>
-            <strong>Can Receive:</strong> {{ channel.remoteBalance }}
+            <strong>Can Send:</strong> {{ channel.localBalance | localized }}<br>
+            <strong>Can Receive:</strong> {{ channel.remoteBalance | localized }}
           </span>
         </div>
       </div>
@@ -94,6 +94,10 @@
   @import "~/assets/css/variables.scss";
 
   .channels {
+    .column.narrow {
+      min-width: 250px;
+    }
+
     .title.status {
       font-weight: bold;
     }

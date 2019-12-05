@@ -98,6 +98,7 @@
         font-weight: bold;
         margin-bottom: 2.5em;
         outline: none;
+        white-space: nowrap;
       }
 
       img {

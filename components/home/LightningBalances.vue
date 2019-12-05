@@ -5,7 +5,7 @@
     <div class="columns">
       <div class="column">
         <div class="numeric">
-          {{ $store.state.lightning.balance.confirmed }}
+          {{ $store.state.lightning.balance.confirmed | localized }}
         </div>
 
         <div class="label">
@@ -13,9 +13,9 @@
         </div>
       </div>
 
-      <div class="column">
+      <div class="column right">
         <div class="numeric">
-          {{ $store.state.lightning.balance.pending }}
+          {{ $store.state.lightning.balance.pending | localized }}
         </div>
 
         <div class="label">

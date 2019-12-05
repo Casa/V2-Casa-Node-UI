@@ -23,9 +23,9 @@
         </div>
       </div>
 
-      <div class="column">
+      <div class="column right">
         <div class="numeric">
-          {{ $store.state.lightning.maxSend }}
+          {{ $store.state.lightning.maxSend | localized }}
         </div>
 
         <div class="label">
@@ -33,9 +33,9 @@
         </div>
       </div>
 
-      <div class="column">
+      <div class="column right">
         <div class="numeric">
-          {{ $store.state.lightning.maxReceive }}
+          {{ $store.state.lightning.maxReceive | localized }}
         </div>
 
         <div class="label">

@@ -47,9 +47,14 @@
         await this.$store.dispatch('bitcoin/getStatus');
       }
 
+      if(!this.$store.state.lightning.operational) {
+        await this.$store.dispatch('lightning/getStatus');
+      }
+
       this.$store.dispatch('bitcoin/getPeers');
       this.$store.dispatch('bitcoin/getBalance');
-      this.$store.dispatch('lightning/getStatus');
+      this.$store.dispatch('lightning/getBalance');
+      this.$store.dispatch('lightning/getChannels');
       this.$store.dispatch('system/checkForUpdates');
     },
 

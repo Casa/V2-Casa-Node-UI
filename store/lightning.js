@@ -1,5 +1,18 @@
 import API from '@/helpers/api';
 
+// Helper function to sort lightning transactions by date
+function sortTransactions(a, b) {
+  if (a.creationDate > b.creationDate) {
+    return -1;
+  }
+
+  if (a.creationDate < b.creationDate) {
+    return 1;
+  }
+
+  return 0;
+}
+
 // Initial state
 export const state = () => ({
   operational: false,
@@ -15,7 +28,9 @@ export const state = () => ({
   connectionCode: 'unknown',
   maxSend: 0,
   maxReceive: 0,
-})
+  confirmedTransactions: [],
+  pendingTransactions: [],
+});
 
 // Functions to update the state directly
 export const mutations = {
@@ -35,8 +50,14 @@ export const mutations = {
     state.channels = channels;
   },
 
+  setBalance(state, balance) {
+    state.balance.confirmed = parseInt(balance);
+    state.balance.total = state.balance.confirmed + state.balance.pending;
+  },
+
   setPendingBalance(state, pendingBalance) {
-    state.balance.pending = pendingBalance;
+    state.balance.pending = parseInt(pendingBalance);
+    state.balance.total = state.balance.confirmed + state.balance.pending;
   },
 
   setMaxReceive(state, maxReceive) {
@@ -45,8 +66,16 @@ export const mutations = {
 
   setMaxSend(state, maxSend) {
     state.maxSend = maxSend;
+  },
+
+  setConfirmedTransactions(state, confirmedTransactions) {
+    state.confirmedTransactions = confirmedTransactions;
+  },
+
+  setPendingTransactions(state, pendingTransactions) {
+    state.pendingTransactions = pendingTransactions;
   }
-}
+};
 
 // Functions to get data from the API
 export const actions = {
@@ -69,6 +98,15 @@ export const actions = {
     }
   },
 
+  async getBalance({ commit, state }) {
+    if(state.operational && state.unlocked) {
+      const balance = await API.get(this.$axios, `${this.$env.API_LND}/v1/lnd/wallet/lightning`);
+
+      if(balance) {
+        commit('setBalance', balance.balance);
+      }
+    }
+  },
 
   async getChannels({ commit, state }) {
     if(state.operational && state.unlocked) {
@@ -112,7 +150,43 @@ export const actions = {
     }
   },
 
-}
+  async getTransactions({ commit, state }) {
+    if(state.operational && state.unlocked) {
+      // Get invoices and payments
+      const invoices = await API.get(this.$axios, `${this.$env.API_LND}/v1/lnd/lightning/invoices`);
+      const payments = await API.get(this.$axios, `${this.$env.API_LND}/v1/lnd/lightning/payments`);
+
+      // Loop through invoices and payments to determine which are pending and completed
+      if(invoices && payments) {
+        const transactions = [];
+        const pending = [];
+
+        invoices.forEach((invoice) => {
+          if(invoice.settled) {
+            transactions.push(invoice);
+          } else {
+            // If this invoice hasn't expired
+            if(parseInt(invoice.creationDate) + parseInt(invoice.expiry) > new Date().getTime() / 1000) {
+              pending.push(invoice);
+            }
+          }
+        });
+
+        payments.forEach((payment) => {
+          // Payments should be negative to match the display of BTC transactions
+          payment.value *= -1;
+          transactions.push(payment);
+        });
+
+        // Sort the transactions by date now that invoices and payments been combined
+        transactions.sort(sortTransactions);
+
+        commit('setConfirmedTransactions', transactions);
+        commit('setPendingTransactions', pending);
+      }
+    }
+  },
+};
 
 export const getters = {
   status(state) {

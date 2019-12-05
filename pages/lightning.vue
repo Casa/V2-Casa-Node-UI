@@ -29,7 +29,10 @@
         await this.$store.dispatch('lightning/getStatus');
       }
 
+      this.$store.dispatch('lightning/getBalance');
       this.$store.dispatch('lightning/getChannels');
+      this.$store.dispatch('lightning/getTransactions');
+      this.$store.dispatch('bitcoin/getPrice');
     },
   }
 </script>
