@@ -35,8 +35,14 @@ export const mutations = {
     state.channels = channels;
   },
 
+  setBalance(state, balance) {
+    state.balance.confirmed = balance;
+    state.balance.total = state.balance.confirmed + state.balance.pending;
+  },
+
   setPendingBalance(state, pendingBalance) {
     state.balance.pending = pendingBalance;
+    state.balance.total = state.balance.confirmed + state.balance.pending;
   },
 
   setMaxReceive(state, maxReceive) {
@@ -69,6 +75,15 @@ export const actions = {
     }
   },
 
+  async getBalance({ commit, state }) {
+    if(state.operational && state.unlocked) {
+      const balance = await API.get(this.$axios, `${this.$env.API_LND}/v1/lnd/wallet/lightning`);
+
+      if(balance) {
+        commit('setBalance', balance.balance);
+      }
+    }
+  },
 
   async getChannels({ commit, state }) {
     if(state.operational && state.unlocked) {
