@@ -84,10 +84,6 @@
   import NewChannel from '~/components/lightning/modals/NewChannel';
 
   export default {
-    created() {
-      console.log(this.$store.state.lightning.channels);
-    },
-
     methods: {
       newChannel() {
         Events.$emit('modal-open', NewChannel);
