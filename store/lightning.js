@@ -52,12 +52,14 @@ export const mutations = {
   },
 
   setBalance(state, balance) {
-    state.balance.confirmed = parseInt(balance);
-    state.balance.total = state.balance.confirmed + state.balance.pending;
-  },
+    if(balance.confirmed !== undefined) {
+      state.balance.confirmed = parseInt(balance.confirmed);
+    }
 
-  setPendingBalance(state, pendingBalance) {
-    state.balance.pending = parseInt(pendingBalance);
+    if(balance.pending !== undefined) {
+      state.balance.pending = parseInt(balance.pending);
+    }
+
     state.balance.total = state.balance.confirmed + state.balance.pending;
   },
 
@@ -113,12 +115,15 @@ export const actions = {
     }
   },
 
+  // Deprecated, this endpoint returns balance data minus estimated channel closing fees
+  // These estimates have caused many customers to be confused by the numbers displayed in the dashboard (leaky sats)
+  // Instead we can calculate our total balance by getting the sum of each channel's localBalance
   async getBalance({ commit, state }) {
     if(state.operational && state.unlocked) {
       const balance = await API.get(this.$axios, `${this.$env.API_LND}/v1/lnd/wallet/lightning`);
 
       if(balance) {
-        commit('setBalance', balance.balance);
+        commit('setBalance', {confirmed: balance.balance});
       }
     }
   },
@@ -127,7 +132,8 @@ export const actions = {
     if(state.operational && state.unlocked) {
       const rawChannels = await API.get(this.$axios, `${this.$env.API_LND}/v1/lnd/channel`);
       const channels = [];
-      let pending = 0;
+      let confirmedBalance = 0;
+      let pendingBalance = 0;
       let maxReceive = 0;
       let maxSend = 0;
 
@@ -138,7 +144,11 @@ export const actions = {
           const remoteBalance = parseInt(channel.remoteBalance) || 0;
 
           if(channel.type === 'OPEN') {
-            channel.status = 'open';
+            if(channel.active) {
+              channel.status = 'online';
+            } else {
+              channel.status = 'offline';
+            }
 
             if(remoteBalance > maxReceive) {
               maxReceive = remoteBalance;
@@ -147,9 +157,14 @@ export const actions = {
             if(localBalance > maxSend) {
               maxSend = localBalance;
             }
-          } else if (['WAITING_CLOSING_CHANNEL', 'FORCE_CLOSING_CHANNEL', 'PENDING_CLOSING_CHANNEL', 'PENDING_OPEN_CHANNEL'].indexOf(channel.type) > -1) {
-            pending += localBalance;
-            channel.status = 'pending';
+
+            confirmedBalance += localBalance;
+          } else if(channel.type === 'PENDING_OPEN_CHANNEL') {
+            pendingBalance += localBalance;
+            channel.status = 'opening';
+          } else if (['WAITING_CLOSING_CHANNEL', 'FORCE_CLOSING_CHANNEL', 'PENDING_CLOSING_CHANNEL'].indexOf(channel.type) > -1) {
+            pendingBalance += localBalance;
+            channel.status = 'closing';
           } else {
             channel.status = 'unknown';
           }
@@ -158,7 +173,7 @@ export const actions = {
         });
 
         commit('setChannels', channels);
-        commit('setPendingBalance', pending);
+        commit('setBalance', {confirmed: confirmedBalance, pending: pendingBalance});
         commit('setMaxReceive', maxReceive);
         commit('setMaxSend', maxSend);
       }
