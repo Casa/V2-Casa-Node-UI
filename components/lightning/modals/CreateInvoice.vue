@@ -111,13 +111,42 @@
         </button>
       </div>
     </form>
+
+    <form v-else-if="step == 'qrcode'">
+      <div class="columns modal-heading">
+        <div class="column">
+          <h3>
+            Lightning Invoice Ready
+          </h3>
+        </div>
+
+        <div class="column modal-description">
+          Copy or scan the payment code below.
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="flex centered">
+        <CopyField :value="paymentCode" />
+      </div>
+
+      <div class="flex centered qr-code">
+        <qriously :value="paymentCode" :size="320" foreground="#865efc" />
+      </div>
+
+      <hr>
+
+      <div class="buttons centered">
+        <a class="button is-primary" @click="close()">Close</a>
+      </div>
+    </form>
   </Modal>
 </template>
 
 <script>
   import {satsToBtc, btcToSats, toPrecision} from '@/helpers/units';
-//  import API from '@/helpers/api';
-//  import Events from '~/helpers/events';
+  import Events from '~/helpers/events';
 
   export default {
     data() {
@@ -200,9 +229,24 @@
         this.step = 'input';
       },
 
-      createInvoice() {
-        //
+      async createInvoice() {
+        const payload = {
+          amt: this.amountSats,
+          memo: this.memo
+        };
+
+        try {
+          const invoice = await this.$axios.post(`${this.$env.API_LND}/v1/lnd/lightning/addInvoice`, payload);
+          this.paymentCode = invoice.data.paymentRequest;
+          this.step = 'qrcode';
+        } catch (error) {
+          console.error(error.response.data);
+        }
       },
+
+      close() {
+        Events.$emit('modal-close');
+      }
     }
   }
 </script>
@@ -242,6 +286,19 @@
       text-align: center;
       padding: 0.75em 2.5em;
       margin: 1em 0 2.5em;
+    }
+
+    .copy-field {
+      margin-top: 1em;
+      max-width: 75%;
+    }
+
+    .qr-code {
+      margin: 3em 0 2.5em;
+
+      canvas {
+        border-radius: 16px;
+      }
     }
   }
 </style>
