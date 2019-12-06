@@ -30,6 +30,7 @@ export const mutations = {
   setLocalHostAddress(state, address) {
     state.localHostAddress = address;
   },
+
 }
 
 // Functions to get data from the API

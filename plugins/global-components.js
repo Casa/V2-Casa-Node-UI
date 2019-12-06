@@ -1,8 +1,10 @@
 // 3rd party components
 import Vue from 'vue';
 import VueQriously from 'vue-qriously';
+import VTooltip from 'v-tooltip';
 
 Vue.use(VueQriously);
+Vue.use(VTooltip);
 
 // Custom components
 import UnitSwitch from '~/components/global/UnitSwitch';

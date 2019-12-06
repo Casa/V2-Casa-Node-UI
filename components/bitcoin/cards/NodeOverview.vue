@@ -2,7 +2,7 @@
   <div class="card node-overview">
     <div class="flex space-between">
       <h3>Node Overview</h3>
-      <a class="button">Manage Bitcoin Node</a>
+      <a class="button" @click="manage()">Manage Bitcoin Node</a>
     </div>
 
     <div class="columns space-between">
@@ -57,6 +57,8 @@
 
 <script>
   import { mapGetters } from 'vuex';
+  import Events from '~/helpers/events';
+  import ManageModal from '~/components/bitcoin/modals/Manage';
 
   export default {
     computed: {
@@ -64,6 +66,11 @@
       ...mapGetters({
         bitcoinStatus: 'bitcoin/status',
       })
+    },
+    methods: {
+      manage() {
+        Events.$emit('modal-open', ManageModal);
+      },
     },
   }
 </script>

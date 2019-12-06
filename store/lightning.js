@@ -30,7 +30,8 @@ export const state = () => ({
   maxReceive: 0,
   confirmedTransactions: [],
   pendingTransactions: [],
-});
+  pubkey: '',
+})
 
 // Functions to update the state directly
 export const mutations = {
@@ -74,7 +75,11 @@ export const mutations = {
 
   setPendingTransactions(state, pendingTransactions) {
     state.pendingTransactions = pendingTransactions;
-  }
+  },
+
+  setPubKey(state, pubkey) {
+    state.pubkey = pubkey;
+  },
 };
 
 // Functions to get data from the API
@@ -85,6 +90,16 @@ export const actions = {
     if(status) {
       commit('isOperational', status.operational);
       commit('isUnlocked', status.unlocked);
+    }
+  },
+
+  async getLndPageData({ commit }) {
+    const lightning = await API.get(this.$axios, `${this.$env.API_LND}/v1/pages/lnd`);
+
+    if(lightning) {
+      const lightningInfo = lightning.lightningInfo;
+
+      commit('setPubKey', lightningInfo.identityPubkey);
     }
   },
 
