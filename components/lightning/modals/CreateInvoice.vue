@@ -1,6 +1,6 @@
 <template>
   <Modal class="create-invoice-modal">
-    <form @submit.prevent="validate()">
+    <form v-if="step == 'input'" @submit.prevent="review()">
       <div class="columns modal-heading">
         <div class="column">
           <h3>
@@ -13,6 +13,10 @@
         </div>
       </div>
       <hr>
+
+      <div class="flex centered">
+        <span class="dot label">Amount to Request</span>
+      </div>
 
       <div class="columns">
         <div class="column is-full">
@@ -37,7 +41,7 @@
         </div>
       </div>
 
-      <InputField label="Memo (Optional)" />
+      <InputField v-model="memo" label="Memo (Optional)" />
 
       <hr>
 
@@ -46,6 +50,64 @@
 
         <button type="submit" class="button is-primary">
           Continue
+        </button>
+      </div>
+    </form>
+
+    <form v-else-if="step == 'review'" @submit.prevent="createInvoice()">
+      <div class="columns modal-heading">
+        <div class="column">
+          <h3>
+            Review Lightning Invoice
+          </h3>
+        </div>
+
+        <div class="column modal-description">
+          <UnitSwitch />
+        </div>
+      </div>
+      <hr>
+
+      <div class="review-total">
+        <div class="flex centered">
+          <span class="dot label">Expires in One Hour</span>
+        </div>
+
+        <template v-if="inputMode === 'usd'">
+          <div class="flex centered big">
+            <span class="numeric">${{ amountUsd }}</span>
+          </div>
+
+          <div class="flex centered">
+            <span class="numeric">{{ amountSats | localized }}</span>&nbsp;sats
+          </div>
+        </template>
+
+        <template v-else-if="inputMode === 'sats'">
+          <div class="flex centered big">
+            <span class="numeric">{{ amountSats | localized }}</span>&nbsp;sats
+          </div>
+
+          <div class="flex centered">
+            <span class="numeric">${{ amountUsd }}</span>
+          </div>
+        </template>
+      </div>
+
+      <hr>
+
+      <template v-if="memo !== ''">
+        <div class="flex centered">
+          {{ memo }}
+        </div>
+
+        <hr>
+      </template>
+
+      <div class="buttons">
+        <a class="button" @click="edit()">Go Back and Edit</a>
+        <button type="submit" class="button is-primary">
+          Create Invoice
         </button>
       </div>
     </form>
@@ -60,11 +122,13 @@
   export default {
     data() {
       return {
+        step: 'input',
         inputMode: 'usd',
         paymentCode: '',
         amountDisplayed: '$0',
         amountSats: 0,
         amountBtc: 0,
+        memo: '',
       }
     },
 
@@ -123,7 +187,20 @@
         }
       },
 
-      validate() {
+      async review() {
+        if(this.amountSats) {
+          this.step = 'review';
+        } else {
+          // Todo - Display error message via toast
+          console.error('Unable to continue. Please make sure all fields are filled in.');
+        }
+      },
+
+      edit() {
+        this.step = 'input';
+      },
+
+      createInvoice() {
         //
       },
     }
@@ -156,6 +233,15 @@
 
     .input-wrap {
       width: 100%;
+    }
+
+    .dot {
+      background-color: $transparentSand;
+      border-radius: 16px;
+      vertical-align: middle;
+      text-align: center;
+      padding: 0.75em 2.5em;
+      margin: 1em 0 2.5em;
     }
   }
 </style>
