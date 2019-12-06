@@ -34,7 +34,7 @@
         </div>
 
         <div class="column">
-          <CopyField :value="$store.state.system.onionAddress" class="copy"/>
+          <CopyField :value="$store.state.system.onionAddress" class="copy" />
           <a class="qr-pill" @click="openSatsAppModal()">
             View Sats App QR Code
           </a>
@@ -61,7 +61,7 @@
         </div>
 
         <div class="column">
-          <CopyField :value="$store.state.system.localHostAddress" class="copy"/>
+          <CopyField :value="$store.state.system.localHostAddress" class="copy" />
         </div>
       </div>
 
@@ -78,7 +78,7 @@
         </div>
 
         <div class="column">
-          <CopyField :value="$store.state.lightning.connectionCode" class="copy"/>
+          <CopyField :value="$store.state.lightning.connectionCode" class="copy" />
           <a class="qr-pill" @click="openConnectionCodeModal()">
             View Lightning QR Code
           </a>
@@ -95,7 +95,6 @@
       </div>
 
       <div class="columns space-between">
-
         <div class="column">
           <h6>
             Bitcoin Node IP Address
@@ -106,9 +105,8 @@
         </div>
 
         <div class="column">
-          <CopyField :value="$store.state.bitcoin.ipAddress" class="copy"/>
+          <CopyField :value="$store.state.bitcoin.ipAddress" class="copy" />
         </div>
-
       </div>
 
       <div class="columns space-between">
@@ -122,10 +120,9 @@
         </div>
 
         <div class="column">
-          <CopyField :value="$store.state.bitcoin.onionAddress" class="copy"/>
+          <CopyField :value="$store.state.bitcoin.onionAddress" class="copy" />
         </div>
       </div>
-
     </section>
   </div>
 </template>
@@ -137,15 +134,6 @@
   import ConnectionCodeModal from '~/components/system/modals/ConnectionCode';
 
   export default {
-    methods: {
-      openSatsAppModal() {
-        Events.$emit('modal-open', SatsAppModal);
-      },
-      openConnectionCodeModal() {
-        Events.$emit('modal-open', ConnectionCodeModal);
-      }
-    },
-
     async created() {
       if(!this.$store.state.bitcoin.operational) {
         await this.$store.dispatch('bitcoin/getStatus');
@@ -154,6 +142,15 @@
       this.$store.dispatch('system/getAddresses');
       this.$store.dispatch('bitcoin/getAddresses');
       this.$store.dispatch('lightning/getConnectionCode');
+    },
+
+    methods: {
+      openSatsAppModal() {
+        Events.$emit('modal-open', SatsAppModal);
+      },
+      openConnectionCodeModal() {
+        Events.$emit('modal-open', ConnectionCodeModal);
+      }
     },
   }
 </script>

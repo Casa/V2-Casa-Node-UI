@@ -83,6 +83,14 @@
       }
     },
 
+    watch: {
+      // Since we are making a local copy of the value, we need to watch for external changes to value and pass them
+      // along to currentValue.
+      value: function(newValue) {
+        this.currentValue = newValue;
+      },
+    },
+
     methods: {
       onFocus() {
         this.active = true;
@@ -100,15 +108,6 @@
         this.$emit('input', this.currentValue);
       },
     },
-
-    watch: {
-
-      // Since we are making a local copy of the value, we need to watch for external changes to value and pass them
-      // along to currentValue.
-      value: function(newValue) {
-        this.currentValue = newValue;
-      },
-    }
   }
 </script>
 

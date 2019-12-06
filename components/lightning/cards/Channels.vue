@@ -54,7 +54,7 @@
     </section> <!-- /.primary -->
 
     <section class="secondary">
-      <div class="columns" v-for="(channel, index) in $store.state.lightning.channels" :key="index">
+      <div v-for="(channel, index) in $store.state.lightning.channels" :key="`channel-${index}`" class="columns">
         <div class="column left">
           <span class="title">{{ channel.name }}</span>
           <span class="subtitle">{{ channel.purpose }}</span>

@@ -1,6 +1,6 @@
 <template>
   <div class="tor-warning-page">
-    <main >
+    <main>
       <img src="~/assets/icons/prefer-tor.svg">
       <h2>For maximum privacy and security, please use Tor.</h2>
       <p class="paragraph">

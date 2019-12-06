@@ -15,7 +15,11 @@
             <h6>
               Custom Lightning Channels
             </h6>
-            <img src="~/assets/icons/info-blue.svg" v-tooltip.top-center="'Open and manage channels with specific nodes on the network, giving you more control over who you connect with.'" class="tooltip icon">
+            <img
+              v-tooltip.top-center="'Open and manage channels with specific nodes on the network, giving you more control over who you connect with.'"
+              src="~/assets/icons/info-blue.svg"
+              class="tooltip icon"
+            >
           </div>
 
           <p>
@@ -30,7 +34,9 @@
         </div>
 
         <div class="column right">
-          <button class="button">Manage</button>
+          <button class="button">
+            Manage
+          </button>
         </div>
       </div>
 
@@ -47,7 +53,7 @@
         </div>
 
         <div class="column right">
-          <InputField v-model="minChanSize" type="text" label="Sats"/>
+          <InputField v-model="minChanSize" type="text" label="Sats" />
         </div>
       </div>
 
@@ -64,7 +70,7 @@
         </div>
 
         <div class="column right">
-          <InputField v-model="nickName" type="text" label="Node Nickname"/>
+          <InputField v-model="nickName" type="text" label="Node Nickname" />
         </div>
       </div>
 
@@ -82,8 +88,8 @@
 
         <div class="column right custom-color">
           <div class="control skinny">
-            <input type="text" class="input" v-model="color" @input="formatColor" name="nodeColor">
-            <div class="color-output" :style="{'background-color': color}"></div>
+            <input v-model="color" type="text" class="input" name="nodeColor" @input="formatColor">
+            <div class="color-output" :style="{'background-color': color}" />
           </div>
         </div>
       </div>
@@ -109,7 +115,9 @@
 
       <div class="buttons">
         <ModalClose />
-        <button type="submit" class="button is-primary">Save Settings</button>
+        <button type="submit" class="button is-primary">
+          Save Settings
+        </button>
       </div>
     </form>
   </Modal>
@@ -187,14 +195,10 @@
 <style lang="scss">
   @import "~/assets/css/variables.scss";
 
-  // Override default width
-  .modal {
+  .lightning-manage-modal {
     .modal-content {
       width: 75%;
     }
-  }
-
-  .lightning-manage-modal {
 
     .autopilot {
       text-transform: uppercase;

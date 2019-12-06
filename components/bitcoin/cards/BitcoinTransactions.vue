@@ -46,7 +46,7 @@
     </section> <!-- /.primary -->
 
     <section class="secondary">
-      <div v-for="(transaction, index) in $store.state.bitcoin.pending" :key="index" class="columns">
+      <div v-for="(transaction, index) in $store.state.bitcoin.pending" :key="`pending-${index}`" class="columns">
         <div class="column left">
           <span v-if="transaction.type === 'ON_CHAIN_TRANSACTION_SENT'" class="title">Payment Sent (Pending)</span>
           <span v-else class="title">Payment Received (Pending)</span>
@@ -60,7 +60,7 @@
         </div>
       </div>
 
-      <div v-for="(transaction, index) in $store.state.bitcoin.transactions" :key="index" class="columns">
+      <div v-for="(transaction, index) in $store.state.bitcoin.transactions" :key="`confirmed-${index}`" class="columns">
         <div class="column left">
           <span v-if="transaction.type === 'ON_CHAIN_TRANSACTION_SENT'" class="title">Payment Sent</span>
           <span v-else class="title">Payment Received</span>
