@@ -18,6 +18,8 @@
 </template>
 
 <script>
+  import {copyToClipboard} from '@/helpers/utils';
+
   export default {
     created() {
       this.$store.dispatch('system/getAddresses');
@@ -25,12 +27,7 @@
 
     methods: {
       copy() {
-        const dummy = document.createElement("textarea");
-        document.body.appendChild(dummy);
-        dummy.value = this.$store.state.system.onionAddress;
-        dummy.select();
-        document.execCommand("copy");
-        document.body.removeChild(dummy);
+        copyToClipboard(this.$store.state.system.onionAddress);
       },
     }
   }
