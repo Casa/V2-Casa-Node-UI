@@ -17,3 +17,20 @@
     </footer>
   </div>
 </template>
+
+<script>
+  import cookie from 'cookie';
+
+  export default {
+    created() {
+      const cookies = cookie.parse(document.cookie);
+      const torWarning = cookies.TOR_WARING;
+
+      // Warn the user if they are using clearnet.
+      if(torWarning !== 'true' && window.location.href.includes('.onion') !== true) {
+        document.cookie = cookie.serialize('TOR_WARING', 'true');
+        this.$router.push('/tor-warning');
+      }
+    },
+  }
+</script>

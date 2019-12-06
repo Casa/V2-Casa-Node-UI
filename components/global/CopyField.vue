@@ -8,6 +8,9 @@
 </template>
 
 <script>
+
+  import {copyToClipboard} from '@/helpers/utils';
+
   export default {
     props: {
       'value': {
@@ -18,12 +21,7 @@
 
     methods: {
       copy() {
-        const dummy = document.createElement("textarea");
-        document.body.appendChild(dummy);
-        dummy.value = this.value + '';
-        dummy.select();
-        document.execCommand("copy");
-        document.body.removeChild(dummy);
+        copyToClipboard(this.value);
       }
     }
   }
