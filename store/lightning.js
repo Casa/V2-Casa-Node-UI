@@ -169,6 +169,11 @@ export const actions = {
             channel.status = 'unknown';
           }
 
+          if(channel.name === '' && !channel.initiator) {
+            channel.name = 'Inbound Channel';
+            channel.purpose = 'A channel that another node has opened to you';
+          }
+
           channels.push(channel);
         });
 

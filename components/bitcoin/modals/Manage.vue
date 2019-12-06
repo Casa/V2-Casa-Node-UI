@@ -22,7 +22,9 @@
       </div>
 
       <div class="column right">
-        <button class="button danger" @click="confirmSync()">Sync from Scratch</button>
+        <button class="button danger" @click="confirmSync()">
+          Sync from Scratch
+        </button>
       </div>
     </div>
 
@@ -39,9 +41,7 @@
   import ConfirmSyncModal from '~/components/bitcoin/modals/ConfirmSync';
 
   export default {
-
     methods: {
-
       confirmSync() {
         Events.$emit('modal-close');
         Events.$emit('modal-open', ConfirmSyncModal);
@@ -54,7 +54,6 @@
   @import "~/assets/css/variables.scss";
 
   .bitcoin-manage-modal {
-
     .spacer {
       margin-bottom: 1.5em;
     }
@@ -91,7 +90,6 @@
     }
 
     .custom-color {
-
       input {
         padding-left: 4em !important;
       }

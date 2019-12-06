@@ -14,7 +14,7 @@
     <hr>
 
     <div class="flex centered">
-      <CopyField :value="$store.state.lightning.connectionCode" class="copy"/>
+      <CopyField :value="$store.state.lightning.connectionCode" class="copy" />
     </div>
 
     <div class="flex centered qr-code">

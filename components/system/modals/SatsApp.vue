@@ -14,7 +14,7 @@
     <hr>
 
     <div class="flex centered">
-      <CopyField :value="$store.state.system.onionAddress" class="copy"/>
+      <CopyField :value="$store.state.system.onionAddress" class="copy" />
     </div>
 
     <div class="flex centered qr-code">
