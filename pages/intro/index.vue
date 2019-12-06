@@ -25,7 +25,6 @@
     created() {
       const cookies = cookie.parse(document.cookie);
       const torWarning = cookies.TOR_WARING;
-      console.log(cookies)
 
       // Warn the user if they are using clearnet.
       if(torWarning !== 'true' && window.location.href.includes('.onion') !== true) {
