@@ -53,7 +53,6 @@
 
       this.$store.dispatch('bitcoin/getPeers');
       this.$store.dispatch('bitcoin/getBalance');
-      this.$store.dispatch('lightning/getBalance');
       this.$store.dispatch('lightning/getChannels');
       this.$store.dispatch('system/checkForUpdates');
     },

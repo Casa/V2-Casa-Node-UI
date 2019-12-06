@@ -61,7 +61,10 @@
         </div>
 
         <div class="column right">
-          <span class="title status active">Online</span>
+          <span v-if="channel.status === 'online'" class="title status active">Online</span>
+          <span v-else-if="channel.status === 'offline'" class="title status inactive">Offline</span>
+          <span v-else-if="channel.status === 'opening'" class="title status syncing">Opening</span>
+          <span v-else-if="channel.status === 'closing'" class="title status syncing">Closing</span>
           <span class="subtitle numeric">
             <strong>Can Send:</strong> {{ channel.localBalance | localized }}<br>
             <strong>Can Receive:</strong> {{ channel.remoteBalance | localized }}
@@ -81,6 +84,10 @@
   import NewChannel from '~/components/lightning/modals/NewChannel';
 
   export default {
+    created() {
+      console.log(this.$store.state.lightning.channels);
+    },
+
     methods: {
       newChannel() {
         Events.$emit('modal-open', NewChannel);
