@@ -7,3 +7,8 @@ export function copyToClipboard(input) {
   document.execCommand("copy");
   document.body.removeChild(dummy);
 }
+
+// Simulates synchronous sleep function.
+export async function sleep(milliseconds) {
+  return new Promise(resolve => setTimeout(resolve, milliseconds))
+}

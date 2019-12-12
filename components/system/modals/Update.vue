@@ -5,11 +5,11 @@
 
       <hr>
 
-      <InputField v-model="password" label="Node Password" type="password" />
+      Are you sure you want to update your node?
 
       <div class="buttons">
         <ModalClose />
-        <a class="button is-primary">Update</a>
+        <a class="button is-primary" @click="update">Update</a>
       </div>
     </form>
   </Modal>
@@ -18,22 +18,16 @@
 <script>
   import Events from '~/helpers/events';
   import API from '@/helpers/api';
+  import {sleep} from '@/helpers/utils';
 
   export default {
-    data() {
-      return {
-        password: '',
-      }
-    },
-
     methods: {
       async update() {
-        const data = {
-          password: this.password,
-        };
+        await API.post({ axios: this.$axios, url: `${this.$env.API_MANAGER}/v1/device/update` });
 
-        await API.post({ axios: this.$axios, url: `${this.$env.API_MANAGER}/v1/device/update`, data });
-
+        // TODO: Add loading state for button.
+        // Sleep to give the manager time to restart
+        await sleep(5000);
         Events.$emit('modal-close');
         this.$router.push('/loading');
       }
