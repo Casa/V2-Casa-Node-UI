@@ -24,6 +24,7 @@
 
 <script>
   import API from '@/helpers/api';
+  import {sleep} from '@/helpers/utils';
 
   export default {
     data() {
@@ -43,7 +44,7 @@
 
         if(data === false) {
           // Todo: Output error message from 500 error?
-          await this.sleep(5000);
+          await sleep(5000);
         }
       }
 
@@ -79,11 +80,6 @@
           this.count++;
           this.displaySeed();
         }
-      },
-
-      // Simulates synchronous sleep function.
-      async sleep(milliseconds) {
-        return new Promise(resolve => setTimeout(resolve, milliseconds))
       },
     },
   }
