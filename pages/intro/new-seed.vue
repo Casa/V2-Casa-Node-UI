@@ -15,7 +15,7 @@
         Go Back
       </a>
 
-      <a class="button is-primary" @click="nextSeed()">
+      <a class="button is-primary" @click="nextSeed()" :disabled="seedPhrase.length === 0">
         Next
       </a>
     </footer>
@@ -72,7 +72,9 @@
       },
 
       nextSeed() {
-        if(this.count === this.seedPhrase.length) {
+        if(this.seedPhrase.length === 0) {
+          return;
+        } else if(this.count === this.seedPhrase.length) {
           // We have to use the route name here instead of the path, otherwise the params won't be passed (a weird quirk of Vue router?)
           this.$router.push({ name: 'intro-password', params: { seedPhrase: this.seedPhrase }});
         } else {
