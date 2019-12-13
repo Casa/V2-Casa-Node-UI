@@ -46,18 +46,18 @@
     },
 
     async created() {
-      this.$store.dispatch('system/checkForUpdates');
       if(!this.$store.state.bitcoin.operational) {
         await this.$store.dispatch('bitcoin/getStatus');
-
       }
+
       if(!this.$store.state.lightning.operational) {
         await this.$store.dispatch('lightning/getStatus');
-
       }
+
       this.$store.dispatch('bitcoin/getPeers');
       this.$store.dispatch('bitcoin/getBalance');
       this.$store.dispatch('lightning/getChannels');
+      this.$store.dispatch('system/checkForUpdates');
     },
 
     methods: {
