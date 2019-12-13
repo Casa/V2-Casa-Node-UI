@@ -15,7 +15,7 @@
         Go Back
       </a>
 
-      <a class="button is-primary" @click="nextSeed()" :disabled="seedPhrase.length === 0">
+      <a class="button is-primary" :disabled="seedPhrase.length === 0" @click="nextSeed()">
         Next
       </a>
     </footer>
