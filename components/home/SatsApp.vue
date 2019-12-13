@@ -8,7 +8,7 @@
       Control your Casa Node from your mobile device. Earn 10,000 SatsBack per week for keeping your Node online.
     </p>
 
-    <a class="button is-white is-small">Download Now</a>
+    <a class="button is-white is-small" href="https://satsapp.com/">Download Now</a>
   </div>
 </template>
 
