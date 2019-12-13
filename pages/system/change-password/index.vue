@@ -5,19 +5,29 @@
 
       <h2>Let’s change your password.</h2>
 
-      <form @submit.prevent="changePassword()">
-        <InputField v-model="currentPassword" :error="!!currentPasswordErrorMessage" :error-message="currentPasswordErrorMessage" type="password" label="Current Password" />
-        <InputField v-model="newPassword" :error="!!newPasswordErrorMessage" :error-message="newPasswordErrorMessage" type="password" label="New Password" />
+      <ValidationObserver v-slot="{ invalid }" slim>
+        <form @submit.prevent="changePassword()">
+          <InputField v-model="currentPassword" :error="!!currentPasswordErrorMessage" :error-message="currentPasswordErrorMessage" type="password" label="Current Password" />
+          
+          <ValidationProvider ref="newPassword" v-slot="{ errors }" rules="required|min:12|confirmed:confirmation" class="password-field">
+            <InputField v-model="newPassword" label="Node Password" name="Node Password" type="password" :error="Boolean(errors.length)" />
+            <p class="error-message">{{ errors[0] }}</p>
+          </ValidationProvider>
+          
+          <ValidationProvider vid="confirmation" class="password-confirmation-field">
+            <InputField v-model="confirmation" label="Confirm Password" name="Confirm Password" type="password" />
+          </ValidationProvider>
 
-        <div class="instructions">
-          Please generate your new password with a password manager. You can’t reset your password if you forget it.
-        </div>
-        <nuxt-link to="/system" class="button">
-          Go Back
-        </nuxt-link>
+          <div class="instructions">
+            Please generate your new password with a password manager. You can’t reset your password if you forget it.
+          </div>
+          <nuxt-link to="/system" class="button">
+            Go Back
+          </nuxt-link>
 
-        <input type="submit" value="Set New Password" class="button is-primary" :disabled="!currentPassword || !newPassword">
-      </form>
+          <input type="submit" value="Set New Password" class="button is-primary" :disabled="!currentPassword || !newPassword">
+        </form>
+      </ValidationObserver>
     </main>
 
     <footer>
@@ -42,6 +52,7 @@
       return {
         currentPassword: '',
         newPassword: '',
+        confirmation: '',
         error: false,
         currentPasswordErrorMessage: '',
         newPasswordErrorMessage: '',
@@ -87,6 +98,27 @@
 
 <style lang="scss">
   .change-password {
+    .error-message {
+      color: #f0649e;
+      font-size: 15px;
+      margin-top: 0.25em;
+      text-align: left;
+      width: 500px;
+    }
+    
+    .input-field input {
+      background: none;
+      border: none;
+      padding: 1.8em 1.5em 0.5em 1.5em;
+      color: #ffffff;
+      width: 100%;
+      font-size: 12px;
+    }
+        
+    .input-field.active label {
+      font-size: 11px;
+      top: 0.25em;
+    }
     .instructions {
       width: 520px;
       opacity: 0.6;
