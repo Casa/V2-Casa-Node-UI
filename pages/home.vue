@@ -8,7 +8,8 @@
 
     <UnitSwitch />
 
-    <UpdateMessage v-if="$store.state.system.updateAvailable" />
+    <UpdateMessage v-if="$store.state.system.updateAvailable && !$store.state.system.invalidDigest" />
+    <InvalidDigest v-if="$store.state.system.invalidDigest" />
     <BalanceGraph />
 
     <div class="cards">
@@ -32,6 +33,7 @@
   import LightningBalances from '~/components/home/LightningBalances';
   import SatsApp from '~/components/home/SatsApp';
   import UpdateModal from '~/components/system/modals/Update';
+  import InvalidDigest from '~/components/home/InvalidDigest';
 
   export default {
     layout: 'dashboard',
@@ -40,21 +42,22 @@
       UpdateMessage, BalanceGraph,
       NodeSummary, Statuses,
       LightningBalances, SatsApp,
+      InvalidDigest,
     },
 
     async created() {
+      this.$store.dispatch('system/checkForUpdates');
       if(!this.$store.state.bitcoin.operational) {
         await this.$store.dispatch('bitcoin/getStatus');
-      }
 
+      }
       if(!this.$store.state.lightning.operational) {
         await this.$store.dispatch('lightning/getStatus');
-      }
 
+      }
       this.$store.dispatch('bitcoin/getPeers');
       this.$store.dispatch('bitcoin/getBalance');
       this.$store.dispatch('lightning/getChannels');
-      this.$store.dispatch('system/checkForUpdates');
     },
 
     methods: {
