@@ -10,7 +10,7 @@
           <InputField v-model="currentPassword" :error="!!currentPasswordErrorMessage" :error-message="currentPasswordErrorMessage" type="password" label="Current Password" />
           
           <ValidationProvider ref="newPassword" v-slot="{ errors }" rules="required|min:12|confirmed:confirmation" class="password-field">
-            <InputField v-model="newPassword" label="Node Password" name="Node Password" type="password" :error="Boolean(errors.length)" />
+            <InputField v-model="newPassword" label="Node Password" name="New Password" type="password" :error="Boolean(errors.length)" />
             <p class="error-message">{{ errors[0] }}</p>
           </ValidationProvider>
           
