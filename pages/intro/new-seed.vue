@@ -15,7 +15,7 @@
         Go Back
       </a>
 
-      <a class="button is-primary" @click="nextSeed()">
+      <a class="button is-primary" :disabled="seedPhrase.length === 0" @click="nextSeed()">
         Next
       </a>
     </footer>
@@ -24,6 +24,7 @@
 
 <script>
   import API from '@/helpers/api';
+  import {sleep} from '@/helpers/utils';
 
   export default {
     data() {
@@ -43,7 +44,7 @@
 
         if(data === false) {
           // Todo: Output error message from 500 error?
-          await this.sleep(5000);
+          await sleep(5000);
         }
       }
 
@@ -72,18 +73,15 @@
       },
 
       nextSeed() {
-        if(this.count === this.seedPhrase.length) {
+        if(this.seedPhrase.length === 0) {
+          return;
+        } else if(this.count === this.seedPhrase.length) {
           // We have to use the route name here instead of the path, otherwise the params won't be passed (a weird quirk of Vue router?)
           this.$router.push({ name: 'intro-password', params: { seedPhrase: this.seedPhrase }});
         } else {
           this.count++;
           this.displaySeed();
         }
-      },
-
-      // Simulates synchronous sleep function.
-      async sleep(milliseconds) {
-        return new Promise(resolve => setTimeout(resolve, milliseconds))
       },
     },
   }

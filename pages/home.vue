@@ -8,7 +8,7 @@
 
     <UnitSwitch />
 
-    <UpdateMessage v-if="$store.state.system.updateAvailable" />
+    <UpdateMessage v-if="$store.state.system.updateAvailable && !$store.state.system.invalidDigest" />
     <BalanceGraph />
 
     <div class="cards">

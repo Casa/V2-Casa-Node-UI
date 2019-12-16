@@ -1,10 +1,22 @@
 import Vue from 'vue';
-import { ValidationProvider, extend } from 'vee-validate';
-import { required, min } from 'vee-validate/dist/rules';
+import { ValidationObserver, ValidationProvider, extend } from 'vee-validate';
+import { required, min, confirmed } from 'vee-validate/dist/rules';
 
 // Default validation functions
-extend("required", { ...required });
-extend("min", { ...min });
+extend("required", { 
+  ...required,
+  message: 'This field is required'
+});
+
+extend("min", { 
+  ...min,
+  message: 'Requires at least 12 characters'
+});
+
+extend("confirmed", { 
+  ...confirmed,
+  message: `Password confirmation doesn't match`
+});
 
 // Custom validation functions
 extend('max_bytes', {
@@ -24,4 +36,5 @@ extend('max_bytes', {
   },
 });
 
+Vue.component('ValidationObserver', ValidationObserver);
 Vue.component('ValidationProvider', ValidationProvider);

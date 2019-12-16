@@ -1,6 +1,6 @@
 {
   "name": "casa-node2-ui",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "The UI for that little purple and white box we all know and love.",
   "author": "Casa Inc.",
   "private": true,
@@ -24,7 +24,7 @@
     "nuxt": "^2.0.0",
     "sass-loader": "^8.0.0",
     "v-tooltip": "^2.0.2",
-    "vee-validate": "^3.0.11",
+    "vee-validate": "^3.2.0",
     "vue-qriously": "^1.1.1"
   },
   "devDependencies": {

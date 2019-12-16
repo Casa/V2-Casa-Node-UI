@@ -12,7 +12,7 @@
     </div>
 
     <div class="buttons">
-      <a class="button is-light is-small is-arrow">Learn More</a>
+      <a class="button is-light is-small is-arrow" href="https://github.com/Casa/V2-Casa-Node-UI/blob/develop/CHANGELOG.md">Learn More</a>
       <a class="button is-primary is-small" @click="$parent.update()">Update Now</a>
     </div>
   </div>
