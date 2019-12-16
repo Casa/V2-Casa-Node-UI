@@ -16,7 +16,6 @@
 </template>
 
 <script>
-  import Events from '~/helpers/events';
   import API from '@/helpers/api';
   import {sleep} from '@/helpers/utils';
 
@@ -28,7 +27,6 @@
         // TODO: Add loading state for button.
         // Sleep to give the manager time to restart
         await sleep(5000);
-        Events.$emit('modal-close');
         this.$router.push('/loading');
       }
     }
