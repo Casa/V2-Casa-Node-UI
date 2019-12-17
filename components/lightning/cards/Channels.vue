@@ -54,8 +54,8 @@
     </section> <!-- /.primary -->
 
     <section class="secondary">
-      <div v-for="(channel, index) in $store.state.lightning.channels" :key="`channel-${index}`" class="columns">
-        <div class="column left">
+      <div v-for="(channel, index) in $store.state.lightning.channels" :key="`channel-${index}`" class="columns channel-item">
+        <div class="column left" @click="editChannel(channel)">
           <span class="title">{{ channel.name }}</span>
           <span class="subtitle">{{ channel.purpose }}</span>
         </div>
@@ -83,6 +83,7 @@
   import Events from '~/helpers/events';
   import ManageModal from '~/components/lightning/modals/Manage';
   import NewChannel from '~/components/lightning/modals/NewChannel';
+  import EditChannel from '~/components/lightning/modals/EditChannel';
 
   export default {
     methods: {
@@ -93,6 +94,11 @@
       manage() {
         Events.$emit('modal-open', ManageModal);
       },
+      
+      editChannel(channel) {
+        this.$store.dispatch('lightning/selectChannel', channel);
+        Events.$emit('modal-open', EditChannel);
+      }
     }
   }
 </script>
@@ -120,6 +126,10 @@
         width: 100px;
         right: 140px;
       }
+    }
+    
+    .channel-item {
+      cursor: pointer;
     }
   }
 </style>
