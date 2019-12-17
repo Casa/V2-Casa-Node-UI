@@ -175,6 +175,11 @@
       display: block;
     }
     
+    .input-field input {
+      font-size: 14px;
+      font-weight: bold;
+    }
+    
     .button.is-danger {
       margin: 0;
       padding: 20px 40px;
