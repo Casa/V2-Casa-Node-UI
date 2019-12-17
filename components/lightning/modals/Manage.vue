@@ -34,6 +34,7 @@
         </div>
 
         <div class="column right">
+          <!-- OPEN MANAGE MODAL -->
           <button class="button">
             Manage
           </button>
@@ -203,7 +204,7 @@
     .autopilot {
       text-transform: uppercase;
       width: 120px;
-      height: 30px;
+      padding: 4px 0;
       border: solid 2px;
       text-align: center;
       text-decoration: none;
@@ -244,9 +245,9 @@
       border-bottom-left-radius: 4px;
     }
 
-    // TODO right align this field
     .skinny {
       width: 256px;
+      float: right;
     }
 
     .custom-color {

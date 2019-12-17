@@ -4,14 +4,15 @@
       <img src="~/assets/icons/prefer-tor.svg">
       <h2>For maximum privacy and security, please use Tor.</h2>
       <p class="paragraph">
-        Copy the Tor address to Casa Node 2 below. Or, you can continue ahead using this browser.
+        Please download Tor browser, then continue setup from there using Casa Node 2's unique Tor onion address.
       </p>
+      <CopyField :value="$store.state.system.onionAddress" class="copy" />
     </main>
 
     <footer>
-      <span class="button" @click="copy()">Copy Tor Address</span>
+      <a class="button" href="https://www.torproject.org/download/" target="_blank" rel="noopener">Download Tor Browse</a>
       <nuxt-link to="/" class="button">
-        Continue in This Browser
+        Skip Tor, Continue
       </nuxt-link>
     </footer>
   </div>
@@ -35,6 +36,11 @@
 
 <style lang="scss">
   .tor-warning-page {
+
+    .copy {
+      margin-top: 4em;
+    }
+
     .hidden {
       display: none
     }

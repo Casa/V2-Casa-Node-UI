@@ -50,6 +50,7 @@
     .copy-content {
       overflow: hidden;
       text-overflow: ellipsis;
+      padding-right: 1em;
     }
 
     input {

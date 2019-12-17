@@ -5,7 +5,7 @@
         <h3>Connections</h3>
       </div>
 
-      <h5>
+      <h5 class="system-settings-header">
         Access your connection codes and unlock Tor for increased anonymity and privacy.
       </h5>
       <div class="flex">
@@ -168,6 +168,10 @@
     .crypto-icon {
       width: 35px;
     }
+    
+    .system-settings-header {
+      margin-bottom: 1em;
+    }
 
     h3 {
       margin-bottom: 1em;
@@ -178,7 +182,7 @@
     }
 
     h5 {
-      margin-bottom: 1em;
+      margin-left: 0.5em;
     }
 
     h6 {
