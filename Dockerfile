@@ -1,5 +1,5 @@
 # specify the node base image with your desired version node:<version>
-FROM node:10-slim
+FROM node:10
 
 # Create app directory
 WORKDIR /usr/src/app
