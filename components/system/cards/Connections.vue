@@ -136,9 +136,8 @@
 </template>
 
 <script>
-
+  import API from '~/helpers/api';
   import Events from '~/helpers/events';
-  import API from '~/helpers/API';
   import SatsAppModal from '~/components/system/modals/SatsApp';
   import ConnectionCodeModal from '~/components/system/modals/ConnectionCode';
 

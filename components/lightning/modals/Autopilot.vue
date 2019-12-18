@@ -70,7 +70,7 @@
 </template>
 
 <script>
-  import API from '~/helpers/API';
+  import API from '~/helpers/api';
   import Events from '~/helpers/events';
 
   export default {
