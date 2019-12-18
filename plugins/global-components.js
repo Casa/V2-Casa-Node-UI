@@ -2,9 +2,11 @@
 import Vue from 'vue';
 import VueQriously from 'vue-qriously';
 import VTooltip from 'v-tooltip';
+import ToggleButton from 'vue-js-toggle-button';
 
 Vue.use(VueQriously);
 Vue.use(VTooltip);
+Vue.use(ToggleButton);
 
 // Custom components
 import UnitSwitch from '~/components/global/UnitSwitch';

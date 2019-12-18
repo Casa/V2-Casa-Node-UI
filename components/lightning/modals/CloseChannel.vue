@@ -4,7 +4,7 @@
       <div class="columns modal-heading">
         <div class="column">
           <h3>
-            Edit Channel
+            Close Channel
           </h3>
         </div>
 
