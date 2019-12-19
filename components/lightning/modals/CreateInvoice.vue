@@ -106,9 +106,9 @@
 
       <div class="buttons">
         <a class="button" @click="edit()">Go Back and Edit</a>
-        <button type="submit" class="button is-primary">
+        <ButtonSpinner class="is-primary" :loading="isLoading" :dark="true" @click.native="createInvoice">
           Create Invoice
-        </button>
+        </ButtonSpinner>
       </div>
     </form>
 
@@ -158,6 +158,7 @@
         amountSats: 0,
         amountBtc: 0,
         memo: '',
+        isLoading: false
       }
     },
 
@@ -230,6 +231,7 @@
       },
 
       async createInvoice() {
+        this.isLoading = true;
         const payload = {
           amt: this.amountSats,
           memo: this.memo
@@ -237,9 +239,11 @@
 
         try {
           const invoice = await this.$axios.post(`${this.$env.API_LND}/v1/lnd/lightning/addInvoice`, payload);
+          this.isLoading = false;
           this.paymentCode = invoice.data.paymentRequest;
           this.step = 'qrcode';
         } catch (error) {
+          this.isLoading = false;
           console.error(error.response.data);
         }
       },
