@@ -139,6 +139,8 @@
       padding: 2em 1.25em 0.75em 1.25em;
       color: $white;
       width: 100%;
+      font-size: 14px;
+      font-weight: bold;
     }
   }
 

@@ -7,7 +7,9 @@
 
     <footer>
       <span class="button" @click="cancelMigration()">Cancel Migration</span>
-      <input type="submit" value="Authorize" class="button is-primary" @click="login()">
+      <ButtonSpinner class="is-primary" :loading="isLoading" :dark="true" @click.native="login">
+        Authorize
+      </ButtonSpinner>
     </footer>
   </div>
 </template>
@@ -21,6 +23,7 @@
         password: '',
         error: false,
         errorMessage: '',
+        isLoading: false
       }
     },
 
@@ -31,7 +34,7 @@
       },
 
       async login() {
-
+        this.isLoading = true;
         // TODO put this somewhere like utilities
         async function sleep(ms) {
           return new Promise(resolve => setTimeout(resolve, ms));
@@ -60,7 +63,8 @@
 
             // Attempt up to 10 times
           } while ((!bitcoindCall || !lndCall) && attempt < 11);
-
+          
+          this.isLoading = false;
           // Redirect to success or fail page
           if (bitcoindCall && lndCall) {
             this.$router.push('/migration/success');
@@ -70,7 +74,7 @@
 
           // Catch login errors
         } catch(error) {
-
+          this.isLoading = false;
           this.error = true;
 
           if(error && error.response && error.response.status === 401) {

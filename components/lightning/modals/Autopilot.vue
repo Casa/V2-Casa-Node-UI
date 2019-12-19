@@ -61,9 +61,9 @@
 
       <div class="buttons">
         <ModalClose />
-        <button class="button is-primary" @click="saveSettings">
+        <ButtonSpinner class="is-primary" :loading="isLoading" :dark="true" @click.native="saveSettings">
           Save Settings
-        </button>
+        </ButtonSpinner>
       </div>
     </form>
   </Modal>
@@ -79,7 +79,8 @@
         autopilot: false,
         maxChannelSize: 10000,
         maxChannels: 1,
-        walletBalance: 0
+        walletBalance: 0,
+        isLoading: false,
       }
     },
     
@@ -106,6 +107,7 @@
 
     methods: {
       async saveSettings() {
+        this.isLoading = true;
         const data = {
           autopilot: this.autopilot,
           maxChannels: parseInt(this.maxChannels) || 0,
@@ -113,7 +115,9 @@
         };
         try {
           await this.$axios.post(`${this.$env.API_MANAGER}/v1/settings/save`, data);
+          this.isLoading = false;
         } catch (err) {
+          this.isLoading = false;
           console.log('Error:', err);
         }
       },

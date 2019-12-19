@@ -179,9 +179,9 @@
 
       <div class="buttons">
         <a class="button" @click="edit()">Go Back and Edit</a>
-        <button type="submit" class="button is-primary">
+        <ButtonSpinner class="is-primary" :loading="isLoading" :dark="true" @click.native="withdraw">
           Confirm Withdrawal
-        </button>
+        </ButtonSpinner>
       </div>
     </form>
   </Modal>
@@ -229,6 +229,7 @@
 
         feeTimeout: false,
         chosenFee: 'normal',
+        isLoading: false
       }
     },
 
@@ -373,6 +374,7 @@
       },
 
       async withdraw() {
+        this.isLoading = true;
         const payload = {
           sweep: this.sweep,
           addr: this.address,
@@ -382,10 +384,11 @@
 
         try {
           await this.$axios.post(`${this.$env.API_LND}/v1/lnd/transaction`, payload);
-
+          this.isLoading = false;
           // Todo - Toast notification
           Events.$emit('modal-close');
         } catch (error) {
+          this.isLoading = false;
           console.error('Error sending BTC - ', error);
         }
       },

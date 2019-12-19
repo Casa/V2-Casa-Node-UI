@@ -17,7 +17,9 @@
       <hr>
       <div class="buttons">
         <ModalClose />
-        <a class="button is-primary" @click="shutdown()">Confirm</a>
+        <ButtonSpinner class="is-primary" :loading="isLoading" :dark="true" @click.native="shutdown">
+          Confirm
+        </ButtonSpinner>
       </div>
     </form>
   </Modal>
@@ -33,12 +35,13 @@
         password: '',
         error: false,
         errorMessage: '',
+        isLoading: false
       }
     },
 
     methods: {
       async shutdown() {
-
+        this.isLoading = true;
         // Override the cached jwt and force the user to submit their password again
         const auth = {
           headers: {Authorization:''}
@@ -50,10 +53,11 @@
 
         try {
           await API.post({ url: `${this.$env.API_MANAGER}/v1/device/shutdown`, data, auth });
-
+          this.isLoading = false;
           Events.$emit('modal-close');
           this.$router.push('/shutdown');
         } catch (error) {
+          this.isLoading = false;
           this.error = true;
 
           if(error && error.response && error.response.status === 401) {
