@@ -14,7 +14,9 @@
 
       <div class="buttons">
         <a class="button" @click="goback()">Go Back</a>
-        <a class="button is-primary" @click="sync()">Yes, Sync from Scratch</a>
+        <ButtonSpinner class="is-primary" :loading="isLoading" :dark="false" @click.native="sync">
+          Yes, Sync from Scratch
+        </ButtonSpinner>
       </div>
     </form>
   </Modal>
@@ -26,11 +28,16 @@
   import ManageModal from '~/components/bitcoin/modals/Manage';
 
   export default {
-
+    data() {
+      return {
+        isLoading: false
+      }
+    },
     methods: {
       async sync() {
+        this.isLoading = true;
         await API.post({ axios: this.$axios, url: `${this.$env.API_MANAGER}/v1/device/chain-reset` });
-
+        this.isLoading = false;
         Events.$emit('modal-closed');
         this.$router.push('/bitcoin');
       },

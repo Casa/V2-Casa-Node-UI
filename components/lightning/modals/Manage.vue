@@ -13,10 +13,10 @@
         <div class="column">
           <div class="flex">
             <h6>
-              Custom Lightning Channels
+              Autopilot Settings
             </h6>
             <img
-              v-tooltip.top-center="'Open and manage channels with specific nodes on the network, giving you more control over who you connect with.'"
+              v-tooltip.top-center="'Autopilot tries its best to match your settings, but may not always open channels to the exact size you specify.'"
               src="~/assets/icons/info-blue.svg"
               class="tooltip icon"
             >
@@ -35,7 +35,7 @@
 
         <div class="column right">
           <!-- OPEN MANAGE MODAL -->
-          <button class="button">
+          <button class="button" @click="openAutopilot">
             Manage
           </button>
         </div>
@@ -116,9 +116,9 @@
 
       <div class="buttons">
         <ModalClose />
-        <button type="submit" class="button is-primary">
+        <ButtonSpinner class="is-primary" :loading="isLoading" :dark="true" @click.native="save">
           Save Settings
-        </button>
+        </ButtonSpinner>
       </div>
     </form>
   </Modal>
@@ -126,7 +126,8 @@
 
 <script>
   import API from '@/helpers/api';
-  //import Events from '~/helpers/events';
+  import Autopilot from '~/components/lightning/modals/Autopilot';
+  import Events from '~/helpers/events';
 
   const defaultColor = '#8865DF';
   const defaultString = '';
@@ -141,6 +142,7 @@
         color: defaultColor,
         minChanSize: defaultString,
         autopilot: defaultAutopilot,
+        isLoading: false
       }
     },
 
@@ -162,6 +164,7 @@
     methods: {
 
       async save() {
+        this.isLoading = true;
         const data = {};
 
         if (this.nickName) {
@@ -177,7 +180,12 @@
         }
 
         await API.post({ axios: this.$axios, url: `${this.$env.API_MANAGER}/v1/settings/save`, data });
-
+        this.isLoading = false;
+      },
+    
+      openAutopilot() {
+        Events.$emit('modal-close');
+        Events.$emit('modal-open', Autopilot);
       },
 
       formatColor() {

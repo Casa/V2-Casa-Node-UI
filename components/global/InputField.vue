@@ -78,8 +78,6 @@
         randomId: (Math.random() + 1).toString(36).substring(7),
         active: Boolean(this.value),
         focused: false,
-
-
       }
     },
 
@@ -87,6 +85,7 @@
       // Since we are making a local copy of the value, we need to watch for external changes to value and pass them
       // along to currentValue.
       value: function(newValue) {
+        this.active = newValue.length > 0;
         this.currentValue = newValue;
       },
     },
@@ -140,6 +139,8 @@
       padding: 2em 1.25em 0.75em 1.25em;
       color: $white;
       width: 100%;
+      font-size: 14px;
+      font-weight: bold;
     }
   }
 
