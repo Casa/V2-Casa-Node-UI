@@ -116,9 +116,9 @@
 
       <div class="buttons">
         <ModalClose />
-        <button type="submit" class="button is-primary">
+        <ButtonSpinner class="is-primary" :loading="isLoading" :dark="true" @click.native="save">
           Save Settings
-        </button>
+        </ButtonSpinner>
       </div>
     </form>
   </Modal>
@@ -142,6 +142,7 @@
         color: defaultColor,
         minChanSize: defaultString,
         autopilot: defaultAutopilot,
+        isLoading: false
       }
     },
 
@@ -163,6 +164,7 @@
     methods: {
 
       async save() {
+        this.isLoading = true;
         const data = {};
 
         if (this.nickName) {
@@ -178,7 +180,7 @@
         }
 
         await API.post({ axios: this.$axios, url: `${this.$env.API_MANAGER}/v1/settings/save`, data });
-
+        this.isLoading = false;
       },
     
       openAutopilot() {
