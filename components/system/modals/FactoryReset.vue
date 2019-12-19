@@ -34,7 +34,9 @@
 
       <div class="buttons">
         <ModalClose />
-        <a class="button is-primary" @click="factoryReset()">I understand, reset device</a>
+        <ButtonSpinner class="is-primary" :loading="isLoading" :dark="true" @click.native="factoryReset">
+          I understand, reset device
+        </ButtonSpinner>
       </div>
     </form>
   </Modal>
@@ -50,13 +52,15 @@
         password: '',
         error: false,
         errorMessage: '',
+        isLoading: false
       }
     },
 
     methods: {
       async factoryReset() {
+        this.isLoading = true;
         await API.post({ axios: this.$axios, url: `${this.$env.API_MANAGER}/v1/device/factory-reset` });
-
+        this.isLoading = false
         Events.$emit('modal-closed');
         this.$router.push('/');
       }

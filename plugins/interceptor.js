@@ -14,6 +14,10 @@ export default function ({$axios, app}) {
         return Promise.reject(error);
       }
 
+      if (app.context.from.fullPath === '/migration/confirm') {
+        return Promise.reject(error);
+      }
+
       const code = parseInt(error.response && error.response.status);
 
       // If the error is 401 (unauthorized), log the user out and redirect to the login page

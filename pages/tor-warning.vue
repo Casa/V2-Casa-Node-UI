@@ -10,7 +10,7 @@
     </main>
 
     <footer>
-      <a class="button" href="https://www.torproject.org/download/" target="_blank" rel="noopener">Download Tor Browse</a>
+      <a class="button" href="https://www.torproject.org/download/" target="_blank" rel="noopener">Download Tor Browser</a>
       <nuxt-link to="/" class="button">
         Skip Tor, Continue
       </nuxt-link>

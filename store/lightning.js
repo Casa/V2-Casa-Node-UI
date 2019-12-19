@@ -30,6 +30,7 @@ export const state = () => ({
   maxReceive: 0,
   confirmedTransactions: [],
   pendingTransactions: [],
+  pendingChannelEdit: {},
   pubkey: '',
 })
 
@@ -49,6 +50,10 @@ export const mutations = {
 
   setChannels(state, channels) {
     state.channels = channels;
+  },
+  
+  setChannelFocus(state, channel) {
+    state.pendingChannelEdit = channel;
   },
 
   setBalance(state, balance) {
@@ -221,6 +226,12 @@ export const actions = {
       }
     }
   },
+  
+  selectChannel({ commit }, channel) {
+    console.log('channel', channel);
+    commit('setChannelFocus', channel);
+  }
+  
 };
 
 export const getters = {

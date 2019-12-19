@@ -70,10 +70,9 @@
 
       <div class="buttons">
         <a class="button" @click="edit()">Go Back and Edit</a>
-
-        <button type="submit" class="button is-primary">
+        <ButtonSpinner class="is-primary" :loading="isLoading" :dark="true" @click.native="submit">
           Confirm Payment
-        </button>
+        </ButtonSpinner>
       </div>
     </form>
   </Modal>
@@ -89,6 +88,7 @@
         step: 'input',
         paymentCode: '',
         amountSats: 0,
+        isLoading: false
       }
     },
 
@@ -127,15 +127,18 @@
       },
 
       async submit() {
+        this.isLoading = true;
         const payload = {
           paymentRequest: this.paymentCode,
         };
 
         try {
           await this.$axios.post(`${this.$env.API_LND}/v1/lnd/lightning/payInvoice`, payload);
+          this.isLoading = false;
           console.log('Payment sent successfully!');
           Events.$emit('modal-close');
         } catch(error) {
+          this.isLoading = false;
           console.error('There was an error while paying the invoice.');
         }
       },

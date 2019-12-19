@@ -104,9 +104,9 @@
 
       <div class="buttons">
         <ModalClose />
-        <button type="submit" class="button is-primary">
+        <ButtonSpinner class="is-primary" :loading="isLoading" :dark="true" @click.native="validate">
           Open Channel
-        </button>
+        </ButtonSpinner>
       </div>
     </form>
   </Modal>
@@ -153,6 +153,7 @@
 
         feeTimeout: false,
         chosenFee: 'normal',
+        isLoading: false
       }
     },
 
@@ -222,9 +223,11 @@
       },
 
       validate() {
+        this.isLoading = true;
         if(!this.peerName || !this.channelPurpose || !this.connectionCode || !this.amountSats) {
           // Todo - Display error messages in a toast based on vee validate rules
           console.error("Please make sure all required fields are filled in");
+          this.isLoading = false;
         } else {
           this.openChannel();
         }
@@ -265,9 +268,11 @@
 
         try {
           await this.$axios.post(`${this.$env.API_LND}/v1/lnd/channel/open`, payload);
+          this.isLoading = false;
           Events.$emit('modal-close');
         } catch(error) {
           // Todo - Display toast message
+          this.isLoading = false;
           console.error(error.response.data);
         }
       },
