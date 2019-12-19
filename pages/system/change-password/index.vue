@@ -24,8 +24,10 @@
           <nuxt-link to="/system" class="button">
             Go Back
           </nuxt-link>
-
-          <input type="submit" value="Set New Password" class="button is-primary" :disabled="!currentPassword || !newPassword">
+          
+          <ButtonSpinner class="is-primary" :loading="isLoading" :dark="true" :disabled="!currentPassword || !newPassword" @click.native="changePassword">
+            Set New Password
+          </ButtonSpinner>
         </form>
       </ValidationObserver>
     </main>
@@ -56,13 +58,14 @@
         error: false,
         currentPasswordErrorMessage: '',
         newPasswordErrorMessage: '',
+        isLoading: false
       }
     },
 
     methods: {
       async changePassword() {
         try {
-
+          this.isLoading = true;
           const auth = {
             headers: {Authorization:''}
           };
@@ -76,9 +79,10 @@
           this.currentPasswordErrorMessage = '';
           this.newPasswordErrorMessage = '';
           await API.post({axios: this.$axios, url: `${this.$env.API_MANAGER}/v1/accounts/changePassword`, data, auth});
-
+          this.isLoading = false;
           this.$router.push('/system/change-password/loading');
         } catch(error) {
+          this.isLoading = false;
           this.error = true;
 
           if(error.response.status === 400) {
