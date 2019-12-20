@@ -6,8 +6,12 @@
         <p>12+ characters. We highly recommend using a password manager.</p>        
         <ValidationProvider ref="password" v-slot="{ errors }" rules="required|min:12|confirmed:confirmation" class="password-field">
           <InputField v-model="password" label="Node Password" name="Node Password" type="password" :error="Boolean(errors.length)" />
-          <p class="error-message">{{ errors[0] }}</p>
-          <p v-if="seedError" class="error-message">Error: Seed phrase missing. Try generating it again.</p>
+          <p class="error-message">
+            {{ errors[0] }}
+          </p>
+          <p v-if="seedError" class="error-message">
+            Error: Seed phrase missing. Try generating it again.
+          </p>
         </ValidationProvider>
         
         <ValidationProvider vid="confirmation" class="password-confirmation-field">
