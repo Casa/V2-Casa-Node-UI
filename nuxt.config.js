@@ -63,6 +63,7 @@ export default {
           login: false,
           logout: false,
           loading: false,
+          user: false,
         },
 
         tokenType: 'JWT',
