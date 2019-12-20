@@ -16,7 +16,9 @@
       </main>
 
       <footer>
-        <button type="submit" class="button is-primary" value="Submit" :disabled="invalid">Submit</button>
+        <ButtonSpinner :loading="isLoading" :dark="false" :disabled="invalid" @click.native="submitPassword">
+          Submit
+        </ButtonSpinner>
       </footer>
     </form>
   </ValidationObserver>
@@ -32,7 +34,8 @@
         seedPhrase: [],
         password: '',
         confirmation: '',
-        seedError: false
+        seedError: false,
+        isLoading: false
       }
     },
 
@@ -58,6 +61,7 @@
       },
 
       async register() {
+        this.isLoading = true;
         try {
 
           // Override the cached jwt and force the user to submit their password again. This can happen if a user
@@ -79,11 +83,12 @@
 
           this.$auth.setToken('local', token);
           this.$auth.strategy._setToken(token);
-
+          this.isLoading = false;
           this.$router.push({path: '/intro/got-it'});
         } catch(error) {
           let errorMessage, seedError;
-
+          
+          this.isLoading = false;
           if(error.response !== undefined) {
             errorMessage = error.response.data || 'Wallet Creation Failed';
             seedError = errorMessage.match(/^Unable to initialize wallet, word (.*) isn't a part of default word list/);
