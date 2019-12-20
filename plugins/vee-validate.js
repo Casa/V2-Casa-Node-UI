@@ -67,7 +67,7 @@ extend('hex_code', {
 
 // Add custom channel text validators
 extend('alpha_num_space', {
-  message: 'Can only contain letters, numbers, and spaces.',
+  message: 'Special characters are not allowed.',
   validate: value => {
     const regex = new RegExp("^[a-zA-Z0-9 ]*$");
     return regex.test(value);
