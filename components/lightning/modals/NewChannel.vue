@@ -16,11 +16,21 @@
 
       <div class="columns">
         <div class="column">
-          <InputField v-model="peerName" label="Peer Name" />
+          <ValidationProvider ref="peerName" v-slot="{ errors }" rules="required|alpha_num_space">
+            <InputField v-model="peerName" label="Peer Name" :error="Boolean(errors.length)" />
+            <p class="error-message">
+              {{ errors[0] }}
+            </p>
+          </ValidationProvider>
         </div>
 
         <div class="column">
-          <InputField v-model="channelPurpose" label="Channel Purpose" />
+          <ValidationProvider ref="channelPurpose" v-slot="{ errors }" rules="required|alpha_num_space">
+            <InputField v-model="channelPurpose" label="Channel Purpose" :error="Boolean(errors.length)" />
+            <p class="error-message">
+              {{ errors[0] }}
+            </p>
+          </ValidationProvider>
         </div>
       </div>
 
@@ -297,6 +307,13 @@
       color: $translucentWhite;
       margin-top: -0.75em;
       margin-left: 2px;
+    }
+    
+    .error-message {
+      color: #f0649e;
+      font-size: 13px;
+      margin-top: 0.3em;
+      text-align: left;
     }
 
     .primary-input {
