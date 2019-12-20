@@ -43,10 +43,15 @@
       </div>
       <div class="columns">
         <div class="column">
-          <InputField v-model="maxChannelSize" label="Max Channel Size" />
-          <p class="help">
-            Can range from 10,000 sats to 1,600,000 sats.
-          </p>
+          <ValidationProvider ref="maxChannelSize" v-slot="{ errors }" rules="required|min_value:10000|max_value:16000000">
+            <InputField v-model="maxChannelSize" label="Max Channel Size" :error="Boolean(errors.length)" />
+            <p class="error-message">
+              {{ errors[0] }}
+            </p>
+            <p class="help">
+              Can range from 10,000 sats to 1,600,000 sats.
+            </p>
+          </ValidationProvider>
         </div>
 
         <div class="column">
@@ -161,9 +166,16 @@
       font-size: 14px;
       font-weight: bold;
     }
+    
+    .error-message {
+      color: #f0649e;
+      font-size: 13px;
+      margin-top: 0.3em;
+      text-align: left;
+    }
   }
   
-    .toggle-switch {
+  .toggle-switch {
     position: absolute;
     right: 0;
     top: 0.75em;
@@ -218,23 +230,23 @@
   }
 
   .toggle-options {
-      display: flex;
-      text-decoration: none;
+    display: flex;
+    text-decoration: none;
   }
 
   .toggle-option {
-      position: relative;
-      z-index: 1;
-      cursor: pointer;
-      top: -1em;
-      transition: 0.5s;
-      transition-property: font-weight, color;
-      width: 50%;
-      text-align: center;
-      font-weight: bold;
-      padding-left: 0.5em;
-      font-size: 13px;
-      letter-spacing: 1px;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+    top: -1em;
+    transition: 0.5s;
+    transition-property: font-weight, color;
+    width: 50%;
+    text-align: center;
+    font-weight: bold;
+    padding-left: 0.5em;
+    font-size: 13px;
+    letter-spacing: 1px;
   }
 
   .toggle-option.two {
@@ -242,7 +254,7 @@
   }
 
   .toggle-option.active {
-      transition-delay: 0.2s;
-      color: #fff;
+    transition-delay: 0.2s;
+    color: #fff;
   }
 </style>
