@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import { ValidationObserver, ValidationProvider, extend } from 'vee-validate';
-import { required, min, confirmed, alpha } from 'vee-validate/dist/rules';
+import { required, min, confirmed, alpha, min_value, max_value } from 'vee-validate/dist/rules';
 
 // Default validation functions
 extend("required", { 
@@ -21,6 +21,16 @@ extend("confirmed", {
 extend("alpha", {
   ...alpha,
   message: 'Only alphabetic characters are allowed'
+});
+
+extend("min_value", {
+  ...min_value,
+  message: 'Value is below the minimum..'
+});
+
+extend("max_value", {
+  ...max_value,
+  message: 'Value exceeds the maximum.'
 });
 
 // Custom validation functions
