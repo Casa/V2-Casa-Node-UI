@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import { ValidationObserver, ValidationProvider, extend } from 'vee-validate';
-import { required, min, confirmed } from 'vee-validate/dist/rules';
+import { required, min, confirmed, alpha } from 'vee-validate/dist/rules';
 
 // Default validation functions
 extend("required", { 
@@ -16,6 +16,11 @@ extend("min", {
 extend("confirmed", { 
   ...confirmed,
   message: `Password confirmation doesn't match`
+});
+
+extend("alpha", {
+  ...alpha,
+  message: 'Only alphabetic characters are allowed'
 });
 
 // Custom validation functions
