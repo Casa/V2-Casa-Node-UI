@@ -14,11 +14,17 @@
     <hr>
 
     <div class="flex centered">
-      <CopyField :value="address" />
+      <CopyField v-if="!address" :value="loading" />
+      <CopyField v-else :value="address" />
     </div>
 
-    <div class="flex centered qr-code">
+    <div v-if="address" class="flex centered qr-code">
       <qriously :value="address" :size="320" foreground="#865efc" />
+    </div>
+    <div v-else>
+      <p class="address-display">
+        loading...
+      </p>
     </div>
 
     <hr>
@@ -57,6 +63,12 @@
   .bitcoin-deposit-modal {
     .modal-content {
       min-width: 50%;
+    }
+    
+    .address-display {
+      margin-top: 3em;
+      font-size: 30px;
+      text-align: center;
     }
 
     .qr-code {
