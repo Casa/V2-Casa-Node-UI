@@ -41,5 +41,14 @@ extend('max_bytes', {
   },
 });
 
+// Custom validation for node color alias
+extend('hex_code', {
+  message: 'Not a valid hex code.',
+  validate: value => {
+    const regex = new RegExp("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$");
+    return regex.test(value);
+  }
+});
+
 Vue.component('ValidationObserver', ValidationObserver);
 Vue.component('ValidationProvider', ValidationProvider);
