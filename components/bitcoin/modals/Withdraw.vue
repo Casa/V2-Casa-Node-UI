@@ -384,12 +384,13 @@
 
         try {
           await this.$axios.post(`${this.$env.API_LND}/v1/lnd/transaction`, payload);
+          this.$toasted.global.success({ message: 'Transaction pending.' });
           this.isLoading = false;
-          // Todo - Toast notification
           Events.$emit('modal-close');
         } catch (error) {
+          this.$toasted.global.error({ message: 'Error sending BTC.' });
           this.isLoading = false;
-          console.error('Error sending BTC - ', error);
+          console.error('Error sending', error);
         }
       },
     }

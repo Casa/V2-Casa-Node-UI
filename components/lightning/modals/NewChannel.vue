@@ -281,9 +281,8 @@
           this.isLoading = false;
           Events.$emit('modal-close');
         } catch(error) {
-          // Todo - Display toast message
           this.isLoading = false;
-          console.error(error.response.data);
+          this.$toasted.global.error({ message: error.response.data });
         }
       },
     }

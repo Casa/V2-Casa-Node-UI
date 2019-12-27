@@ -37,6 +37,7 @@
       async sync() {
         this.isLoading = true;
         await API.post({ axios: this.$axios, url: `${this.$env.API_MANAGER}/v1/device/chain-reset` });
+        this.$toasted.global.success({ message: 'Chain reset complete.' });
         this.isLoading = false;
         Events.$emit('modal-closed');
         this.$router.push('/bitcoin');

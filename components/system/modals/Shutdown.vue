@@ -53,6 +53,7 @@
 
         try {
           await API.post({ url: `${this.$env.API_MANAGER}/v1/device/shutdown`, data, auth });
+          this.$toasted.global.success({ message: 'Shutting down device...' });
           this.isLoading = false;
           Events.$emit('modal-close');
           this.$router.push('/shutdown');

@@ -190,6 +190,7 @@
         }
 
         await API.post({ axios: this.$axios, url: `${this.$env.API_MANAGER}/v1/settings/save`, data });
+        this.$toasted.global.success({ message: 'Setting updates saved.' });
         this.isLoading = false;
       },
     

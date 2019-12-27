@@ -120,10 +120,11 @@
         };
         try {
           await this.$axios.post(`${this.$env.API_MANAGER}/v1/settings/save`, data);
+          this.$toasted.global.success({ message: 'Saving new settings.' });
           this.isLoading = false;
         } catch (err) {
+          this.$toasted.global.error({ message: err });
           this.isLoading = false;
-          console.log('Error:', err);
         }
       },
 
