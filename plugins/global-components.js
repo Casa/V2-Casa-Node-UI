@@ -10,28 +10,6 @@ Vue.use(VTooltip);
 Vue.use(ToggleButton);
 Vue.use(Toasted);
 
-// Register Global Notification Toast.
-const toastOptions = {
-  duration: 5000,
-  iconPack: 'callback',
-  className: 'casa-toast',
-  action: { text: '', onClick: (e, toast) => toast.goAway(0) },
-  icon: el => {
-    el.innerHTML = '<svg viewBox="0 0 2 2"><circle cx="1" cy="1" r="1" fill="#ffea70"/></svg>';
-    return el;
-  }
-};
-
-// register the toast with the custom message
-Vue.toasted.register('default', payload => {
-    if (!payload.message) {
-      return 'Oops.. Something Went Wrong..';
-    }
-    return `Notice: ${payload.message}`;
-  },
-  toastOptions
-);
-
 // Custom components
 import UnitSwitch from '~/components/global/UnitSwitch';
 import Footer from '~/components/global/Footer';
@@ -48,3 +26,33 @@ Vue.component('Modal', Modal);
 Vue.component('ModalClose', ModalClose);
 Vue.component('CopyField', CopyField);
 Vue.component('ButtonSpinner', ButtonSpinner);
+
+// Register Global Notifications
+import { defaultConfig, errorConfig, successConfig } from '~/helpers/notifications';
+
+Vue.toasted.register('default', payload => {
+    if (!payload.message) {
+      return 'Sorry, something went wrong. Please try again.';
+    }
+    return payload.message;
+  },
+  defaultConfig
+);
+
+Vue.toasted.register('error', payload => {
+    if (!payload.message) {
+      return 'Sorry, something went wrong. Please try again.';
+    }
+    return payload.message;
+  },
+  errorConfig
+);
+
+Vue.toasted.register('success', payload => {
+    if (!payload.message) {
+      return 'Success.';
+    }
+    return payload.message;
+  },
+  successConfig
+);
