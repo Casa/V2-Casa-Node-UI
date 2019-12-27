@@ -27,7 +27,8 @@
     "vee-validate": "^3.2.0",
     "vue-js-toggle-button": "^1.3.3",
     "vue-qriously": "^1.1.1",
-    "vue-toasted": "^1.1.27"
+    "vue-toasted": "^1.1.27",
+    "vuex-persist": "^2.2.0"
   },
   "devDependencies": {
     "@vue/test-utils": "^1.0.0-beta.27",
