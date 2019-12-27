@@ -176,7 +176,8 @@ hr {
 }
 
 .casa-toast {
-  height: 75px;
+  height: 75px;  
+  font-weight: bold !important;
   min-width: 400px !important;
   border-radius: 36px !important;
   box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.5);
@@ -185,6 +186,7 @@ hr {
   svg {
     height: 10px;
     margin-right: 1em;
+    margin-left: 1.25em;
   }
   
   .action.ripple {
