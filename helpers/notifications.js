@@ -3,7 +3,6 @@ const pinkSvg = '<svg viewBox="0 0 2 2"><circle cx="1" cy="1" r="1" fill="#f0649
 const greenSvg = '<svg viewBox="0 0 2 2"><circle cx="1" cy="1" r="1" fill="#2dcccd"/></svg>';
 
 const baseOptions = {
-  duration: 15000,
   iconPack: 'callback',
   className: 'casa-toast',
   action: {
@@ -14,6 +13,7 @@ const baseOptions = {
 
 export const defaultConfig = {
   ...baseOptions,
+  duration: 5000,
   icon: el => {
     el.innerHTML = goldSvg;
     return el;
@@ -22,6 +22,7 @@ export const defaultConfig = {
 
 export const successConfig = {
   ...baseOptions,
+  duration: 5000,
   icon: el => {
     el.innerHTML = greenSvg;
     return el;
@@ -31,6 +32,7 @@ export const successConfig = {
 
 export const errorConfig = {
   ...baseOptions,
+  duration: 10000,
   icon: el => {
     el.innerHTML = pinkSvg;
     return el;
