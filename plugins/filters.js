@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import {satsToBtc, btcToSats} from '@/helpers/units';
+import { satsToBtc, btcToSats } from '@/helpers/units';
 
 export default ({ app: { store } }) => {
   // Convert Satoshis to Bitcoin
@@ -9,14 +9,23 @@ export default ({ app: { store } }) => {
   Vue.filter('sats', value => btcToSats(value));
 
   // Display a number based on the browser's language settings (comma, period, space, etc.)
-  Vue.filter('localized', (value) => {
+  Vue.filter('localized', value => {
     return Number(value).toLocaleString();
+  });
+
+  // Display correct denomination based on global state
+  Vue.filter('units', value => {
+    if (store.getters.getUnits === 'sats') {
+      return btcToSats(value);
+    } else {
+      return satsToBtc(value);
+    }
   });
 
   // Convert Satoshis to USD
   Vue.filter('usd', value => {
     // If the value passed is not a number, output it as is
-    if(isNaN(parseInt(value))) {
+    if (isNaN(parseInt(value))) {
       return value;
     } else {
       return '$' + (satsToBtc(value) * store.state.bitcoin.price).toFixed(2);
@@ -30,11 +39,11 @@ export default ({ app: { store } }) => {
    * @param {Number} decimals The number of decimal places.
    */
   Vue.filter('percentage', function(value, decimals) {
-    if(!value) {
+    if (!value) {
       value = 0;
     }
 
-    if(!decimals) {
+    if (!decimals) {
       decimals = 0;
     }
 
@@ -43,4 +52,4 @@ export default ({ app: { store } }) => {
     value = value + '%';
     return value;
   });
-}
+};
