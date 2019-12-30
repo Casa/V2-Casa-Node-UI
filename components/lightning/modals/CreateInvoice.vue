@@ -244,6 +244,7 @@
           this.step = 'qrcode';
         } catch (error) {
           this.isLoading = false;
+          this.$toasted.global.error({ message: error.response.data });
           console.error(error.response.data);
         }
       },

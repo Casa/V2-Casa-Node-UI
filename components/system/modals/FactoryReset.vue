@@ -60,6 +60,7 @@
       async factoryReset() {
         this.isLoading = true;
         await API.post({ axios: this.$axios, url: `${this.$env.API_MANAGER}/v1/device/factory-reset` });
+        this.$toasted.global.success({ message: 'Factory reset successful.' });
         this.isLoading = false
         Events.$emit('modal-closed');
         this.$router.push('/');

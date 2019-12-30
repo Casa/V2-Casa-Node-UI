@@ -174,3 +174,32 @@ hr {
     transition: opacity .15s;
   }
 }
+
+.casa-toast {
+  height: 75px;  
+  font-weight: bold !important;
+  min-width: 400px !important;
+  border-radius: 36px !important;
+  box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.5);
+  background-color: #322c4f;
+  
+  svg {
+    height: 10px;
+    margin-right: 1em;
+    margin-left: 1.25em;
+  }
+  
+  .action.ripple {
+    height: 30px;
+    width: 30px;
+    &::after {
+      content: '';
+      position: absolute;
+      height: 30px;
+      width: 30px;
+      background-repeat: no-repeat;
+      background-position: 1px 2px;
+      background: url('~assets/icons/close.svg');
+    }
+  }
+}

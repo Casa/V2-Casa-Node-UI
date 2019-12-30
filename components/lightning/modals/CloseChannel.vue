@@ -73,10 +73,11 @@
           };
 
           const closedChannel = await this.$axios.delete(`${this.$env.API_LND}/v1/lnd/channel/close`, payload);
-          // TODO: Add success and error toasts
+          this.$toasted.global.success({ message: 'Channel closed.' });
           console.log('Channel closed', closedChannel);
           Events.$emit('modal-close');
         } catch (err) {
+          this.$toasted.global.error({ message: err });
           console.log('Error closing channel', err);
         }
       },
