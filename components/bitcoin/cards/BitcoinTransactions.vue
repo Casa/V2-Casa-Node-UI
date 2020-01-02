@@ -15,7 +15,7 @@
       <div class="columns totals">
         <div class="column">
           <div class="big numeric">
-            {{ $store.state.bitcoin.balance.total | localized }}
+            {{ $store.state.bitcoin.balance.total | units }}
           </div>
 
           <div class="label">
@@ -25,7 +25,7 @@
 
         <div v-if="$store.state.bitcoin.balance.pendingIn > 0" class="column narrow">
           <div class="numeric">
-            +{{ $store.state.bitcoin.balance.pendingIn | localized }}
+            +{{ $store.state.bitcoin.balance.pendingIn | units }}
           </div>
 
           <div class="label">
@@ -35,7 +35,7 @@
 
         <div v-if="$store.state.bitcoin.balance.pendingOut > 0" class="column narrow">
           <div class="numeric">
-            -{{ $store.state.bitcoin.balance.pendingOut | localized }}
+            -{{ $store.state.bitcoin.balance.pendingOut | units }}
           </div>
 
           <div class="label">
@@ -55,7 +55,7 @@
         </div>
 
         <div class="column right">
-          <span class="title numeric">{{ transaction.amount }}</span>
+          <span class="title numeric">{{ transaction.amount | units }}</span>
           <span class="subtitle numeric">{{ Math.abs(transaction.amount) | usd }}</span>
         </div>
       </div>
@@ -69,7 +69,7 @@
         </div>
 
         <div class="column right">
-          <span class="title numeric">{{ transaction.amount | localized }}</span>
+          <span class="title numeric">{{ (transaction.amount) | units }}</span>
           <span class="subtitle numeric">{{ Math.abs(transaction.amount) | usd }}</span>
         </div>
       </div>
@@ -87,6 +87,7 @@
   import WithdrawModal from '~/components/bitcoin/modals/Withdraw';
 
   export default {
+    name: 'BitcoinTransactions',
     methods: {
       deposit() {
         Events.$emit('modal-open', DepositModal);
