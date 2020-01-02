@@ -15,10 +15,12 @@ export default ({ app: { store } }) => {
 
   // Display correct denomination based on global state
   Vue.filter('units', value => {
-    if (store.getters.getUnits === 'sats') {
-      return btcToSats(value);
+    if (store.getters['system/getUnits'] === 'sats') {
+      return Number(value).toLocaleString();
     } else {
-      return satsToBtc(value);
+      const btcValue = satsToBtc(value);
+      console.log('btcValue', btcValue);
+      return Number(btcValue).toLocaleString();
     }
   });
 
