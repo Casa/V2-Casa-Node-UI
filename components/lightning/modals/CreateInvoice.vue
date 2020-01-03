@@ -27,7 +27,7 @@
       <div class="columns">
         <div class="column is-offset-one-third centered centered-vertically">
           <template v-if="inputMode === 'usd'">
-            <span class="numeric">{{ amountSats | localized }}</span> sats
+            <span class="numeric">{{ amountSats | units }}</span> {{ displayUnit }}
           </template>
 
           <template v-else-if="inputMode === 'sats'">
@@ -145,6 +145,7 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
   import {satsToBtc, btcToSats, toPrecision} from '@/helpers/units';
   import Events from '~/helpers/events';
 
@@ -160,6 +161,10 @@
         memo: '',
         isLoading: false
       }
+    },
+    
+    computed: {
+      ...mapGetters({ displayUnit: 'system/getUnits' })
     },
 
     methods: {
@@ -221,6 +226,8 @@
         if(this.amountSats) {
           this.step = 'review';
         } else {
+          this.amountSats = 0;
+          this.step = 'review';
           // Todo - Display error message via toast
           console.error('Unable to continue. Please make sure all fields are filled in.');
         }
