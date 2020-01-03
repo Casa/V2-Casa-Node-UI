@@ -27,7 +27,7 @@
 
         <div class="column centered centered-vertically">
           <template v-if="inputMode === 'usd'">
-            <span class="numeric">{{ amountSats | localized }}</span> sats
+            <span class="numeric">{{ amountSats | units }}</span> {{ displayUnit }}
           </template>
 
           <template v-else-if="inputMode === 'sats'">
@@ -138,13 +138,13 @@
           </div>
 
           <div class="flex centered">
-            <span class="numeric">{{ amountSats | localized }}</span>&nbsp;sats
+            <span class="numeric">{{ amountSats | localized }}</span>&nbsp; {{ displayUnit }}
           </div>
         </template>
 
         <template v-else-if="inputMode === 'sats'">
           <div class="flex centered big">
-            <span class="numeric">{{ amountSats | localized }}</span>&nbsp;sats
+            <span class="numeric">{{ amountSats | localized }}</span>&nbsp; {{ displayUnit }}
           </div>
 
           <div class="flex centered">
@@ -188,6 +188,7 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
   import {satsToBtc, btcToSats, toPrecision} from '@/helpers/units';
   import API from '@/helpers/api';
   import Events from '~/helpers/events';
@@ -231,6 +232,10 @@
         chosenFee: 'normal',
         isLoading: false
       }
+    },
+    
+    computed: {
+      ...mapGetters({ displayUnit: 'system/getUnits' })
     },
 
     methods: {
