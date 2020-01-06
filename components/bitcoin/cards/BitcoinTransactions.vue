@@ -69,7 +69,7 @@
         </div>
 
         <div class="column right">
-          <span class="title numeric">{{ (transaction.amount) | units }}</span>
+          <span class="title numeric">{{ transaction.amount | units }}</span>
           <span class="subtitle numeric">{{ Math.abs(transaction.amount) | usd }}</span>
         </div>
       </div>
