@@ -25,15 +25,22 @@
     },
 
     async created() {
-      if(!this.$store.state.bitcoin.operational) {
-        await this.$store.dispatch('bitcoin/getStatus');
-      }
-
-      this.$store.dispatch('bitcoin/getPrice');
-      this.$store.dispatch('bitcoin/getAddresses');
-      this.$store.dispatch('bitcoin/getPeers');
-      this.$store.dispatch('bitcoin/getBalance');
-      this.$store.dispatch('bitcoin/getTransactions');
+      this.fetchBitcoinStatus();
+      setInterval(this.fetchBitcoinStatus, 20000);
     },
+
+    methods: {
+      async fetchBitcoinStatus() {
+        if(!this.$store.state.bitcoin.operational) {
+          await this.$store.dispatch('bitcoin/getStatus');
+        }
+
+        this.$store.dispatch('bitcoin/getPrice');
+        this.$store.dispatch('bitcoin/getAddresses');
+        this.$store.dispatch('bitcoin/getPeers');
+        this.$store.dispatch('bitcoin/getBalance');
+        this.$store.dispatch('bitcoin/getTransactions');
+      }
+    }
   }
 </script>

@@ -25,13 +25,20 @@
     },
 
     async created() {
-      if(!this.$store.state.lightning.operational) {
-        await this.$store.dispatch('lightning/getStatus');
-      }
+      this.fetchLNData();
+      setInterval(this.fetchLNData, 20000);
+    },
+    
+    methods: {
+      async fetchLNData() {
+        if(!this.$store.state.lightning.operational) {
+          await this.$store.dispatch('lightning/getStatus');
+        }
 
-      this.$store.dispatch('lightning/getChannels');
-      this.$store.dispatch('lightning/getTransactions');
-      this.$store.dispatch('bitcoin/getPrice');
+        this.$store.dispatch('lightning/getChannels');
+        this.$store.dispatch('lightning/getTransactions');
+        this.$store.dispatch('bitcoin/getPrice');
+      }
     },
   }
 </script>
