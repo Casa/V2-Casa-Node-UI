@@ -81,7 +81,7 @@
 
       <div class="buttons">
         <ModalClose />
-        <button @click="updateChannel" class="button is-primary">
+        <button class="button is-primary" @click="updateChannel">
           Update Channel
         </button>
       </div>
@@ -90,7 +90,6 @@
 </template>
 
 <script>
-  // import {satsToBtc} from '@/helpers/units';
   import Events from '~/helpers/events';
   import CloseChannel from '~/components/lightning/modals/CloseChannel';
  
