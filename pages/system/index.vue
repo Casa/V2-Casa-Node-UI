@@ -22,9 +22,24 @@
       Connections,
       Extras,
     },
-
+    
     async created() {
-      this.$store.dispatch('system/checkForUpdates');
+      this.fetchSystemStatus();
+      this.interval = setInterval(this.fetchSystemStatus, 20000);
+    },
+
+    beforeDestroy () {
+      clearInterval(this.interval)
+    },
+
+    methods: {
+      async fetchSystemStatus() {
+        this.$store.dispatch('system/checkForUpdates');
+      }
     }
   }
 </script>
+
+    
+
+
