@@ -44,7 +44,7 @@
 
     async created() {
       this.fetchNodeData();
-      setInterval(this.fetchNodeData, 20000);
+      this.interval = setInterval(this.fetchNodeData, 20000);
     },
     
     beforeDestroy () {
