@@ -47,8 +47,8 @@
       setInterval(this.fetchNodeData, 20000);
     },
     
-    destroyed() {
-      clearInterval(this.interval);
+    beforeDestroy () {
+      clearInterval(this.interval)
     },
 
     methods: {

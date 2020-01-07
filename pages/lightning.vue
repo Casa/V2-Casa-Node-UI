@@ -29,7 +29,7 @@
       this.interval = setInterval(this.fetchLNData, 20000);
     },
     
-    destroyed() {
+    beforeDestroy () {
       clearInterval(this.interval)
     },
    

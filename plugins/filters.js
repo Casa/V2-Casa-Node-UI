@@ -19,7 +19,6 @@ export default ({ app: { store } }) => {
       return Number(value).toLocaleString();
     } else {
       const btcValue = satsToBtc(value);
-      console.log('btcValue', btcValue);
       return Number(btcValue).toLocaleString();
     }
   });
