@@ -46,6 +46,10 @@
       this.fetchNodeData();
       setInterval(this.fetchNodeData, 20000);
     },
+    
+    destroyed() {
+      clearInterval(this.interval);
+    },
 
     methods: {
       update() {

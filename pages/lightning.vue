@@ -26,9 +26,13 @@
 
     async created() {
       this.fetchLNData();
-      setInterval(this.fetchLNData, 20000);
+      this.interval = setInterval(this.fetchLNData, 20000);
     },
     
+    destroyed() {
+      clearInterval(this.interval)
+    },
+   
     methods: {
       async fetchLNData() {
         if(!this.$store.state.lightning.operational) {

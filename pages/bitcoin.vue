@@ -26,9 +26,13 @@
 
     async created() {
       this.fetchBitcoinStatus();
-      setInterval(this.fetchBitcoinStatus, 20000);
+      this.interval = setInterval(this.fetchBitcoinStatus, 20000);
     },
-
+    
+    destroy() {
+      clearInterval(this.interval)
+    },
+    
     methods: {
       async fetchBitcoinStatus() {
         if(!this.$store.state.bitcoin.operational) {
