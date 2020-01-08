@@ -1,4 +1,5 @@
 import cookie from 'cookie';
+const POLLING_MS = 20000;
 
 export default function (context, inject) {
   const cookies = cookie.parse(document.cookie);
@@ -13,6 +14,7 @@ export default function (context, inject) {
     API_LND: `${apiUrl}:3002`,
     BITCOIN_EXPLORER: cookies.BITCOIN_EXPLORER,
     LIGHTNING_EXPLORER: cookies.LIGHTNING_EXPLORER,
+    REFRESH_RATE: POLLING_MS
   };
 
   context.$auth.strategies.local.options.endpoints.login = {
