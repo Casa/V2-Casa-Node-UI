@@ -26,7 +26,7 @@
 
     async created() {
       this.fetchLNData();
-      this.interval = setInterval(this.fetchLNData, 20000);
+      this.interval = setInterval(this.fetchLNData, this.$env.REFRESH_RATE);
     },
     
     beforeDestroy () {

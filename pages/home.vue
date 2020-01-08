@@ -44,7 +44,7 @@
 
     async created() {
       this.fetchNodeData();
-      this.interval = setInterval(this.fetchNodeData, 20000);
+      this.interval = setInterval(this.fetchNodeData, this.$env.REFRESH_RATE);
     },
     
     beforeDestroy () {

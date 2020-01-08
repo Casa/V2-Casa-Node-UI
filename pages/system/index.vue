@@ -25,7 +25,7 @@
     
     async created() {
       this.fetchSystemStatus();
-      this.interval = setInterval(this.fetchSystemStatus, 20000);
+      this.interval = setInterval(this.fetchSystemStatus, this.$env.REFRESH_RATE);
     },
 
     beforeDestroy () {

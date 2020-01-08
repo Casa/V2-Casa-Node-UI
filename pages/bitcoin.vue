@@ -26,7 +26,7 @@
 
     async created() {
       this.fetchBitcoinStatus();
-      this.interval = setInterval(this.fetchBitcoinStatus, 20000);
+      this.interval = setInterval(this.fetchBitcoinStatus, this.$env.REFRESH_RATE);
     },
     
     beforeDestroy () {
