@@ -85,7 +85,7 @@
           <span class="lndTor">
             Connection <span v-if="lndTor">enabled</span><span v-else>disabled</span>
             <toggle-button v-model="lndTor" :value="lndTor" :sync="true" color="#3bccfc" :labels="true" />
-          </span> 
+          </span>
         </div>
       </div>
 
@@ -128,7 +128,7 @@
           <span class="bitcoindTor">
             Connection <span v-if="bitcoindTor">enabled</span><span v-else>disabled</span>
             <toggle-button v-model="bitcoindTor" :value="bitcoindTor" :sync="true" color="#3bccfc" :labels="true" />
-          </span> 
+          </span>
         </div>
       </div>
     </section>
@@ -152,7 +152,11 @@
       if(!this.$store.state.bitcoin.operational) {
         await this.$store.dispatch('bitcoin/getStatus');
       }
-      
+
+      this.$store.dispatch('system/getAddresses');
+      this.$store.dispatch('bitcoin/getAddresses');
+      this.$store.dispatch('lightning/getConnectionCode');
+
       const { bitcoind, lnd } = await API.get(this.$axios, `${this.$env.API_MANAGER}/v1/settings/read`);
       this.lndTor = lnd.lndTor;
       this.bitcoindTor = bitcoind.bitcoindTor;
@@ -182,7 +186,7 @@
     .crypto-icon {
       width: 35px;
     }
-    
+
     .system-settings-header {
       margin-bottom: 1em;
     }
@@ -228,7 +232,7 @@
       font-size: 16px;
       font-weight: bold;
     }
-    
+
     .lndTor {
       float: right;
       margin-top: -1.8em;
@@ -239,13 +243,13 @@
       margin-top: 0em;
       margin-left: 1em;
     }
-    
+
     .bitcoindTor {
       float: right;
       margin-top: 1.5em;
       color: #8d8e8e;
     }
-          
+
     .bitcoindTor .vue-js-switch {
       margin-top: 0em;
       margin-left: 1em;
