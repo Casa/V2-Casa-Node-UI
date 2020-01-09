@@ -32,7 +32,7 @@
           <span class="primary-input numeric">{{ getTotal }}</span>
         </div>
       </div>
-      
+
       <hr>
       <div class="columns">
         <div class="column">
@@ -90,7 +90,7 @@
         }
       }
     },
-    
+
     computed: {
       getTotal() {
         let value = this.settings.maxChanSize * this.settings.maxChannels;
@@ -124,6 +124,7 @@
           await this.$axios.post(`${this.$env.API_MANAGER}/v1/settings/save`, data);
           this.$toasted.global.success({ message: 'Saving new settings.' });
           this.isLoading = false;
+          Events.$emit('modal-close');
         } catch (err) {
           this.$toasted.global.error({ message: err });
           this.isLoading = false;
@@ -173,7 +174,7 @@
       font-size: 14px;
       font-weight: bold;
     }
-    
+
     .error-message {
       color: #f0649e;
       font-size: 13px;
@@ -181,7 +182,7 @@
       text-align: left;
     }
   }
-  
+
   .toggle-switch {
     position: absolute;
     right: 0;
