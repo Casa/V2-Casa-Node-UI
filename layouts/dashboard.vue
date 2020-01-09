@@ -46,6 +46,7 @@
 
 <script>
   import Events from '~/helpers/events';
+  import UnlockModal from '~/components/system/modals/Unlock';
 
   export default {
     data() {
@@ -65,6 +66,12 @@
         this.activeModal = false;
         this.blurred = false;
       });
+      
+      Events.$on('unlock-modal-open', () => {
+        this.activeModal = UnlockModal;
+        this.blurred = true;
+      });
+
     },
 
     destroyed() {

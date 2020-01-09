@@ -43,24 +43,32 @@
     },
 
     async created() {
-      if(!this.$store.state.bitcoin.operational) {
-        await this.$store.dispatch('bitcoin/getStatus');
-      }
-
-      if(!this.$store.state.lightning.operational) {
-        await this.$store.dispatch('lightning/getStatus');
-      }
-
-      this.$store.dispatch('bitcoin/getPeers');
-      this.$store.dispatch('bitcoin/getBalance');
-      this.$store.dispatch('lightning/getChannels');
-      this.$store.dispatch('system/checkForUpdates');
+      this.fetchNodeData();
+      this.interval = setInterval(this.fetchNodeData, this.$env.REFRESH_RATE);
+    },
+    
+    beforeDestroy () {
+      clearInterval(this.interval)
     },
 
     methods: {
       update() {
         Events.$emit('modal-open', UpdateModal);
       },
-    }
+      async fetchNodeData() {
+        if(!this.$store.state.bitcoin.operational) {
+          await this.$store.dispatch('bitcoin/getStatus');
+        }
+
+        if(!this.$store.state.lightning.operational) {
+          await this.$store.dispatch('lightning/getStatus');
+        }
+
+        this.$store.dispatch('bitcoin/getPeers');
+        this.$store.dispatch('bitcoin/getBalance');
+        this.$store.dispatch('lightning/getChannels');
+        this.$store.dispatch('system/checkForUpdates');
+      }
+    },
   }
 </script>

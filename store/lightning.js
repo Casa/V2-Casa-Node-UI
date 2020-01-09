@@ -1,4 +1,5 @@
 import API from '@/helpers/api';
+import Events from '~/helpers/events';
 
 // Helper function to sort lightning transactions by date
 function sortTransactions(a, b) {
@@ -97,7 +98,11 @@ export const actions = {
     if(status) {
       commit('isOperational', status.operational);
       commit('isUnlocked', status.unlocked);
+      if(status.unlocked === false) {
+        Events.$emit('unlock-modal-open');
+      }
     }
+
   },
 
   async getLndPageData({ commit }) {

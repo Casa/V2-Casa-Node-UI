@@ -59,7 +59,7 @@
     }
 
     .numeric {
-      font-size: 36px;
+      font-size: 30px;
     }
 
     .qr-code {

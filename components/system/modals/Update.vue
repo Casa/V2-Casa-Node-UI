@@ -23,7 +23,7 @@
     methods: {
       async update() {
         await API.post({ axios: this.$axios, url: `${this.$env.API_MANAGER}/v1/device/update` });
-
+        this.$toasted.global.success({ message: 'Device updated.' });
         // TODO: Add loading state for button.
         // Sleep to give the manager time to restart
         await sleep(5000);

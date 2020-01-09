@@ -16,8 +16,8 @@ export default {
   mode: 'spa',
 
   /*
-  ** Headers of the page
-  */
+   ** Headers of the page
+   */
   head: {
     title: 'Casa Node 2',
     meta: [
@@ -31,18 +31,19 @@ export default {
   },
 
   /*
-  ** Plugins to load before mounting the App
-  */
+   ** Plugins to load before mounting the App
+   */
   plugins: [
     { src: '~/plugins/filters' },
     { src: '~/plugins/interceptor' },
     { src: '~/plugins/global-components' },
     { src: '~/plugins/vee-validate' },
+    { src: '~/plugins/vuex-persist' },
   ],
 
   /*
-  ** Nuxt.js modules
-  */
+   ** Nuxt.js modules
+   */
   modules: [
     // Docs: https://github.com/nuxt-community/modules/tree/master/packages/bulma
     '@nuxtjs/bulma',
@@ -53,8 +54,8 @@ export default {
   ],
 
   /*
-  ** Auth module configuration
-  */
+   ** Auth module configuration
+   */
   auth: {
     strategies: {
       local: {
@@ -80,8 +81,8 @@ export default {
   },
 
   /*
-  ** Build configuration
-  */
+   ** Build configuration
+   */
   build: {
     postcss: {
       preset: {
@@ -92,15 +93,15 @@ export default {
     },
 
     /*
-    ** You can extend webpack config here
-    */
+     ** You can extend webpack config here
+     */
     extend(config, ctx) {
       // Run ESLint on save
       if(ctx.isDev && ctx.isClient) {
         config.module.rules.push({
-          enforce: "pre",
+          enforce: 'pre',
           test: /\.(js|vue)$/,
-          loader: "eslint-loader",
+          loader: 'eslint-loader',
           exclude: /(node_modules)/
         });
       }
@@ -108,8 +109,8 @@ export default {
   },
 
   /*
-  ** Client-side middleware called on every page
-  */
+   ** Client-side middleware called on every page
+   */
   router: {
     middleware: [
       'loading'
@@ -117,8 +118,8 @@ export default {
   },
 
   /*
-  ** Server middlware to expose environment variables at runtime
-  */
+   ** Server middlware to expose environment variables at runtime
+   */
   serverMiddleware: [
     function(req, res, next) {
       const cookies = [];

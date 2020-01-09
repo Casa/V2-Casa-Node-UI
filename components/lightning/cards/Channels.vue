@@ -33,21 +33,25 @@
 
         <div class="column right">
           <div class="big numeric">
-            {{ $store.state.lightning.balance.total | localized }}
+            {{ $store.state.lightning.balance.total | units }}
           </div>
 
           <div class="label">
-            Sats in Lightning
+            <span v-if="displayUnit === 'sats'">Sats </span>
+            <span v-else>Btc </span>
+            Pending
           </div>
         </div>
 
         <div class="column right">
           <div class="big numeric">
-            {{ $store.state.lightning.balance.pending | localized }}
+            {{ $store.state.lightning.balance.pending | units }}
           </div>
 
           <div class="label">
-            Sats Pending
+            <span v-if="displayUnit === 'sats'">Sats </span>
+            <span v-else>Btc </span>
+            Pending
           </div>
         </div>
       </div>
@@ -66,8 +70,8 @@
           <span v-else-if="channel.status === 'opening'" class="title status syncing">Opening</span>
           <span v-else-if="channel.status === 'closing'" class="title status syncing">Closing</span>
           <span class="subtitle numeric">
-            <strong>Can Send:</strong> {{ channel.localBalance | localized }}<br>
-            <strong>Can Receive:</strong> {{ channel.remoteBalance | localized }}
+            <strong>Can Send:</strong> {{ channel.localBalance | units }}<br>
+            <strong>Can Receive:</strong> {{ channel.remoteBalance | units }}
           </span>
         </div>
       </div>
@@ -80,12 +84,16 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
   import Events from '~/helpers/events';
   import ManageModal from '~/components/lightning/modals/Manage';
   import NewChannel from '~/components/lightning/modals/NewChannel';
   import EditChannel from '~/components/lightning/modals/EditChannel';
 
   export default {
+    computed: {
+      ...mapGetters({ displayUnit: 'system/getUnits' })
+    },
     methods: {
       newChannel() {
         Events.$emit('modal-open', NewChannel);
@@ -105,6 +113,39 @@
 
 <style lang="scss">
   @import "~/assets/css/variables.scss";
+  .card.stack.channels {
+    padding-left: 0;
+    padding-right: 0;
+    
+    .primary {
+      margin-left: 0;
+      margin-right: 0;
+    }
+    
+    .secondary {
+      margin-top: 0;
+
+      .channel-item {
+        margin-top: 0;
+        padding-left: 3em;
+        padding-right: 3em;
+        &:hover {
+          background: rgba(255, 255, 255, 0.06);
+        }
+        
+        .left {
+          .title {
+            position: relative;
+            top: 8px;
+          }
+          .subtitle {
+            position: relative;
+            top: 8px;
+          }
+        }
+      }
+    }
+  }
 
   .channels {
     .column.narrow {
@@ -113,6 +154,12 @@
 
     .title.status {
       font-weight: bold;
+    }
+    
+    .big.numeric {
+      // Reduce size to accommodate sats view
+      font-size: 48px !important;
+      letter-spacing: -2px;
     }
 
     .subtitle {

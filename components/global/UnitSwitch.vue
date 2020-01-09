@@ -18,24 +18,20 @@
 </template>
 
 <script>
-import Events from '~/helpers/events';
+  import { mapGetters } from 'vuex';
 
   export default {
-    data() {
-      return {
-        displayUnit: 'sats'
-      }
+    computed: {
+      ...mapGetters({ displayUnit: 'system/getUnits' })
     },
 
     methods: {
       async toggle() {
         if(this.displayUnit === 'btc') {
-          this.displayUnit = 'sats';
+          this.$store.dispatch('system/setUnits', 'sats');
         } else {
-          this.displayUnit = 'btc';
+          this.$store.dispatch('system/setUnits', 'btc');
         }
-
-        Events.$emit('unit-switched');
       },
     }
   };

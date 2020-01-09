@@ -11,7 +11,7 @@
         <div class="column modal-description">
           <div class="toggle-switch">
             <label class="toggle">
-              <input v-model="autopilot" type="checkbox" :checked="autopilot">
+              <input v-model="settings.autopilot" type="checkbox" :checked="settings.autopilot">
               <span class="toggle-slider" />
               <div class="toggle-options">
                 <div class="toggle-option one">Off</div>
@@ -43,14 +43,19 @@
       </div>
       <div class="columns">
         <div class="column">
-          <InputField v-model="maxChannelSize" label="Max Channel Size" />
-          <p class="help">
-            Can range from 10,000 sats to 1,600,000 sats.
-          </p>
+          <ValidationProvider ref="settings.maxChanSize" v-slot="{ errors }" rules="required|min_value:10000|max_value:16000000">
+            <InputField v-model="settings.maxChanSize" label="Max Channel Size" :error="Boolean(errors.length)" />
+            <p class="error-message">
+              {{ errors[0] }}
+            </p>
+            <p class="help">
+              Can range from 10,000 sats to 1,600,000 sats.
+            </p>
+          </ValidationProvider>
         </div>
 
         <div class="column">
-          <InputField v-model="maxChannels" label="Max Channels" />
+          <InputField v-model="settings.maxChannels" label="Max Channels" />
           <p class="help">
             Depends on balance. Can range from 1 to 100s.
           </p>
@@ -76,17 +81,19 @@
   export default {
     data() {
       return {
-        autopilot: false,
-        maxChannelSize: 10000,
-        maxChannels: 1,
         walletBalance: 0,
         isLoading: false,
+        settings: {
+          autopilot: false,
+          maxChanSize: null,
+          maxChannels: null,
+        }
       }
     },
     
     computed: {
       getTotal() {
-        let value = this.maxChannelSize * this.maxChannels;
+        let value = this.settings.maxChanSize * this.settings.maxChannels;
         if(isNaN(value)) {
           value = 0;
         }
@@ -95,14 +102,14 @@
     },
 
     async created() {
+      try {
+        const settings = await API.get(this.$axios, `${this.$env.API_MANAGER}/v1/settings/read`);
+        this.settings = settings.lnd;
+      } catch (err) {
+        this.$toasted.global.error({ message: err });
+      }
       this.$store.dispatch('bitcoin/getBalance');
       this.walletBalance = this.$store.state.bitcoin.balance.total;
-      
-      const settings = await API.get(this.$axios, `${this.$env.API_MANAGER}/v1/settings/read`);
-
-      if (settings) {
-        this.autopilot = settings.lnd.autopilot;
-      }
     },
 
     methods: {
@@ -111,14 +118,15 @@
         const data = {
           autopilot: this.autopilot,
           maxChannels: parseInt(this.maxChannels) || 0,
-          maxChanSize: parseInt(this.maxChannelSize) || 0,
+          maxChanSize: parseInt(this.maxChanSize) || 0,
         };
         try {
           await this.$axios.post(`${this.$env.API_MANAGER}/v1/settings/save`, data);
+          this.$toasted.global.success({ message: 'Saving new settings.' });
           this.isLoading = false;
         } catch (err) {
+          this.$toasted.global.error({ message: err });
           this.isLoading = false;
-          console.log('Error:', err);
         }
       },
 
@@ -133,6 +141,10 @@
   @import "~/assets/css/variables.scss";
 
   .autopilot-modal {
+    .input-field label {
+      font-size: 12px;
+      top: 0.75em;
+    }
     .modal-content {
       min-width: 50%;
     }
@@ -161,9 +173,16 @@
       font-size: 14px;
       font-weight: bold;
     }
+    
+    .error-message {
+      color: #f0649e;
+      font-size: 13px;
+      margin-top: 0.3em;
+      text-align: left;
+    }
   }
   
-    .toggle-switch {
+  .toggle-switch {
     position: absolute;
     right: 0;
     top: 0.75em;
@@ -218,23 +237,23 @@
   }
 
   .toggle-options {
-      display: flex;
-      text-decoration: none;
+    display: flex;
+    text-decoration: none;
   }
 
   .toggle-option {
-      position: relative;
-      z-index: 1;
-      cursor: pointer;
-      top: -1em;
-      transition: 0.5s;
-      transition-property: font-weight, color;
-      width: 50%;
-      text-align: center;
-      font-weight: bold;
-      padding-left: 0.5em;
-      font-size: 13px;
-      letter-spacing: 1px;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+    top: -1em;
+    transition: 0.5s;
+    transition-property: font-weight, color;
+    width: 50%;
+    text-align: center;
+    font-weight: bold;
+    padding-left: 0.5em;
+    font-size: 13px;
+    letter-spacing: 1px;
   }
 
   .toggle-option.two {
@@ -242,7 +261,7 @@
   }
 
   .toggle-option.active {
-      transition-delay: 0.2s;
-      color: #fff;
+    transition-delay: 0.2s;
+    color: #fff;
   }
 </style>

@@ -11,7 +11,9 @@
           
           <ValidationProvider ref="newPassword" v-slot="{ errors }" rules="required|min:12|confirmed:confirmation" class="password-field">
             <InputField v-model="newPassword" label="Node Password" name="New Password" type="password" :error="Boolean(errors.length)" />
-            <p class="error-message">{{ errors[0] }}</p>
+            <p class="error-message">
+              {{ errors[0] }}
+            </p>
           </ValidationProvider>
           
           <ValidationProvider vid="confirmation" class="password-confirmation-field">
