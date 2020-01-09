@@ -11,7 +11,7 @@
         <div class="column modal-description">
           <div class="toggle-switch">
             <label class="toggle">
-              <input v-model="autopilot" type="checkbox" :checked="autopilot">
+              <input v-model="settings.autopilot" type="checkbox" :checked="settings.autopilot">
               <span class="toggle-slider" />
               <div class="toggle-options">
                 <div class="toggle-option one">Off</div>
@@ -43,8 +43,8 @@
       </div>
       <div class="columns">
         <div class="column">
-          <ValidationProvider ref="maxChannelSize" v-slot="{ errors }" rules="required|min_value:10000|max_value:16000000">
-            <InputField v-model="maxChannelSize" label="Max Channel Size" :error="Boolean(errors.length)" />
+          <ValidationProvider ref="settings.maxChanSize" v-slot="{ errors }" rules="required|min_value:10000|max_value:16000000">
+            <InputField v-model="settings.maxChanSize" label="Max Channel Size" :error="Boolean(errors.length)" />
             <p class="error-message">
               {{ errors[0] }}
             </p>
@@ -55,7 +55,7 @@
         </div>
 
         <div class="column">
-          <InputField v-model="maxChannels" label="Max Channels" />
+          <InputField v-model="settings.maxChannels" label="Max Channels" />
           <p class="help">
             Depends on balance. Can range from 1 to 100s.
           </p>
@@ -81,17 +81,19 @@
   export default {
     data() {
       return {
-        autopilot: false,
-        maxChannelSize: 10000,
-        maxChannels: 1,
         walletBalance: 0,
         isLoading: false,
+        settings: {
+          autopilot: false,
+          maxChanSize: null,
+          maxChannels: null,
+        }
       }
     },
     
     computed: {
       getTotal() {
-        let value = this.maxChannelSize * this.maxChannels;
+        let value = this.settings.maxChanSize * this.settings.maxChannels;
         if(isNaN(value)) {
           value = 0;
         }
@@ -100,14 +102,14 @@
     },
 
     async created() {
+      try {
+        const settings = await API.get(this.$axios, `${this.$env.API_MANAGER}/v1/settings/read`);
+        this.settings = settings.lnd;
+      } catch (err) {
+        this.$toasted.global.error({ message: err });
+      }
       this.$store.dispatch('bitcoin/getBalance');
       this.walletBalance = this.$store.state.bitcoin.balance.total;
-      
-      const settings = await API.get(this.$axios, `${this.$env.API_MANAGER}/v1/settings/read`);
-
-      if (settings) {
-        this.autopilot = settings.lnd.autopilot;
-      }
     },
 
     methods: {
@@ -116,7 +118,7 @@
         const data = {
           autopilot: this.autopilot,
           maxChannels: parseInt(this.maxChannels) || 0,
-          maxChanSize: parseInt(this.maxChannelSize) || 0,
+          maxChanSize: parseInt(this.maxChanSize) || 0,
         };
         try {
           await this.$axios.post(`${this.$env.API_MANAGER}/v1/settings/save`, data);
@@ -139,6 +141,10 @@
   @import "~/assets/css/variables.scss";
 
   .autopilot-modal {
+    .input-field label {
+      font-size: 12px;
+      top: 0.75em;
+    }
     .modal-content {
       min-width: 50%;
     }
