@@ -8,7 +8,8 @@ export const state = () => ({
   invalidDigest: false,
   onionAddress: '',
   localHostAddress: '',
-})
+  units: 'sats'
+});
 
 // Functions to update the state directly
 export const mutations = {
@@ -29,23 +30,28 @@ export const mutations = {
   },
 
   setOnionAddress(state, address) {
-    state.onionAddress = address
+    state.onionAddress = address;
   },
 
   setLocalHostAddress(state, address) {
     state.localHostAddress = address;
   },
 
-}
+  setUnits(state, denomination) {
+    state.units = denomination;
+  },
+
+};
 
 // Functions to get data from the API
 export const actions = {
-
   async getAddresses({ commit }) {
-    const addresses = await API.get(this.$axios, `${this.$env.API_MANAGER}/v1/telemetry/addresses`);
+    const addresses = await API.get(
+      this.$axios,
+      `${this.$env.API_MANAGER}/v1/telemetry/addresses`
+    );
 
     if(addresses) {
-
       for (const address of addresses) {
         if (address.includes('onion')) {
           commit('setOnionAddress', address);
@@ -78,7 +84,7 @@ export const actions = {
 
     Object.keys(versions.applications).forEach(function(key) {
 
-      if (versions.applications[key].newVersionsAvailable
+      if (versions.applications[key].newVersionsAvailable 
         && versions.applications[key].newVersionsAvailable.length) {
 
         updateAvailable = true;
@@ -87,4 +93,14 @@ export const actions = {
 
     commit('setUpdate', updateAvailable);
   },
-}
+
+  async setUnits({ commit }, payload) {
+    commit('setUnits', payload);
+  }
+};
+
+export const getters = {
+  getUnits: state => {
+    return state.units;
+  }
+};

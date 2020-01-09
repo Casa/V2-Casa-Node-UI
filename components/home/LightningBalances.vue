@@ -5,26 +5,40 @@
     <div class="columns">
       <div class="column">
         <div class="numeric">
-          {{ $store.state.lightning.balance.confirmed | localized }}
+          {{ $store.state.lightning.balance.confirmed | units }}
         </div>
 
         <div class="label">
-          Sats in Lightning
+          <span v-if="displayUnit === 'sats'">Sats </span>
+          <span v-else>Btc </span>
+          in Lightning
         </div>
       </div>
 
       <div class="column right">
         <div class="numeric">
-          {{ $store.state.lightning.balance.pending | localized }}
+          {{ $store.state.lightning.balance.pending | units }}
         </div>
 
         <div class="label">
-          Sats Pending
+          <span v-if="displayUnit === 'sats'">Sats </span>
+          <span v-else>Btc </span>
+          Pending
         </div>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+  import { mapGetters } from 'vuex';
+  export default {
+    name: 'LightningBalances',
+    computed: {
+      ...mapGetters({ displayUnit: 'system/getUnits' })
+    }
+  }
+</script>
 
 <style lang="scss">
   @import "~/assets/css/variables.scss";

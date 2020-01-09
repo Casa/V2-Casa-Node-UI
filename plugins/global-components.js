@@ -3,10 +3,12 @@ import Vue from 'vue';
 import VueQriously from 'vue-qriously';
 import VTooltip from 'v-tooltip';
 import ToggleButton from 'vue-js-toggle-button';
+import Toasted from 'vue-toasted';
 
 Vue.use(VueQriously);
 Vue.use(VTooltip);
 Vue.use(ToggleButton);
+Vue.use(Toasted);
 
 // Custom components
 import UnitSwitch from '~/components/global/UnitSwitch';
@@ -24,3 +26,33 @@ Vue.component('Modal', Modal);
 Vue.component('ModalClose', ModalClose);
 Vue.component('CopyField', CopyField);
 Vue.component('ButtonSpinner', ButtonSpinner);
+
+// Register Global Notifications
+import { defaultConfig, errorConfig, successConfig } from '~/helpers/notifications';
+
+Vue.toasted.register('default', payload => {
+    if (!payload.message) {
+      return 'Sorry, something went wrong. Please try again.';
+    }
+    return payload.message;
+  },
+  defaultConfig
+);
+
+Vue.toasted.register('error', payload => {
+    if (!payload.message) {
+      return 'Sorry, something went wrong. Please try again.';
+    }
+    return payload.message;
+  },
+  errorConfig
+);
+
+Vue.toasted.register('success', payload => {
+    if (!payload.message) {
+      return 'Success.';
+    }
+    return payload.message;
+  },
+  successConfig
+);

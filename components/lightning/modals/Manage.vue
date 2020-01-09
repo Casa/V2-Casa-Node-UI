@@ -54,7 +54,12 @@
         </div>
 
         <div class="column right">
-          <InputField v-model="minChanSize" type="text" label="Sats" />
+          <ValidationProvider ref="minChanSize" v-slot="{ errors }" rules="required|min_value:20000|max_value:16000000">
+            <InputField v-model="minChanSize" type="text" label="Sats" :error="Boolean(errors.length)" />
+            <p class="error-message">
+              {{ errors[0] }}
+            </p>
+          </ValidationProvider>
         </div>
       </div>
 
@@ -89,8 +94,13 @@
 
         <div class="column right custom-color">
           <div class="control skinny">
-            <input v-model="color" type="text" class="input" name="nodeColor" @input="formatColor">
-            <div class="color-output" :style="{'background-color': color}" />
+            <ValidationProvider ref="color" v-slot="{ errors }" rules="required|hex_code" class="password-field">
+              <input v-model="color" class="input" name="nodeColor" :error="Boolean(errors.length)" @input="formatColor">
+              <div class="color-output" :style="{'background-color': color}" />
+              <p class="error-message">
+                {{ errors[0] }}
+              </p>
+            </ValidationProvider>
           </div>
         </div>
       </div>
@@ -180,6 +190,7 @@
         }
 
         await API.post({ axios: this.$axios, url: `${this.$env.API_MANAGER}/v1/settings/save`, data });
+        this.$toasted.global.success({ message: 'Setting updates saved.' });
         this.isLoading = false;
       },
     
@@ -207,6 +218,13 @@
   .lightning-manage-modal {
     .modal-content {
       width: 75%;
+    }
+    
+    .error-message {
+      color: #f0649e;
+      font-size: 15px;
+      margin-top: 0.25em;
+      text-align: right;
     }
 
     .autopilot {
@@ -245,6 +263,7 @@
 
     .color-output {
       position: absolute;
+      max-height: 40px;
       top: 1px;
       bottom: 1px;
       width: 3em;

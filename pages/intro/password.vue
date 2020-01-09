@@ -6,8 +6,12 @@
         <p>12+ characters. We highly recommend using a password manager.</p>        
         <ValidationProvider ref="password" v-slot="{ errors }" rules="required|min:12|confirmed:confirmation" class="password-field">
           <InputField v-model="password" label="Node Password" name="Node Password" type="password" :error="Boolean(errors.length)" />
-          <p class="error-message">{{ errors[0] }}</p>
-          <p v-if="seedError" class="error-message">Error: Seed phrase missing. Try generating it again.</p>
+          <p class="error-message">
+            {{ errors[0] }}
+          </p>
+          <p v-if="seedError" class="error-message">
+            Error: Seed phrase missing. Try generating it again.
+          </p>
         </ValidationProvider>
         
         <ValidationProvider vid="confirmation" class="password-confirmation-field">
@@ -16,7 +20,9 @@
       </main>
 
       <footer>
-        <button type="submit" class="button is-primary" value="Submit" :disabled="invalid">Submit</button>
+        <ButtonSpinner :loading="isLoading" :dark="false" :disabled="invalid" @click.native="submitPassword">
+          Submit
+        </ButtonSpinner>
       </footer>
     </form>
   </ValidationObserver>
@@ -32,7 +38,8 @@
         seedPhrase: [],
         password: '',
         confirmation: '',
-        seedError: false
+        seedError: false,
+        isLoading: false
       }
     },
 
@@ -58,6 +65,7 @@
       },
 
       async register() {
+        this.isLoading = true;
         try {
 
           // Override the cached jwt and force the user to submit their password again. This can happen if a user
@@ -79,11 +87,12 @@
 
           this.$auth.setToken('local', token);
           this.$auth.strategy._setToken(token);
-
+          this.isLoading = false;
           this.$router.push({path: '/intro/got-it'});
         } catch(error) {
           let errorMessage, seedError;
-
+          
+          this.isLoading = false;
           if(error.response !== undefined) {
             errorMessage = error.response.data || 'Wallet Creation Failed';
             seedError = errorMessage.match(/^Unable to initialize wallet, word (.*) isn't a part of default word list/);

@@ -1,11 +1,11 @@
 import Vue from 'vue';
 import { ValidationObserver, ValidationProvider, extend } from 'vee-validate';
-import { required, min, confirmed } from 'vee-validate/dist/rules';
+import { required, min, confirmed, alpha, alpha_num, min_value, max_value } from 'vee-validate/dist/rules';
 
 // Default validation functions
 extend("required", { 
   ...required,
-  message: 'This field is required'
+  message: 'This field is required.'
 });
 
 extend("min", { 
@@ -15,7 +15,27 @@ extend("min", {
 
 extend("confirmed", { 
   ...confirmed,
-  message: `Password confirmation doesn't match`
+  message: `Password confirmation doesn't match.`
+});
+
+extend("alpha", {
+  ...alpha,
+  message: 'Only alphabetic characters are allowed.'
+});
+
+extend("alpha_num", {
+  ...alpha_num,
+  message: 'Only alphanumeric characters are allowed.'
+});
+
+extend("min_value", {
+  ...min_value,
+  message: 'Value is below the minimum..'
+});
+
+extend("max_value", {
+  ...max_value,
+  message: 'Value exceeds the maximum.'
 });
 
 // Custom validation functions
@@ -33,7 +53,25 @@ extend('max_bytes', {
     }
 
     return true;
-  },
+  }
+});
+
+// Custom validation for node color alias
+extend('hex_code', {
+  message: 'Not a valid hex code.',
+  validate: value => {
+    const regex = new RegExp("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$");
+    return regex.test(value);
+  }
+});
+
+// Add custom channel text validators
+extend('alpha_num_space', {
+  message: 'Special characters are not allowed.',
+  validate: value => {
+    const regex = new RegExp("^[a-zA-Z0-9 ]*$");
+    return regex.test(value);
+  }
 });
 
 Vue.component('ValidationObserver', ValidationObserver);
