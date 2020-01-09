@@ -83,7 +83,7 @@
             View Lightning QR Code
           </a>
           <span class="lndTor">
-            Connection <span v-if="lndTor">enabled</span><span v-else>disabled</span>
+            Tor <span v-if="lndTor">enabled</span><span v-else>disabled</span>
             <toggle-button v-model="lndTor" :value="lndTor" :sync="true" color="#3bccfc" :labels="true" />
           </span>
         </div>
@@ -126,7 +126,7 @@
         <div class="column">
           <CopyField :value="$store.state.bitcoin.onionAddress" class="copy" />
           <span class="bitcoindTor">
-            Connection <span v-if="bitcoindTor">enabled</span><span v-else>disabled</span>
+            Tor <span v-if="bitcoindTor">enabled</span><span v-else>disabled</span>
             <toggle-button v-model="bitcoindTor" :value="bitcoindTor" :sync="true" color="#3bccfc" :labels="true" />
           </span>
         </div>
