@@ -113,6 +113,39 @@
 
 <style lang="scss">
   @import "~/assets/css/variables.scss";
+  .card.stack.channels {
+    padding-left: 0;
+    padding-right: 0;
+    
+    .primary {
+      margin-left: 0;
+      margin-right: 0;
+    }
+    
+    .secondary {
+      margin-top: 0;
+
+      .channel-item {
+        margin-top: 0;
+        padding-left: 3em;
+        padding-right: 3em;
+        &:hover {
+          background: rgba(255, 255, 255, 0.06);
+        }
+        
+        .left {
+          .title {
+            position: relative;
+            top: 8px;
+          }
+          .subtitle {
+            position: relative;
+            top: 8px;
+          }
+        }
+      }
+    }
+  }
 
   .channels {
     .column.narrow {
@@ -121,6 +154,12 @@
 
     .title.status {
       font-weight: bold;
+    }
+    
+    .big.numeric {
+      // Reduce size to accommodate sats view
+      font-size: 48px !important;
+      letter-spacing: -2px;
     }
 
     .subtitle {

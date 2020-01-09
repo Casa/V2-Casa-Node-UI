@@ -5,6 +5,7 @@ const greenSvg = '<svg viewBox="0 0 2 2"><circle cx="1" cy="1" r="1" fill="#2dcc
 const baseOptions = {
   iconPack: 'callback',
   className: 'casa-toast',
+  position: 'top-center',
   action: {
     text: '',
     onClick: (e, toast) => toast.goAway(0)
@@ -28,7 +29,6 @@ export const successConfig = {
     return el;
   }
 };
-
 
 export const errorConfig = {
   ...baseOptions,
