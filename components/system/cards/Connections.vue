@@ -11,7 +11,7 @@
       <div class="flex">
         <img src="~/assets/icons/tor.jpg" class="tor-icon">
         <p>
-          Tor gives you more privacy when running your Bitcoin and Lightning Node, but there are some things to know in order to keep running your node smoothly on Tor. <span class="lightBlue">Check out our explainer post to learn more</span>.
+          Tor gives you more privacy when running your Bitcoin and Lightning Node, but there are some things to know in order to keep running your node smoothly on Tor. <a class="lightBlue" target="_blank" href="https://blog.keys.casa/announcing-tor-support-on-casa-node/">Check out our explainer post to learn more</a>.
         </p>
       </div>
     </section> <!-- /.primary -->
@@ -29,7 +29,7 @@
             Address for Tor and Sats App
           </h6>
           <p>
-            You can also access your web dashboard from outside your home network using the <span class="lightBlue">Tor browser</span> and the .onion address.
+            You can also access your web dashboard from outside your home network using the <a class="lightBlue" target="_blank" href="https://www.torproject.org/">Tor browser</a> and the .onion address.
           </p>
         </div>
 
