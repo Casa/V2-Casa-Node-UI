@@ -66,7 +66,7 @@ export const mutations = {
       state.balance.pending = parseInt(balance.pending);
     }
 
-    state.balance.total = state.balance.confirmed + state.balance.pending;
+    state.balance.total = state.balance.confirmed;
   },
 
   setMaxReceive(state, maxReceive) {
