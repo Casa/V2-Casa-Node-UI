@@ -8,9 +8,9 @@
           </h3>
         </div>
 
-        <div class="column modal-description">
+        <!-- <div class="column modal-description">
           <UnitSwitch />
-        </div>
+        </div> -->
       </div>
       <hr>
 
@@ -235,8 +235,7 @@
       validate() {
         this.isLoading = true;
         if(!this.peerName || !this.channelPurpose || !this.connectionCode || !this.amountSats) {
-          // Todo - Display error messages in a toast based on vee validate rules
-          console.error("Please make sure all required fields are filled in");
+          this.$toasted.global.error({ message: 'Please make sure all fields are filled in.' });
           this.isLoading = false;
         } else {
           this.openChannel();
@@ -263,8 +262,7 @@
             payload.port = parsedConnectionCode[3];
           }
         } else {
-          // Todo - Display toast message
-          console.error("Unable to parse connection code.");
+          this.$toasted.global.error({ message: 'Unable to parse connection code.' });
           return;
         }
 
@@ -278,6 +276,7 @@
 
         try {
           await this.$axios.post(`${this.$env.API_LND}/v1/lnd/channel/open`, payload);
+          this.$toasted.global.success({ message: 'Channel opened successfully.' });
           this.isLoading = false;
           Events.$emit('modal-close');
         } catch(error) {
