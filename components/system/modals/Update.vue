@@ -9,7 +9,9 @@
 
       <div class="buttons">
         <ModalClose />
-        <a class="button is-primary" @click="update">Update</a>
+        <ButtonSpinner class="is-primary" :loading="isLoading" @click="update">
+          Update
+        </ButtonSpinner>
       </div>
     </form>
   </Modal>
@@ -20,13 +22,20 @@
   import {sleep} from '@/helpers/utils';
 
   export default {
+    data() {
+      return {
+        isLoading: false,
+      }
+    },
     methods: {
       async update() {
+        this.isLoading = true;
         await API.post({ axios: this.$axios, url: `${this.$env.API_MANAGER}/v1/device/update` });
-        this.$toasted.global.success({ message: 'Device updated.' });
-        // TODO: Add loading state for button.
+
         // Sleep to give the manager time to restart
         await sleep(5000);
+        this.isLoading = false;
+        this.$toasted.global.success({ message: 'Device updated.' });
         this.$router.push('/loading');
       }
     }
