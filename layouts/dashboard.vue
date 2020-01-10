@@ -47,6 +47,7 @@
 <script>
   import Events from '~/helpers/events';
   import UnlockModal from '~/components/system/modals/Unlock';
+  import Welcome from '~/components/system/modals/Welcome';
 
   export default {
     data() {
@@ -71,6 +72,13 @@
         this.activeModal = UnlockModal;
         this.blurred = true;
       });
+      
+      // Check for and clear welcome boolean
+      if(localStorage.getItem('welcome') === 'true') {
+        this.activeModal = Welcome;
+        this.blurred = true;
+        localStorage.removeItem('welcome');
+      }
 
     },
 

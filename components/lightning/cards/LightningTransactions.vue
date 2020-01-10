@@ -13,7 +13,7 @@
       <div class="columns totals">
         <div class="column">
           <div class="big numeric">
-            {{ $store.state.lightning.maxReceive | localized }}
+            {{ $store.state.lightning.maxReceive | units }}
           </div>
 
           <div class="label">
@@ -23,7 +23,7 @@
 
         <div class="column narrow">
           <div class="big numeric">
-            {{ $store.state.lightning.maxSend | localized }}
+            {{ $store.state.lightning.maxSend | units }}
           </div>
 
           <div class="label">
