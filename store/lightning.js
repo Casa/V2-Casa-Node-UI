@@ -1,6 +1,11 @@
 import API from '@/helpers/api';
 import Events from '~/helpers/events';
 
+// es6 sleep functionality
+const sleep = (ms) => {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
+
 // Helper function to sort lightning transactions by date
 function sortTransactions(a, b) {
   if (a.creationDate > b.creationDate) {
@@ -98,6 +103,8 @@ export const actions = {
     if(status) {
       commit('isOperational', status.operational);
       commit('isUnlocked', status.unlocked);
+      // wait 30 seconds before deciding to throw unlock modal
+      await sleep(30000);
       if(status.unlocked === false) {
         Events.$emit('unlock-modal-open');
       }
