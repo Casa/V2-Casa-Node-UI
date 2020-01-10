@@ -8,9 +8,9 @@
           </h3>
         </div>
 
-        <div class="column modal-description">
+        <!-- <div class="column modal-description">
           <UnitSwitch />
-        </div>
+        </div> -->
       </div>
       <hr>
       <div class="columns">
@@ -71,14 +71,14 @@
         <div class="column balance">
           <h2>{{ channel.localBalance }}</h2>
           <p class="help">
-            BTC ON YOUR SIDE
+            SATS ON YOUR SIDE
           </p>
         </div>
 
         <div class="column balance">
           <h2>{{ channel.remoteBalance }}</h2>
           <p class="help">
-            BTC ON OTHER SIDE OF CHANNEL
+            SATS ON OTHER SIDE OF CHANNEL
           </p>
         </div>
       </div>
