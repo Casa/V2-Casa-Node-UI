@@ -186,6 +186,12 @@ export const actions = {
             channel.name = 'Inbound Channel';
             channel.purpose = 'A channel that another node has opened to you';
           }
+          
+          // Set placeholder values if autopilot
+          if (channel.managed === false) {
+            channel.name = 'Autopilot';
+            channel.purpose = 'Managed by autopilot';
+          }
 
           channels.push(channel);
         });

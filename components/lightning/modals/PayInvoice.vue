@@ -31,9 +31,9 @@
           </h3>
         </div>
 
-        <div class="column modal-description narrow">
+        <!-- <div class="column modal-description narrow">
           <UnitSwitch />
-        </div>
+        </div> -->
       </div>
       <hr>
 
@@ -114,18 +114,17 @@
             this.amountSats = parseInt(invoice.numSatoshis);
             this.step = 'review';
           } else {
-            console.error('Unable to parse payment code.');
+            this.$toasted.global.error({ message: 'Unable to parse payment code.' });
           }
         } else {
-          // Todo - Display error message via toast
-          console.error('Unable to continue. Please make sure all fields are filled in.');
+          this.$toasted.global.error({ message: 'Unable to continue. Please make sure all fields are filled in.' });
         }
       },
 
       edit() {
         this.step = 'input';
       },
-
+          
       async submit() {
         this.isLoading = true;
         const payload = {
@@ -135,11 +134,11 @@
         try {
           await this.$axios.post(`${this.$env.API_LND}/v1/lnd/lightning/payInvoice`, payload);
           this.isLoading = false;
-          console.log('Payment sent successfully!');
+          this.$toasted.global.success({ message: 'Payment sent successfully.' });
           Events.$emit('modal-close');
         } catch(error) {
           this.isLoading = false;
-          console.error('There was an error while paying the invoice.');
+          this.$toasted.global.error({ message: error });
         }
       },
     }
