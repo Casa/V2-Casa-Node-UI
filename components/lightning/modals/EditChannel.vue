@@ -52,7 +52,7 @@
         </div>
       </div>
       
-      <div class="columns">
+      <div v-if="channel.type === 'OPEN'" class="columns">
         <div class="column">
           <h3>Withdrawal Timelock</h3>
           <p class="secondary">
@@ -87,7 +87,7 @@
 
       <div class="buttons">
         <ModalClose />
-        <button type="button" class="button is-danger" @click="closeChannel">
+        <button v-if="channel.type === 'OPEN'" type="button" class="button is-danger" @click="closeChannel">
           Close Channel
         </button>
       </div>
