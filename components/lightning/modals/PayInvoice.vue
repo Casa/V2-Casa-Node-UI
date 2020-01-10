@@ -31,9 +31,9 @@
           </h3>
         </div>
 
-        <div class="column modal-description narrow">
+        <!-- <div class="column modal-description narrow">
           <UnitSwitch />
-        </div>
+        </div> -->
       </div>
       <hr>
 
