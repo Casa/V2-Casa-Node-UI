@@ -25,7 +25,7 @@
           Don't be <i>too</i> reckless
         </h3>
         <p class="details">
-          Just one last thing to remember. Have fun with Lightning, but only store funds here that you're willing to lose. The Lightning Network and the Casa Node are experimental technology. 
+          Just one last thing to remember. Have fun with Lightning, but only store funds here that you're willing to lose. The Lightning Network and the Casa Node 2 are experimental technology. 
         </p>
       </div>
     </div>
@@ -67,6 +67,7 @@
     font-size: 26px;
   }
   .details {
+    text-align: center;
     color: #FFF;
     opacity: 0.7;
     font-size: 26px;
