@@ -39,7 +39,7 @@
           <div class="label">
             <span v-if="displayUnit === 'sats'">Sats </span>
             <span v-else>Btc </span>
-            Pending
+            in Lightning
           </div>
         </div>
 

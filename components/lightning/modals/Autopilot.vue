@@ -32,7 +32,7 @@
           <span class="primary-input numeric">{{ getTotal }}</span>
         </div>
       </div>
-      
+
       <hr>
       <div class="columns">
         <div class="column">
@@ -84,13 +84,13 @@
         walletBalance: 0,
         isLoading: false,
         settings: {
-          autopilot: false,
+          autopilot: true,
           maxChanSize: null,
           maxChannels: null,
         }
       }
     },
-    
+
     computed: {
       getTotal() {
         let value = this.settings.maxChanSize * this.settings.maxChannels;
@@ -116,14 +116,20 @@
       async saveSettings() {
         this.isLoading = true;
         const data = {
-          autopilot: this.autopilot,
-          maxChannels: parseInt(this.maxChannels) || 0,
-          maxChanSize: parseInt(this.maxChanSize) || 0,
+          autopilot: this.settings.autopilot,
+          maxChannels: parseInt(this.settings.maxChannels) || 0,
+          maxChanSize: parseInt(this.settings.maxChanSize) || 0,
         };
+        
+        // Provide action notice and dismiss modal after 5 seconds 
+        this.$toasted.global.default({ message: 'Saving changes.' });
+        setTimeout(() => Events.$emit('modal-close'), 5000);
+
         try {
           await this.$axios.post(`${this.$env.API_MANAGER}/v1/settings/save`, data);
-          this.$toasted.global.success({ message: 'Saving new settings.' });
+          this.$toasted.global.success({ message: 'Autopilot settings updated.' });
           this.isLoading = false;
+          Events.$emit('modal-close');
         } catch (err) {
           this.$toasted.global.error({ message: err });
           this.isLoading = false;
@@ -173,7 +179,7 @@
       font-size: 14px;
       font-weight: bold;
     }
-    
+
     .error-message {
       color: #f0649e;
       font-size: 13px;
@@ -181,7 +187,7 @@
       text-align: left;
     }
   }
-  
+
   .toggle-switch {
     position: absolute;
     right: 0;

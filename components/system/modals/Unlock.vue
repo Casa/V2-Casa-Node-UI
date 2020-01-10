@@ -56,11 +56,8 @@
           if(error && error.response && error.response.status === 401) {
             this.errorMessage = 'Sorry, that password is incorrect.';
           } else {
-            console.error('Unexpected error while logging in', error);
-            this.errorMessage = "Your node's internal IP address has changed. Please restart the device to continue.";
+            this.errorMessage = "Lightning is still starting up. Wait for 60 seconds and try again.";
           }
-        } finally {
-          //this.enabled = true;
         }
       }
     }
