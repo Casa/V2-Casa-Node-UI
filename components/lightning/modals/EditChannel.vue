@@ -13,36 +13,26 @@
         </div>
       </div>
       <hr>
-      
       <div class="columns">
         <div class="column">
-          <InputField v-model="channel.name" label="Peer Name" />
+          <h3>Peer Name</h3>
         </div>
-        <div class="column">
-          <button type="button" class="button is-danger" @click="closeChannel">
-            Close Channel
-          </button>
+
+        <div class="column channel-data">
+          <p class="secondary">
+            {{ channel.name }}
+          </p>
         </div>
       </div>
       
       <div class="columns">
         <div class="column">
-          <InputField v-model="channel.purpose" label="Channel Purpose" />
-        </div>
-      </div>     
-
-      <div class="columns">
-        <div class="column balance">
-          <h2>{{ channel.localBalance }}</h2>
-          <p class="help">
-            BTC ON YOUR SIDE
-          </p>
+          <h3>Channel Purpose</h3>
         </div>
 
-        <div class="column balance">
-          <h2>{{ channel.remoteBalance }}</h2>
-          <p class="help">
-            BTC ON OTHER SIDE OF CHANNEL
+        <div class="column channel-data">
+          <p class="secondary">
+            {{ channel.purpose }}
           </p>
         </div>
       </div>
@@ -76,13 +66,29 @@
           </p>
         </div>
       </div>
+      
+      <div class="columns">
+        <div class="column balance">
+          <h2>{{ channel.localBalance }}</h2>
+          <p class="help">
+            BTC ON YOUR SIDE
+          </p>
+        </div>
+
+        <div class="column balance">
+          <h2>{{ channel.remoteBalance }}</h2>
+          <p class="help">
+            BTC ON OTHER SIDE OF CHANNEL
+          </p>
+        </div>
+      </div>
 
       <hr>
 
       <div class="buttons">
         <ModalClose />
-        <button class="button is-primary" @click="updateChannel">
-          Update Channel
+        <button type="button" class="button is-danger" @click="closeChannel">
+          Close Channel
         </button>
       </div>
     </form>
