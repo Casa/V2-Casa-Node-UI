@@ -16,6 +16,7 @@
 
 <script>
   import API from '@/helpers/api';
+  import { sleep } from '@/helpers/utils';
 
   export default {
     data() {
@@ -35,10 +36,6 @@
 
       async login() {
         this.isLoading = true;
-        // TODO put this somewhere like utilities
-        async function sleep(ms) {
-          return new Promise(resolve => setTimeout(resolve, ms));
-        }
 
         let attempt = 0;
         let bitcoindCall = false;

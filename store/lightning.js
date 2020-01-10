@@ -1,10 +1,6 @@
 import API from '@/helpers/api';
 import Events from '~/helpers/events';
-
-// es6 sleep functionality
-const sleep = (ms) => {
-  return new Promise(resolve => setTimeout(resolve, ms))
-}
+import { sleep } from '@/helpers/utils';
 
 // Helper function to sort lightning transactions by date
 function sortTransactions(a, b) {
