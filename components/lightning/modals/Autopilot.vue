@@ -84,7 +84,7 @@
         walletBalance: 0,
         isLoading: false,
         settings: {
-          autopilot: false,
+          autopilot: true,
           maxChanSize: null,
           maxChannels: null,
         }
@@ -116,13 +116,18 @@
       async saveSettings() {
         this.isLoading = true;
         const data = {
-          autopilot: this.autopilot,
-          maxChannels: parseInt(this.maxChannels) || 0,
-          maxChanSize: parseInt(this.maxChanSize) || 0,
+          autopilot: this.settings.autopilot,
+          maxChannels: parseInt(this.settings.maxChannels) || 0,
+          maxChanSize: parseInt(this.settings.maxChanSize) || 0,
         };
+        
+        // Provide action notice and dismiss modal after 5 seconds 
+        this.$toasted.global.default({ message: 'Saving changes.' });
+        setTimeout(() => Events.$emit('modal-close'), 5000);
+
         try {
           await this.$axios.post(`${this.$env.API_MANAGER}/v1/settings/save`, data);
-          this.$toasted.global.success({ message: 'Saving new settings.' });
+          this.$toasted.global.success({ message: 'Autopilot settings updated.' });
           this.isLoading = false;
         } catch (err) {
           this.$toasted.global.error({ message: err });
