@@ -114,7 +114,7 @@
             this.amountSats = parseInt(invoice.numSatoshis);
             this.step = 'review';
           } else {
-            console.error('Unable to parse payment code.');
+            this.$toasted.global.error({ message: 'Unable to parse payment code.' });
           }
         } else {
           this.$toasted.global.error({ message: 'Unable to continue. Please make sure all fields are filled in.' });
