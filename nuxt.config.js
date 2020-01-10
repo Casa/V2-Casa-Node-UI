@@ -39,6 +39,7 @@ export default {
     { src: '~/plugins/global-components' },
     { src: '~/plugins/vee-validate' },
     { src: '~/plugins/vuex-persist' },
+    { src: '~/plugins/router-guard' },
   ],
 
   /*
