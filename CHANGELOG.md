@@ -1,7 +1,18 @@
 # Changelog
 Notable changes to the Casa Node 2 project will be documented in this file
 
-## 2020-02-09, UI 2.1.2
+## 2020-02-10, UI 2.1.3
+### Changed
+- Removed BTC/SATS toggles where confusing
+
+### Fixed
+- Fixed Locked/Unlocked state after unlock modal
+
+### Added
+- Added misc error/success toasts
+- Added first time welcome modal
+
+## 2020-02-10, UI 2.1.2
 ### Fixed
 - Fixed manage channel modal
 - Fixed redirects after save settings
