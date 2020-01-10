@@ -1,5 +1,6 @@
 import API from '@/helpers/api';
 import Events from '~/helpers/events';
+import { sleep } from '@/helpers/utils';
 
 // Helper function to sort lightning transactions by date
 function sortTransactions(a, b) {
@@ -98,6 +99,8 @@ export const actions = {
     if(status) {
       commit('isOperational', status.operational);
       commit('isUnlocked', status.unlocked);
+      // wait 30 seconds before deciding to throw unlock modal
+      await sleep(30000);
       if(status.unlocked === false) {
         Events.$emit('unlock-modal-open');
       }
