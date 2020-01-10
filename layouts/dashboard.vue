@@ -73,12 +73,6 @@
         this.blurred = true;
       });
       
-      Events.$on('welcome-modal-open', () => {
-        console.log('event received!!!');
-        this.activeModal = Welcome;
-        this.blurred = true;
-      });
-      
       // Check for and clear welcome boolean
       if(localStorage.getItem('welcome') === 'true') {
         this.activeModal = Welcome;
