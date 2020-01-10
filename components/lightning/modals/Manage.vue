@@ -192,8 +192,10 @@
         await API.post({ axios: this.$axios, url: `${this.$env.API_MANAGER}/v1/settings/save`, data });
         this.$toasted.global.success({ message: 'Setting updates saved.' });
         this.isLoading = false;
+
+        Events.$emit('modal-close');
       },
-    
+
       openAutopilot() {
         Events.$emit('modal-close');
         Events.$emit('modal-open', Autopilot);
@@ -219,7 +221,7 @@
     .modal-content {
       width: 75%;
     }
-    
+
     .error-message {
       color: #f0649e;
       font-size: 15px;
