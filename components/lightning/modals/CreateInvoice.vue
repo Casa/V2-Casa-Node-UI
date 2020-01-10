@@ -8,9 +8,9 @@
           </h3>
         </div>
 
-        <div class="column modal-description">
+        <!-- <div class="column modal-description">
           <UnitSwitch />
-        </div>
+        </div> -->
       </div>
       <hr>
 
@@ -62,9 +62,9 @@
           </h3>
         </div>
 
-        <div class="column modal-description">
+        <!-- <div class="column modal-description">
           <UnitSwitch />
-        </div>
+        </div> -->
       </div>
       <hr>
 
