@@ -37,7 +37,7 @@
       <div v-for="(transaction, index) in $store.state.lightning.pendingTransactions" :key="`pending-${index}`" class="columns">
         <div class="column left">
           <span v-if="Math.sign(parseInt(transaction.value)) === -1" class="title">Sending Lightning Payment</span>
-          <span v-else class="title">Awaiting Lightning Payment</span>
+          <span v-else class="title">Receiving Lightning Payment</span>
           <span class="subtitle">
             <template v-if="transaction.memo">
               {{ transaction.memo }} <span class="separator" />
