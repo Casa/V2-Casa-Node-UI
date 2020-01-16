@@ -9,7 +9,7 @@
 
       <div class="buttons">
         <ModalClose />
-        <ButtonSpinner class="is-primary" :loading="isLoading" @click="update">
+        <ButtonSpinner class="is-primary" :loading="isLoading" :dark="true" @click="update">
           Update
         </ButtonSpinner>
       </div>

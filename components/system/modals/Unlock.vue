@@ -47,7 +47,7 @@
           await this.$axios.post(`${this.$env.API_LND}/v1/lnd/wallet/unlock`, { password: this.password });
           this.$toasted.global.success({ message: 'Unlocked Successfully' });
           this.isLoading = false;
-          await this.$store.dispatch('lightning/getStatus');
+          this.$store.dispatch('lightning/getStatus');
           Events.$emit('modal-close');
         } catch (error) {
           console.log('error', error);

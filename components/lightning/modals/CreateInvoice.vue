@@ -258,6 +258,7 @@
 
       close() {
         Events.$emit('modal-close');
+        this.$destroy();
       }
     }
   }
@@ -269,6 +270,11 @@
   .create-invoice-modal {
     .modal-content {
       min-width: 50%;
+    }
+    
+    .modal-description {
+      font-size: 20px;
+      padding-bottom: 0.5em;
     }
 
     .unit-switch {

@@ -14,7 +14,7 @@
   export default {
     props: {
       'value': {
-        default: 'Copy me!',
+        default: 'Loading...',
         type: String,
       },
     },
@@ -22,6 +22,7 @@
     methods: {
       copy() {
         copyToClipboard(this.value);
+        this.$toasted.global.default({ message: 'Address copied to clipboard.' });
       }
     }
   }
@@ -45,6 +46,13 @@
       margin-right: 0.55em;
       margin-left: auto;
       padding: 0 2em;
+      
+      &:active {
+        border: 3px solid #FFF!important;
+      }
+      &:hover {
+        border: 3px solid #865efc;
+      }
     }
 
     .copy-content {
