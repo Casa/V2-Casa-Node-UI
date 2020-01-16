@@ -13,8 +13,8 @@
     </div>
     <hr>
 
-    <div class="flex centered">
-      <CopyField v-if="!address" :value="loading" />
+    <div class="flex centered" v-if="!loading">
+      <CopyField v-if="!address" :value="'loading...'" />
       <CopyField v-else :value="address" />
     </div>
 
@@ -43,17 +43,26 @@
     data() {
       return {
         address: false,
+        loading: true,
       }
     },
 
     async created() {
-      const bitcoinAddress = await API.get(this.$axios, `${this.$env.API_LND}/v1/lnd/address`);
-      this.address = bitcoinAddress.address;
+      try {
+        const bitcoinAddress = await API.get(this.$axios, `${this.$env.API_LND}/v1/lnd/address`);
+        this.address = bitcoinAddress.address;
+        this.loading = false;
+      } catch (err) {
+        this.loading = false;
+        this.$toasted.global.error({ message: 'Error generating new address.' });
+      }
+
     },
 
     methods: {
       close() {
         Events.$emit('modal-close');
+        this.$destroy();
       }
     }
   }
@@ -65,12 +74,17 @@
       min-width: 50%;
     }
     
+    .modal-description {
+      font-size: 20px;
+      padding-bottom: 0.5em;
+    }
+    
     .address-display {
       margin-top: 3em;
       font-size: 30px;
       text-align: center;
     }
-
+    
     .qr-code {
       margin: 3em 0 2.5em;
 
