@@ -95,17 +95,18 @@ export const mutations = {
 export const actions = {
   async getStatus({ commit }) {
     const status = await API.get(this.$axios, `${this.$env.API_LND}/v1/lnd/info/status`);
+    commit('isOperational', status.operational);
+    commit('isUnlocked', status.unlocked);
 
-    if(status) {
-      commit('isOperational', status.operational);
-      commit('isUnlocked', status.unlocked);
-      // wait 30 seconds before deciding to throw unlock modal
+    // launch unlock modal after 30 sec
+    if (!status.unlocked) {
       await sleep(30000);
-      if(status.unlocked === false) {
+      const { unlocked } = await API.get(this.$axios, `${this.$env.API_LND}/v1/lnd/info/status`);
+      commit('isUnlocked', unlocked);
+      if (!unlocked) {
         Events.$emit('unlock-modal-open');
       }
     }
-
   },
 
   async getLndPageData({ commit }) {

@@ -20,7 +20,7 @@
       </main>
 
       <footer>
-        <ButtonSpinner :loading="isLoading" :dark="false" :disabled="invalid" @click.native="submitPassword">
+        <ButtonSpinner :loading="isLoading" :dark="true" :disabled="invalid" @click.native="submitPassword">
           Submit
         </ButtonSpinner>
       </footer>

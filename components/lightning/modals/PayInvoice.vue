@@ -136,6 +136,7 @@
           this.isLoading = false;
           this.$toasted.global.success({ message: 'Payment sent successfully.' });
           Events.$emit('modal-close');
+          this.$destroy();
         } catch(error) {
           this.isLoading = false;
           this.$toasted.global.error({ message: error });

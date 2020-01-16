@@ -188,12 +188,18 @@
         if (this.minChanSize) {
           data.minChanSize = parseInt(this.minChanSize, 10);
         }
+        
+        try {
+          this.$toasted.global.default({ message: 'Saving. This could take a few minutes.' });
+          await API.post({ axios: this.$axios, url: `${this.$env.API_MANAGER}/v1/settings/save`, data });
+          this.$toasted.global.success({ message: 'Setting updates saved.' });
+          this.isLoading = false;
+          Events.$emit('modal-close');
+        } catch (error) {
+          this.$toasted.global.error({ message: error });
+          this.isLoading = false;
+        }
 
-        await API.post({ axios: this.$axios, url: `${this.$env.API_MANAGER}/v1/settings/save`, data });
-        this.$toasted.global.success({ message: 'Setting updates saved.' });
-        this.isLoading = false;
-
-        Events.$emit('modal-close');
       },
 
       openAutopilot() {
@@ -261,6 +267,11 @@
 
     .input-wrap {
       width: 256px;
+    }
+    
+    .input-field  label {
+      font-size: 12px;
+      top: 0.75em;
     }
 
     .color-output {
