@@ -1,6 +1,16 @@
 # Changelog
 Notable changes to the Casa Node 2 project will be documented in this file
 
+## 2020-02-10, UI 2.1.4, Manager 2.1.2
+### Added
+- Added pop up confirmations when copying
+- Added missing commas in transactions
+
+### Fixed
+- Fixed double sends of api calls
+- Fixed broken loading states
+- Tor issues with lnd and bitcoind
+
 ## 2020-02-10, UI 2.1.3
 ### Changed
 - Removed BTC/SATS toggles where confusing
