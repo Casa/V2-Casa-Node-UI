@@ -37,7 +37,8 @@
     data() {
       return {
         percent: 100,
-        finished: false
+        finished: false,
+        error: false
       }
     },
 
