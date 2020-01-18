@@ -65,7 +65,7 @@
           <span v-if="transaction.type === 'ON_CHAIN_TRANSACTION_SENT'" class="title">Payment Sent</span>
           <span v-else class="title">Payment Received</span>
 
-          <span class="subtitle">{{ transaction.destAddresses[0] }} <span class="separator" /> 2h</span>
+          <span class="subtitle">{{ transaction.destAddresses[0] }} <span class="separator" /> {{ transaction.timeStamp | timeAgo }} </span>
         </div>
 
         <div class="column right">
