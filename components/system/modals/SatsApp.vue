@@ -18,7 +18,7 @@
     </div>
 
     <div class="flex centered qr-code">
-      <qriously :value="$store.state.system.onionAddress" :size="320" foreground="#865efc" />
+      <qriously :value="$store.state.system.onionAddress" :size="320" foreground="#FFF" />
     </div>
 
     <hr>
