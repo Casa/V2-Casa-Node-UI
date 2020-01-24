@@ -7,7 +7,9 @@
 
       <form @submit.prevent="login()">
         <InputField v-model="password" :error="error" :error-message="errorMessage" type="password" label="Node Password" />
-        <input type="submit" value="Sign In" class="button is-primary">
+        <ButtonSpinner type="submit" :loading="isLoading" class="button is-primary">
+          Sign In
+        </ButtonSpinner>
       </form>
     </main>
 
@@ -24,12 +26,14 @@
         password: '',
         error: false,
         errorMessage: '',
+        isLoading: false,
       }
     },
 
     methods: {
       async login() {
         try {
+          this.isLoading = true;
           await this.$auth.loginWith('local', {data: {password: this.password}});
           this.$router.push('/home');
         } catch(error) {
@@ -41,6 +45,8 @@
             console.error('Unexpected error while logging in', error);
             this.errorMessage = "Your node's internal IP address has changed. Please restart the device to continue.";
           }
+        } finally {
+          this.isLoading = false;
         }
       },
     }
