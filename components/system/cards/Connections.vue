@@ -203,6 +203,9 @@
         };
 
         await this.$axios.post(`${this.$env.API_MANAGER}/v1/settings/save`, data);
+        this.$store.dispatch('bitcoin/getAddresses');
+        this.$store.dispatch('lightning/getConnectionCode');
+
         this.isLoading = false;
       },
     },
