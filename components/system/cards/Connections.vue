@@ -132,6 +132,25 @@
         </div>
       </div>
     </section>
+
+    <div class="columns space-between">
+      <div class="column">
+        <h6>
+          SSH Connections
+        </h6>
+        <p>
+          Enable SSH connections on your LAN.
+        </p>
+      </div>
+
+      <div class="column">
+        <span class="sshEnabled">
+            SSH <span v-if="sshEnabled">enabled</span><span v-else>disabled</span>
+            <toggle-button v-model="sshEnabled" :value="sshEnabled" :sync="true" color="#3bccfc" :labels="true" />
+          </span>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -145,7 +164,8 @@
     data() {
       return {
         lndTor: false,
-        bitcoindTor: false
+        bitcoindTor: false,
+        sshEnabled: false,
       }
     },
     async created() {
@@ -157,9 +177,10 @@
       this.$store.dispatch('bitcoin/getAddresses');
       this.$store.dispatch('lightning/getConnectionCode');
 
-      const { bitcoind, lnd } = await API.get(this.$axios, `${this.$env.API_MANAGER}/v1/settings/read`);
+      const { bitcoind, lnd, system} = await API.get(this.$axios, `${this.$env.API_MANAGER}/v1/settings/read`);
       this.lndTor = lnd.lndTor;
       this.bitcoindTor = bitcoind.bitcoindTor;
+      this.sshEnabled = system.sshEnabled;
     },
 
     methods: {
@@ -251,6 +272,17 @@
     }
 
     .bitcoindTor .vue-js-switch {
+      margin-top: 0em;
+      margin-left: 1em;
+    }
+
+    .sshEnabled {
+      float: right;
+      margin-top: 1.5em;
+      color: #8d8e8e;
+    }
+
+    .sshEnabled .vue-js-switch {
       margin-top: 0em;
       margin-left: 1em;
     }
