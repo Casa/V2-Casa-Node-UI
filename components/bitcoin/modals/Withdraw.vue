@@ -384,6 +384,7 @@
         try {
           await this.$axios.post(`${this.$env.API_LND}/v1/lnd/transaction`, payload);
           this.$toasted.global.success({ message: 'Transaction pending.' });
+          await this.$store.dispatch('bitcoin/getTransactions');
           this.isLoading = false;
           Events.$emit('modal-close');
         } catch (error) {
