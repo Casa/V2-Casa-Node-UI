@@ -8,9 +8,6 @@
           </h3>
         </div>
 
-        <div class="column modal-description">
-          <UnitSwitch />
-        </div>
       </div>
       <hr>
 
@@ -107,7 +104,7 @@
 
       <div class="buttons">
         <ModalClose />
-        <button type="submit" class="button is-primary">
+        <button type="submit" class="button is-primary" :disabled="fee[this.chosenFee].error || !amountSats || !address || isLoading">
           Review Withdrawal
         </button>
       </div>
@@ -119,10 +116,6 @@
           <h3>
             Review Bitcoin Withdrawal
           </h3>
-        </div>
-
-        <div class="column modal-description">
-          <UnitSwitch />
         </div>
       </div>
       <hr>
@@ -230,10 +223,10 @@
 
         feeTimeout: false,
         chosenFee: 'normal',
-        isLoading: false
+        isLoading: false,
       }
     },
-    
+
     computed: {
       ...mapGetters({ displayUnit: 'system/getUnits' })
     },
@@ -302,6 +295,7 @@
         }
 
         this.feeTimeout = setTimeout(async () => {
+          this.isLoading = true;
           if(this.address && (this.amountSats || this.sweep)) {
 
             const params = {
@@ -337,6 +331,7 @@
               }
             }
           }
+          this.isLoading = false;
         }, 500);
       },
 
@@ -367,8 +362,7 @@
 
       review() {
         if(this.fee[this.chosenFee].error || !this.amountSats || !this.address) {
-          // Todo - Display error message via toast?
-          console.error('Unable to continue. Please make sure all fields are filled in.');
+          this.$toasted.global.error({ message: 'Unable to continue. Please make sure all fields are filled in.' });
         } else {
           this.step = 'review';
         }
