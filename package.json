@@ -1,6 +1,6 @@
 {
   "name": "casa-node2-ui",
-  "version": "2.1.4",
+  "version": "2.2.0",
   "description": "The UI for that little purple and white box we all know and love.",
   "author": "Casa Inc.",
   "private": true,
@@ -19,6 +19,7 @@
     "@nuxtjs/bulma": "^1.2.1",
     "bignumber.js": "^9.0.0",
     "cookie": "^0.4.0",
+    "dayjs": "^1.8.19",
     "dotenv": "^8.2.0",
     "node-sass": "^4.13.0",
     "nuxt": "^2.0.0",

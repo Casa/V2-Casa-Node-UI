@@ -107,6 +107,9 @@ export const actions = {
     if(state.operational) {
       const addresses = await API.get(this.$axios, `${this.$env.API_LND}/v1/bitcoind/info/addresses`);
 
+      // Default onion address to not found.
+      commit('onionAddress', 'Could not determine bitcoin onion address');
+
       if(addresses) {
         addresses.forEach(address => {
           if(address.includes('.onion')) {

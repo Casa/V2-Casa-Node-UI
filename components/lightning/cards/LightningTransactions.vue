@@ -43,7 +43,7 @@
               {{ transaction.memo }} <span class="separator" />
             </template>
 
-            1h
+            {{ transaction.creationDate | timeAgo }}
           </span>
         </div>
 
@@ -62,7 +62,7 @@
               {{ transaction.memo }} <span class="separator" />
             </template>
 
-            1h
+            {{ transaction.creationDate | timeAgo }}
           </span>
         </div>
 

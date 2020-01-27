@@ -22,7 +22,7 @@
     methods: {
       copy() {
         copyToClipboard(this.value);
-        this.$toasted.global.default({ message: 'Address copied to clipboard.' });
+        this.$toasted.global.default({ message: 'Copied to clipboard.' });
       }
     }
   }

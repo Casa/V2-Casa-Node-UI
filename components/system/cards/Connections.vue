@@ -84,7 +84,7 @@
           </a>
           <span class="lndTor">
             Tor <span v-if="lndTor">enabled</span><span v-else>disabled</span>
-            <toggle-button v-model="lndTor" :value="lndTor" :sync="true" color="#3bccfc" :labels="true" />
+            <toggle-button @change="saveSettings" v-model="lndTor" :value="lndTor" :sync="true" color="#3bccfc" :labels="true" :disabled="isLoading" />
           </span>
         </div>
       </div>
@@ -127,11 +127,32 @@
           <CopyField :value="$store.state.bitcoin.onionAddress" class="copy" />
           <span class="bitcoindTor">
             Tor <span v-if="bitcoindTor">enabled</span><span v-else>disabled</span>
-            <toggle-button v-model="bitcoindTor" :value="bitcoindTor" :sync="true" color="#3bccfc" :labels="true" />
+            <toggle-button @change="saveSettings" v-model="bitcoindTor" :value="bitcoindTor" :sync="true" color="#3bccfc" :labels="true" :disabled="isLoading" />
           </span>
         </div>
       </div>
     </section>
+
+    <hr>
+
+    <div class="columns space-between">
+      <div class="column">
+        <h6>
+          SSH Connections
+        </h6>
+        <p>
+          Enable SSH connections on your LAN.
+        </p>
+      </div>
+
+      <div class="column">
+        <div class="sshEnabled">
+            SSH <span v-if="sshEnabled">enabled</span><span v-else>disabled</span>
+            <toggle-button @change="saveSettings" v-model="sshEnabled" :value="sshEnabled" :sync="true" color="#3bccfc" :labels="true" :disabled="isLoading" />
+          </div>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -145,7 +166,9 @@
     data() {
       return {
         lndTor: false,
-        bitcoindTor: false
+        bitcoindTor: false,
+        sshEnabled: false,
+        isLoading: false,
       }
     },
     async created() {
@@ -157,9 +180,10 @@
       this.$store.dispatch('bitcoin/getAddresses');
       this.$store.dispatch('lightning/getConnectionCode');
 
-      const { bitcoind, lnd } = await API.get(this.$axios, `${this.$env.API_MANAGER}/v1/settings/read`);
+      const { bitcoind, lnd, system} = await API.get(this.$axios, `${this.$env.API_MANAGER}/v1/settings/read`);
       this.lndTor = lnd.lndTor;
       this.bitcoindTor = bitcoind.bitcoindTor;
+      this.sshEnabled = system.sshEnabled;
     },
 
     methods: {
@@ -168,7 +192,22 @@
       },
       openConnectionCodeModal() {
         Events.$emit('modal-open', ConnectionCodeModal);
-      }
+      },
+      async saveSettings() {
+        this.isLoading = true;
+
+        const data = {
+          sshEnabled: this.sshEnabled,
+          bitcoindTor: this.bitcoindTor,
+          lndTor: this.lndTor,
+        };
+
+        await this.$axios.post(`${this.$env.API_MANAGER}/v1/settings/save`, data);
+        this.$store.dispatch('bitcoin/getAddresses');
+        this.$store.dispatch('lightning/getConnectionCode');
+
+        this.isLoading = false;
+      },
     },
   }
 </script>
@@ -251,6 +290,17 @@
     }
 
     .bitcoindTor .vue-js-switch {
+      margin-top: 0em;
+      margin-left: 1em;
+    }
+
+    .sshEnabled {
+      float: right;
+      margin-top: 1.5em;
+      color: #8d8e8e;
+    }
+
+    .sshEnabled .vue-js-switch {
       margin-top: 0em;
       margin-left: 1em;
     }
