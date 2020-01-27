@@ -48,10 +48,10 @@
     <section class="secondary">
       <div v-for="(transaction, index) in $store.state.bitcoin.pending" :key="`pending-${index}`" class="columns">
         <div class="column left">
-          <span v-if="transaction.type === 'ON_CHAIN_TRANSACTION_SENT'" class="title">Payment Sent (Pending)</span>
-          <span v-else class="title">Payment Received (Pending)</span>
+          <span v-if="transaction.type === 'ON_CHAIN_TRANSACTION_SENT'" class="title">Payment Sending (Unconfirmed)</span>
+          <span v-else class="title">Payment Receiving (Unconfirmed)</span>
 
-          <span class="subtitle">{{ transaction.destAddresses[0] }} <span class="separator" /> 1h</span>
+          <span class="subtitle">{{ transaction.destAddresses[0] }} <span class="separator" /> {{ transaction.timeStamp | timeAgo }} </span>
         </div>
 
         <div class="column right">
@@ -76,7 +76,7 @@
     </section>
 
     <section class="foot is-hidden">
-      <a class="button">See All 188 Transactions</a>
+      <a class="button">See All Transactions</a>
     </section>
   </div>
 </template>
