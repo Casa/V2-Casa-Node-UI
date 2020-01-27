@@ -1,5 +1,9 @@
 import Vue from 'vue';
 import { satsToBtc, btcToSats } from '@/helpers/units';
+import relativeTime from 'dayjs/plugin/relativeTime';
+
+const dayjs = require('dayjs');
+dayjs.extend(relativeTime);
 
 export default ({ app: { store } }) => {
   // Convert Satoshis to Bitcoin
@@ -52,5 +56,13 @@ export default ({ app: { store } }) => {
     value = Math.floor(value * Math.pow(10, decimals)) / Math.pow(10, decimals);
     value = value + '%';
     return value;
+  });
+  
+  /**
+  * Convert a time stamp into human readable relative time
+  * @param {timestamp} unix date stamp.
+  */
+  Vue.filter('timeAgo', function (timestamp) {
+    return dayjs().to(dayjs(timestamp * 1000));
   });
 };

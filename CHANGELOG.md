@@ -1,7 +1,21 @@
 # Changelog
 Notable changes to the Casa Node 2 project will be documented in this file
 
-## 2020-02-10, UI 2.1.4, Manager 2.1.2
+## 2020-02-27, UI 2.2.0, Manager 2.2.0
+### Added 
+- Added SSH toggle
+- Added loading indicator for login button
+- Added On-Chain transaction refresh after sending Bitcoin
+
+### Changed
+- Changed On-Chain transaction flow by removing BTC/Sats toggle
+
+### Fixed
+- Fixed Tor Browser connection issues with user interface
+- Fixed Tor toggle for Bitcoind and LND 
+- Fixed relative time in transaction lists
+
+## 2020-02-16, UI 2.1.4, Manager 2.1.2
 ### Added
 - Added pop up confirmations when copying
 - Added missing commas in transactions

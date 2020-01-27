@@ -19,7 +19,7 @@
     </div>
 
     <div v-if="address" class="flex centered qr-code">
-      <qriously :value="address" :size="320" foreground="#865efc" />
+      <qriously :value="address" :size="320" foreground="#FFF" />
     </div>
     <div v-else>
       <p class="address-display">
