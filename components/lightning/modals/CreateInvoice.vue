@@ -162,7 +162,7 @@
         isLoading: false
       }
     },
-    
+
     computed: {
       ...mapGetters({ displayUnit: 'system/getUnits' })
     },
@@ -228,8 +228,7 @@
         } else {
           this.amountSats = 0;
           this.step = 'review';
-          // Todo - Display error message via toast
-          console.error('Unable to continue. Please make sure all fields are filled in.');
+          this.$toasted.global.error('Unable to continue. Please make sure all fields are filled in.');
         }
       },
 
@@ -249,6 +248,7 @@
           this.isLoading = false;
           this.paymentCode = invoice.data.paymentRequest;
           this.step = 'qrcode';
+          this.$store.dispatch('lightning/getTransactions');
         } catch (error) {
           this.isLoading = false;
           this.$toasted.global.error({ message: error.response.data });
@@ -271,7 +271,7 @@
     .modal-content {
       min-width: 50%;
     }
-    
+
     .modal-description {
       font-size: 20px;
       padding-bottom: 0.5em;
