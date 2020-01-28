@@ -179,6 +179,10 @@ export const actions = {
           } else if (['WAITING_CLOSING_CHANNEL', 'FORCE_CLOSING_CHANNEL', 'PENDING_CLOSING_CHANNEL'].indexOf(channel.type) > -1) {
             pendingBalance += localBalance;
             channel.status = 'closing';
+
+            // Lnd doesn't provide initiator or autopilot data via rpc. So, we just display a generic closing message.
+            channel.name = 'Closing Channel';
+            channel.purpose = 'A channel that is in the process of closing';
           } else {
             channel.status = 'unknown';
           }
