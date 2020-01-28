@@ -16,14 +16,14 @@
 
       <div class="columns">
         <div class="column">
-          <h2>{{ channel.localBalance }}</h2>
+          <h2>{{ channel.localBalance | units }}</h2>
           <p class="help">
             BTC ON YOUR SIDE
           </p>
         </div>
 
         <div class="column">
-          <h2>{{ channel.remoteBalance }}</h2>
+          <h2>{{ channel.remoteBalance | units }}</h2>
           <p class="help">
             BTC ON OTHER SIDE OF CHANNEL
           </p>
@@ -42,7 +42,7 @@
         </button>
         <button class="button is-primary" @click="closeChannel">
           Close Channel
-        </button>        
+        </button>
       </div>
     </form>
   </Modal>
@@ -106,7 +106,7 @@
       margin-top: -0.75em;
       margin-left: 2px;
     }
-    
+
     .info-light {
       margin-top: 2em;
       font-size: 18px;
