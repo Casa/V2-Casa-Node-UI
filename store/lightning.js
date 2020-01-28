@@ -53,7 +53,7 @@ export const mutations = {
   setChannels(state, channels) {
     state.channels = channels;
   },
-  
+
   setChannelFocus(state, channel) {
     state.pendingChannelEdit = channel;
   },
@@ -187,9 +187,9 @@ export const actions = {
             channel.name = 'Inbound Channel';
             channel.purpose = 'A channel that another node has opened to you';
           }
-          
+
           // Set placeholder values if autopilot
-          if (channel.managed === false) {
+          if (channel.managed === false && channel.initiator) {
             channel.name = 'Autopilot';
             channel.purpose = 'Managed by autopilot';
           }
@@ -241,12 +241,12 @@ export const actions = {
       }
     }
   },
-  
+
   selectChannel({ commit }, channel) {
     console.log('channel', channel);
     commit('setChannelFocus', channel);
   }
-  
+
 };
 
 export const getters = {
