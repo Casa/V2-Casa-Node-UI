@@ -126,7 +126,7 @@
       <div class="buttons">
         <ModalClose />
         <ButtonSpinner class="is-primary" :loading="isLoading" :dark="true" @click.native="save">
-          Save Settings2
+          Save Settings
         </ButtonSpinner>
       </div>
   </Modal>
