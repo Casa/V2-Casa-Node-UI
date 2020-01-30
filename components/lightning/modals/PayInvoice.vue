@@ -124,7 +124,7 @@
       edit() {
         this.step = 'input';
       },
-          
+
       async submit() {
         this.isLoading = true;
         const payload = {
@@ -133,13 +133,14 @@
 
         try {
           await this.$axios.post(`${this.$env.API_LND}/v1/lnd/lightning/payInvoice`, payload);
+          this.$store.dispatch('lightning/getTransactions');
           this.isLoading = false;
           this.$toasted.global.success({ message: 'Payment sent successfully.' });
           Events.$emit('modal-close');
           this.$destroy();
         } catch(error) {
           this.isLoading = false;
-          this.$toasted.global.error({ message: error });
+          this.$toasted.global.error({ message: error.response.data });
         }
       },
     }
