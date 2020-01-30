@@ -1,6 +1,5 @@
 <template>
   <Modal class="lightning-manage-modal modal">
-    <form @submit.prevent="save()">
       <div class="columns modal-heading">
         <div class="column">
           <h3>
@@ -127,10 +126,9 @@
       <div class="buttons">
         <ModalClose />
         <ButtonSpinner class="is-primary" :loading="isLoading" :dark="true" @click.native="save">
-          Save Settings
+          Save Settings2
         </ButtonSpinner>
       </div>
-    </form>
   </Modal>
 </template>
 
@@ -188,7 +186,7 @@
         if (this.minChanSize) {
           data.minChanSize = parseInt(this.minChanSize, 10);
         }
-        
+
         try {
           this.$toasted.global.default({ message: 'Saving. This could take a few minutes.' });
           await API.post({ axios: this.$axios, url: `${this.$env.API_MANAGER}/v1/settings/save`, data });
@@ -268,7 +266,7 @@
     .input-wrap {
       width: 256px;
     }
-    
+
     .input-field  label {
       font-size: 12px;
       top: 0.75em;

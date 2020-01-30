@@ -1,76 +1,74 @@
 <template>
   <Modal class="autopilot-modal">
-    <form>
-      <div class="columns modal-heading">
-        <div class="column">
-          <h3>
-            Autopilot Settings
-          </h3>
-        </div>
-
-        <div class="column modal-description">
-          <div class="toggle-switch">
-            <label class="toggle">
-              <input v-model="settings.autopilot" type="checkbox" :checked="settings.autopilot">
-              <span class="toggle-slider" />
-              <div class="toggle-options">
-                <div class="toggle-option one">Off</div>
-                <div class="toggle-option two">On</div>
-              </div>
-            </label>
-          </div>
-        </div>
-      </div>
-      <hr>
-
-      <div class="flex centered">
-        <span class="dot label">Amount you have in Autopilot</span>
+    <div class="columns modal-heading">
+      <div class="column">
+        <h3>
+          Autopilot Settings
+        </h3>
       </div>
 
-      <div class="columns">
-        <div class="column is-full">
-          <span class="primary-input numeric">{{ getTotal }}</span>
+      <div class="column modal-description">
+        <div class="toggle-switch">
+          <label class="toggle">
+            <input v-model="settings.autopilot" type="checkbox" :checked="settings.autopilot">
+            <span class="toggle-slider" />
+            <div class="toggle-options">
+              <div class="toggle-option one">Off</div>
+              <div class="toggle-option two">On</div>
+            </div>
+          </label>
         </div>
       </div>
+    </div>
+    <hr>
 
-      <hr>
-      <div class="columns">
-        <div class="column">
-          <p>
-            Cannot exceed the {{ walletBalance }} sats in your Node wallet. To change the amount of sats you have in Autopilot Channels, tweak the values below.
+    <div class="flex centered">
+      <span class="dot label">Amount you have in Autopilot</span>
+    </div>
+
+    <div class="columns">
+      <div class="column is-full">
+        <span class="primary-input numeric">{{ getTotal }}</span>
+      </div>
+    </div>
+
+    <hr>
+    <div class="columns">
+      <div class="column">
+        <p>
+          Cannot exceed the {{ walletBalance }} sats in your Node wallet. To change the amount of sats you have in Autopilot Channels, tweak the values below.
+        </p>
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column">
+        <ValidationProvider ref="settings.maxChanSize" v-slot="{ errors }" rules="required|min_value:10000|max_value:16000000">
+          <InputField v-model="settings.maxChanSize" label="Max Channel Size" :error="Boolean(errors.length)" />
+          <p class="error-message">
+            {{ errors[0] }}
           </p>
-        </div>
-      </div>
-      <div class="columns">
-        <div class="column">
-          <ValidationProvider ref="settings.maxChanSize" v-slot="{ errors }" rules="required|min_value:10000|max_value:16000000">
-            <InputField v-model="settings.maxChanSize" label="Max Channel Size" :error="Boolean(errors.length)" />
-            <p class="error-message">
-              {{ errors[0] }}
-            </p>
-            <p class="help">
-              Can range from 10,000 sats to 1,600,000 sats.
-            </p>
-          </ValidationProvider>
-        </div>
-
-        <div class="column">
-          <InputField v-model="settings.maxChannels" label="Max Channels" />
           <p class="help">
-            Depends on balance. Can range from 1 to 100s.
+            Can range from 10,000 sats to 1,600,000 sats.
           </p>
-        </div>
+        </ValidationProvider>
       </div>
 
-      <hr>
-
-      <div class="buttons">
-        <ModalClose />
-        <ButtonSpinner class="is-primary" :loading="isLoading" :dark="true" @click.native="saveSettings">
-          Save Settings
-        </ButtonSpinner>
+      <div class="column">
+        <InputField v-model="settings.maxChannels" label="Max Channels" />
+        <p class="help">
+          Depends on balance. Can range from 1 to 100s.
+        </p>
       </div>
-    </form>
+    </div>
+
+    <hr>
+
+    <div class="buttons">
+      <ModalClose />
+      <ButtonSpinner class="is-primary" :loading="isLoading" :dark="true" @click.native="saveSettings">
+        Save Settings
+      </ButtonSpinner>
+    </div>
   </Modal>
 </template>
 
@@ -120,9 +118,9 @@
           maxChannels: parseInt(this.settings.maxChannels) || 0,
           maxChanSize: parseInt(this.settings.maxChanSize) || 0,
         };
-        
-        // Provide action notice and dismiss modal after 5 seconds 
-        this.$toasted.global.default({ message: 'Saving changes.' });
+
+        // Provide action notice and dismiss modal after 5 seconds
+        this.$toasted.global.default({ message: 'Saving. This could take a few minutes.' });
         setTimeout(() => Events.$emit('modal-close'), 5000);
 
         try {
