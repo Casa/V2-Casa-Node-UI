@@ -19,7 +19,7 @@
 
 <script>
   import API from '@/helpers/api';
-  import {sleep} from '@/helpers/utils';
+ // import { sleep } from '@/helpers/utils';
 
   export default {
     data() {
@@ -31,12 +31,11 @@
       async update() {
         this.isLoading = true;
         await API.post({ axios: this.$axios, url: `${this.$env.API_MANAGER}/v1/device/update` });
+        this.isLoading = false;
 
         // Sleep to give the manager time to restart
-        await sleep(5000);
-        this.isLoading = false;
+        this.$router.push('/loading?delay=5000');
         this.$toasted.global.success({ message: 'Device updated.' });
-        this.$router.push('/loading');
       }
     }
   }
