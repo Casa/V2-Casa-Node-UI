@@ -1,6 +1,26 @@
 # Changelog
 Notable changes to the Casa Node 2 project will be documented in this file
 
+## 2020-02-31, UI 2.3.0, Manager 2.3.0, LND 2.1.0, Bitcoind 2.1.0
+### Added
+- Added ability for LND to recieve Spontanious Payments
+- Added transaction refresh after send/recieve on-chain and off-chain payments
+- Added a transaction details page for off-chain payments
+- Added SSH toggle
+- Added auto unlock lnd after update
+
+### Changed
+- Changed LND to run 0.9.1
+- Changed Bitcoind to run 0.19.0.1
+- Changed Shutdown flow to include a progress bar
+
+### Fixed
+- Fixed Update flow to better utilize a progress bar
+- Fixed Tor bug with saving autopilot settings
+- Fixed Bitcoind/Lnd Tor toggles
+- Fixed misidentified autopilot channels
+- Fixed auto unlock after save settings
+
 ## 2020-02-27, UI 2.2.0, Manager 2.2.0
 ### Added 
 - Added SSH toggle

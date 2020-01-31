@@ -21,6 +21,7 @@
 <script>
   import LoadingBar from '@/components/LoadingBar';
   import API from '@/helpers/api';
+  import { sleep } from '@/helpers/utils';
 
   let loadingInterval;
   let redirectTimeout;
@@ -37,9 +38,13 @@
       }
     },
 
-    created() {
+    async created() {
+
+      const delay = this.$route.query.delay || 0;
+      await sleep(delay);
+
       // Immediately check the node boot status
-      this.getLoadingPercent();
+      await this.getLoadingPercent();
 
       // Periodically check for updates
       loadingInterval = setInterval(this.getLoadingPercent, 5000);
