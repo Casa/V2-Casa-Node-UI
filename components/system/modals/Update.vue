@@ -19,7 +19,6 @@
 
 <script>
   import API from '@/helpers/api';
- // import { sleep } from '@/helpers/utils';
 
   export default {
     data() {
