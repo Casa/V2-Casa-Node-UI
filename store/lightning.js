@@ -53,7 +53,7 @@ export const mutations = {
   setChannels(state, channels) {
     state.channels = channels;
   },
-  
+
   setChannelFocus(state, channel) {
     state.pendingChannelEdit = channel;
   },
@@ -179,6 +179,10 @@ export const actions = {
           } else if (['WAITING_CLOSING_CHANNEL', 'FORCE_CLOSING_CHANNEL', 'PENDING_CLOSING_CHANNEL'].indexOf(channel.type) > -1) {
             pendingBalance += localBalance;
             channel.status = 'closing';
+
+            // Lnd doesn't provide initiator or autopilot data via rpc. So, we just display a generic closing message.
+            channel.name = 'Closing Channel';
+            channel.purpose = 'A channel that is in the process of closing';
           } else {
             channel.status = 'unknown';
           }
@@ -187,9 +191,9 @@ export const actions = {
             channel.name = 'Inbound Channel';
             channel.purpose = 'A channel that another node has opened to you';
           }
-          
+
           // Set placeholder values if autopilot
-          if (channel.managed === false) {
+          if (channel.managed === false && channel.initiator) {
             channel.name = 'Autopilot';
             channel.purpose = 'Managed by autopilot';
           }
@@ -241,12 +245,11 @@ export const actions = {
       }
     }
   },
-  
+
   selectChannel({ commit }, channel) {
-    console.log('channel', channel);
     commit('setChannelFocus', channel);
   }
-  
+
 };
 
 export const getters = {

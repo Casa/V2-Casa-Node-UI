@@ -50,7 +50,6 @@
           this.$store.dispatch('lightning/getStatus');
           Events.$emit('modal-close');
         } catch (error) {
-          console.log('error', error);
           this.isLoading = false;
           this.error = true;
 

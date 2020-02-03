@@ -1,6 +1,6 @@
 <template>
   <Modal class="create-invoice-modal">
-    <form v-if="step == 'input'" @submit.prevent="review()">
+    <form v-if="step == 'input' && !props" @submit.prevent="review()">
       <div class="columns modal-heading">
         <div class="column">
           <h3>
@@ -54,7 +54,7 @@
       </div>
     </form>
 
-    <form v-else-if="step == 'review'" @submit.prevent="createInvoice()">
+    <form v-else-if="step == 'review' && !props" @submit.prevent="createInvoice()">
       <div class="columns modal-heading">
         <div class="column">
           <h3>
@@ -73,7 +73,7 @@
           <span class="dot label">Expires in One Hour</span>
         </div>
 
-        <template v-if="inputMode === 'usd'">
+        <template v-if="inputMode === 'usd' && amountSats !== 0">
           <div class="flex centered big">
             <span class="numeric">${{ amountUsd }}</span>
           </div>
@@ -83,7 +83,7 @@
           </div>
         </template>
 
-        <template v-else-if="inputMode === 'sats'">
+        <template v-else-if="inputMode === 'sats' && amountSats !== 0">
           <div class="flex centered big">
             <span class="numeric">{{ amountSats | localized }}</span>&nbsp;sats
           </div>
@@ -91,6 +91,13 @@
           <div class="flex centered">
             <span class="numeric">${{ amountUsd }}</span>
           </div>
+        </template>
+
+        <template v-else-if="amountSats === 0">
+          <div class="flex centered">
+            The sender will choose the amount to send
+          </div>
+
         </template>
       </div>
 
@@ -112,7 +119,7 @@
       </div>
     </form>
 
-    <form v-else-if="step == 'qrcode'">
+    <form v-else-if="step == 'qrcode' || (props && props.payRequest)">
       <div class="columns modal-heading">
         <div class="column">
           <h3>
@@ -128,11 +135,11 @@
       <hr>
 
       <div class="flex centered">
-        <CopyField :value="paymentCode" />
+        <CopyField :value="paymentCode || props.payRequest" />
       </div>
 
       <div class="flex centered qr-code">
-        <qriously :value="paymentCode" :size="320" foreground="#FFF" />
+        <qriously :value="paymentCode || props.payRequest" :size="320" foreground="#FFF" />
       </div>
 
       <hr>
@@ -150,6 +157,8 @@
   import Events from '~/helpers/events';
 
   export default {
+    props: ['props'],
+
     data() {
       return {
         step: 'input',
@@ -158,11 +167,12 @@
         amountDisplayed: '$0',
         amountSats: 0,
         amountBtc: 0,
+        amountUsd: 0,
         memo: '',
         isLoading: false
       }
     },
-    
+
     computed: {
       ...mapGetters({ displayUnit: 'system/getUnits' })
     },
@@ -228,8 +238,6 @@
         } else {
           this.amountSats = 0;
           this.step = 'review';
-          // Todo - Display error message via toast
-          console.error('Unable to continue. Please make sure all fields are filled in.');
         }
       },
 
@@ -249,6 +257,7 @@
           this.isLoading = false;
           this.paymentCode = invoice.data.paymentRequest;
           this.step = 'qrcode';
+          this.$store.dispatch('lightning/getTransactions');
         } catch (error) {
           this.isLoading = false;
           this.$toasted.global.error({ message: error.response.data });
@@ -271,7 +280,7 @@
     .modal-content {
       min-width: 50%;
     }
-    
+
     .modal-description {
       font-size: 20px;
       padding-bottom: 0.5em;

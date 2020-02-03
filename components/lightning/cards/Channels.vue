@@ -23,7 +23,7 @@
 
         <div class="column">
           <div class="big numeric">
-            0
+            {{ autopilotCount }}
           </div>
 
           <div class="label">
@@ -58,8 +58,8 @@
     </section> <!-- /.primary -->
 
     <section class="secondary">
-      <div v-for="(channel, index) in $store.state.lightning.channels" :key="`channel-${index}`" class="columns channel-item">
-        <div class="column left" @click="editChannel(channel)">
+      <div v-for="(channel, index) in $store.state.lightning.channels" :key="`channel-${index}`" class="columns channel-item" @click="editChannel(channel)">
+        <div class="column left">
           <span class="title">{{ channel.name }}</span>
           <span class="subtitle">{{ channel.purpose }}</span>
         </div>
@@ -78,7 +78,7 @@
     </section>
 
     <section class="foot is-hidden">
-      <a class="button">See All 9 Channels</a>
+      <a class="button">See All Channels</a>
     </section>
   </div>
 </template>
@@ -91,8 +91,25 @@
   import EditChannel from '~/components/lightning/modals/EditChannel';
 
   export default {
+
+    data() {
+      return {
+        autopilotCount: 0,
+      }
+    },
     computed: {
       ...mapGetters({ displayUnit: 'system/getUnits' })
+    },
+    updated() {
+      let count = 0;
+
+      for (const channel of this.$store.state.lightning.channels) {
+        if (!channel.managed && channel.initiator) {
+          count++;
+        }
+      }
+
+      this.autopilotCount = count;
     },
     methods: {
       newChannel() {
@@ -102,7 +119,7 @@
       manage() {
         Events.$emit('modal-open', ManageModal);
       },
-      
+
       editChannel(channel) {
         this.$store.dispatch('lightning/selectChannel', channel);
         Events.$emit('modal-open', EditChannel);
@@ -116,12 +133,12 @@
   .card.stack.channels {
     padding-left: 0;
     padding-right: 0;
-    
+
     .primary {
       margin-left: 0;
       margin-right: 0;
     }
-    
+
     .secondary {
       margin-top: 0;
 
@@ -132,7 +149,7 @@
         &:hover {
           background: rgba(255, 255, 255, 0.06);
         }
-        
+
         .left {
           .title {
             position: relative;
@@ -155,7 +172,7 @@
     .title.status {
       font-weight: bold;
     }
-    
+
     .big.numeric {
       // Reduce size to accommodate sats view
       font-size: 48px !important;
@@ -174,7 +191,7 @@
         right: 140px;
       }
     }
-    
+
     .channel-item {
       cursor: pointer;
     }

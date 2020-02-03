@@ -37,7 +37,7 @@
         <nuxt />
 
         <template v-if="activeModal">
-          <component :is="activeModal" />
+          <component :is="activeModal" :props="props"/>
         </template>
       </div>
     </main>
@@ -54,12 +54,16 @@
       return {
         activeModal: false,
         blurred: false,
+        props: {},
       }
     },
 
     created() {
-      Events.$on('modal-open', (modal) => {
+      Events.$on('modal-open', (modal, props) => {
         this.activeModal = modal;
+
+        // Default props to empty object to avoid props from one modal being passed to the next modal.
+        this.props = props || undefined;
         this.blurred = true;
       });
 
@@ -67,12 +71,12 @@
         this.activeModal = false;
         this.blurred = false;
       });
-      
+
       Events.$on('unlock-modal-open', () => {
         this.activeModal = UnlockModal;
         this.blurred = true;
       });
-      
+
       // Check for and clear welcome boolean
       if(localStorage.getItem('welcome') === 'true') {
         this.activeModal = Welcome;
