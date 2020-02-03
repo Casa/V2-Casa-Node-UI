@@ -247,7 +247,6 @@ export const actions = {
   },
 
   selectChannel({ commit }, channel) {
-    console.log('channel', channel);
     commit('setChannelFocus', channel);
   }
 

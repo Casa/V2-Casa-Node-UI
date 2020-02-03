@@ -73,7 +73,7 @@
           <span class="dot label">Expires in One Hour</span>
         </div>
 
-        <template v-if="inputMode === 'usd'">
+        <template v-if="inputMode === 'usd' && amountSats !== 0">
           <div class="flex centered big">
             <span class="numeric">${{ amountUsd }}</span>
           </div>
@@ -83,7 +83,7 @@
           </div>
         </template>
 
-        <template v-else-if="inputMode === 'sats'">
+        <template v-else-if="inputMode === 'sats' && amountSats !== 0">
           <div class="flex centered big">
             <span class="numeric">{{ amountSats | localized }}</span>&nbsp;sats
           </div>
@@ -91,6 +91,13 @@
           <div class="flex centered">
             <span class="numeric">${{ amountUsd }}</span>
           </div>
+        </template>
+
+        <template v-else-if="amountSats === 0">
+          <div class="flex centered">
+            The sender will choose the amount to send
+          </div>
+
         </template>
       </div>
 
@@ -160,6 +167,7 @@
         amountDisplayed: '$0',
         amountSats: 0,
         amountBtc: 0,
+        amountUsd: 0,
         memo: '',
         isLoading: false
       }
@@ -167,10 +175,6 @@
 
     computed: {
       ...mapGetters({ displayUnit: 'system/getUnits' })
-    },
-
-    mounted() {
-      console.log('props', this.props);
     },
 
     methods: {
@@ -234,7 +238,6 @@
         } else {
           this.amountSats = 0;
           this.step = 'review';
-          this.$toasted.global.error('Unable to continue. Please make sure all fields are filled in.');
         }
       },
 
