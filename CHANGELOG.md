@@ -8,6 +8,7 @@ Notable changes to the Casa Node 2 project will be documented in this file
 
 ### Changed
 - Changed previous release dates from February to January
+- Changed update modal to only display which containers are not currently downloading
 
 ## 2020-01-31, UI 2.3.0, Manager 2.3.0, LND 2.1.0, Bitcoind 2.1.0
 ### Added
