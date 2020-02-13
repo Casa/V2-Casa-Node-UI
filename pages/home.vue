@@ -8,7 +8,7 @@
 
     <UnitSwitch />
 
-    <UpdateMessage v-if="$store.state.system.updateAvailable && !$store.state.system.invalidDigest" />
+    <UpdateMessage v-if="$store.state.system.updateAvailable && !$store.state.system.invalidDigest && !$store.state.system.updatingBuildArtifacts" />
     <BalanceGraph />
 
     <div class="cards">
@@ -47,7 +47,7 @@
       this.fetchNodeData();
       this.interval = setInterval(this.fetchNodeData, this.$env.REFRESH_RATE);
     },
-    
+
     beforeDestroy() {
       clearInterval(this.interval);
     },
