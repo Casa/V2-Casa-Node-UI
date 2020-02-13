@@ -1,7 +1,7 @@
 # Changelog
 Notable changes to the Casa Node 2 project will be documented in this file
 
-## 2020-02-12, Manager 2.4.0
+## 2020-02-12, UI 2.4.0, Manager 2.4.0
 ### Fixed
 - Fixed import seed phrase bug after device reset
 - Fix Tor Browser 9.0.5 incompatibility
