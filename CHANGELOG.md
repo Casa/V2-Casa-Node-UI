@@ -1,7 +1,16 @@
 # Changelog
 Notable changes to the Casa Node 2 project will be documented in this file
 
-## 2020-02-31, UI 2.3.0, Manager 2.3.0, LND 2.1.0, Bitcoind 2.1.0
+## 2020-02-12, UI 2.4.0, Manager 2.4.0
+### Fixed
+- Fixed import seed phrase bug after device reset
+- Fix Tor Browser 9.0.5 incompatibility
+
+### Changed
+- Changed previous release dates from February to January
+- Changed update modal to only display which containers are not currently downloading
+
+## 2020-01-31, UI 2.3.0, Manager 2.3.0, LND 2.1.0, Bitcoind 2.1.0
 ### Added
 - Added ability for LND to recieve Spontanious Payments
 - Added transaction refresh after send/recieve on-chain and off-chain payments
@@ -21,7 +30,7 @@ Notable changes to the Casa Node 2 project will be documented in this file
 - Fixed misidentified autopilot channels
 - Fixed auto unlock after save settings
 
-## 2020-02-27, UI 2.2.0, Manager 2.2.0
+## 2020-01-27, UI 2.2.0, Manager 2.2.0
 ### Added 
 - Added SSH toggle
 - Added loading indicator for login button
@@ -35,7 +44,7 @@ Notable changes to the Casa Node 2 project will be documented in this file
 - Fixed Tor toggle for Bitcoind and LND 
 - Fixed relative time in transaction lists
 
-## 2020-02-16, UI 2.1.4, Manager 2.1.2
+## 2020-01-16, UI 2.1.4, Manager 2.1.2
 ### Added
 - Added pop up confirmations when copying
 - Added missing commas in transactions
@@ -45,7 +54,7 @@ Notable changes to the Casa Node 2 project will be documented in this file
 - Fixed broken loading states
 - Tor issues with lnd and bitcoind
 
-## 2020-02-10, UI 2.1.3
+## 2020-01-10, UI 2.1.3
 ### Changed
 - Removed BTC/SATS toggles where confusing
 
@@ -56,7 +65,7 @@ Notable changes to the Casa Node 2 project will be documented in this file
 - Added misc error/success toasts
 - Added first time welcome modal
 
-## 2020-02-10, UI 2.1.2
+## 2020-01-10, UI 2.1.2
 ### Fixed
 - Fixed manage channel modal
 - Fixed redirects after save settings
@@ -67,11 +76,11 @@ Notable changes to the Casa Node 2 project will be documented in this file
 - Added missing links on system settings
 - Added loading indicator during update 
 
-## 2020-02-09, UI 2.1.1
+## 2020-01-09, UI 2.1.1
 ### Fixed
 - Fixed missing tor addresses on system settings page
 
-## 2020-02-09, UI 2.1.0
+## 2020-01-09, UI 2.1.0
 ### Added
 - Added unlock modal
 - Added data auto refresh

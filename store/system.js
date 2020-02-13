@@ -6,6 +6,7 @@ export const state = () => ({
   lndVersion: false,
   updateAvailable: false,
   invalidDigest: false,
+  updatingBuildArtifacts: false,
   onionAddress: '',
   localHostAddress: '',
   units: 'sats'
@@ -27,6 +28,10 @@ export const mutations = {
 
   setInvalidDigest(state, invalidDigest) {
     state.invalidDigest = invalidDigest;
+  },
+
+  setUpdating(state, updatingBuildArtifacts) {
+    state.updatingBuildArtifacts = updatingBuildArtifacts;
   },
 
   setOnionAddress(state, address) {
@@ -79,12 +84,13 @@ export const actions = {
     const versions = await API.get(this.$axios, `${this.$env.API_MANAGER}/v1/telemetry/version`);
 
     commit('setInvalidDigest', versions.invalidDigestDetected);
+    commit('setUpdating', versions.updatingBuildArtifacts);
 
     let updateAvailable = false;
 
     Object.keys(versions.applications).forEach(function(key) {
 
-      if (versions.applications[key].newVersionsAvailable 
+      if (versions.applications[key].newVersionsAvailable
         && versions.applications[key].newVersionsAvailable.length) {
 
         updateAvailable = true;
