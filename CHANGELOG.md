@@ -1,6 +1,10 @@
 # Changelog
 Notable changes to the Casa Node 2 project will be documented in this file
 
+## 2021-01-12, LND 2.2.0
+### Changed
+- Changed LND to run 0.11.1-beta
+
 ## 2020-02-12, UI 2.4.0, Manager 2.4.0
 ### Fixed
 - Fixed import seed phrase bug after device reset
